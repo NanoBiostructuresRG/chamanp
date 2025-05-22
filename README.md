@@ -154,3 +154,5 @@ Oviedo, Spain – May 2025
 
 ## License
 
+This project is licensed under the terms of the [MIT License](https://github.com/NanoBiostructuresRG/chamanp/blob/main/LICENSE).  
+See the LICENSE file for full details.
