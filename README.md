@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-[![Version](https://img.shields.io/github/v/release/NanoBiostructuresRG/chamanp?sort=semver)](https://github.com/NanoBiostructuresRG/chamanp/releases)
+[![Version](https://img.shields.io/badge/version-v1.0-blue.svg)]()
 
 ---
 
