@@ -1,6 +1,8 @@
 
 # CHAMANP: Curation and Hierarchical Analysis for Molecular Annotation of Natural Products
-**Version 1.0.0 – Oviedo**
+**Version 1.0.0 – May, 2025. Oviedo**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
