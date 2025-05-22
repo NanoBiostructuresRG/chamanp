@@ -1,0 +1,30 @@
+
+# Ignore Python cache and metadata
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+
+# Ignore logs
+*.log
+
+# Ignore Jupyter/IPython history
+.ipynb_checkpoints/
+
+# Ignore numpy and model artifacts
+*.npy
+*.npz
+
+# Ignore temporary and backup files
+*~
+*.bak
+.DS_Store
+
+# Ignore reports and generated outputs (if needed)
+artifacts/
+!artifacts/reports/
+
+# Allow configuration and data files
+!config.py
+!source_data/
