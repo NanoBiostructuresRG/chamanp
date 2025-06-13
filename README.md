@@ -9,7 +9,7 @@
 ---
 
 ## Description
-**CHAMANP** is a modular, extensible, and production-grade system for the curated preparation of molecular databases. It is designed following high-standards in object-oriented programming to process over 50 annotated natural product collections from the COCONUT dataset. 
+**CHAMANP** is a modular, extensible, and production-grade framework for the curated preparation of molecular databases. It is implemented following high-standards of object-oriented programming and is designed to process over 50 annotated natural product collections derived from the COCONUT dataset. 
 
 ---
 
