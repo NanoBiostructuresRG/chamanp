@@ -26,17 +26,17 @@ The primary objective of CHAMANP is to support the systematic and reproducible p
 ## Project Structure
 ```text
 chamanp/
-├── main.py                           # Pipeline entry point
+├── main.py                           # Entry point
 ├── config.py                         # Global system configuration
 │
-├── core/                             # Core components of the pipeline
+├── core/                             # Pipeline
 │   ├── base_pipeline.py              # Main pipeline orchestrator class
 │   ├── curator.py                    # Input curation and validation
 │   ├── filter.py                     # Property and collection-based filtering
 │   ├── fingerprints.py               # Molecular fingerprint generation
 │   └── reporter.py                   # Technical report generation
 │
-├── utils/                            # Auxiliary tools and utilities
+├── utils/                            # Auxiliary
 │   ├── path_manager.py               # Centralized path generation logic
 │   ├── result_manager.py             # Report header and file writing
 │   └── collection_utils.py           # Semantic validation of collections
@@ -47,9 +47,9 @@ chamanp/
 │
 ├── artifacts/                        # Automatically generated output files
 │   ├── reports/                      # Execution reports with formal headers
-│   ├── valid_metadata_{dataset}.csv  # Output - curated and filtered compound datasets
-│   ├── X_{dataset}.npy               # Output - molecular fingerprints
-│   └── pipeline.log                  # Execution logs
+│   ├── pipeline.log                  # Execution logs
+│   ├── X_{tag}.npy                   # Output - molecular fingerprints
+│   └── valid_metadata_{tag}.csv      # Output - curated and filtered compound datasets
 │
 └──README.md                          # This file
 ```
