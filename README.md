@@ -16,10 +16,10 @@
 ## Purpose
 The primary objective of CHAMANP is to support the systematic and reproducible preparation of curated molecular datasets for cheminformatics workflows and **phase 3** machine learning applications within the computational drug discovery pipeline. The framework is particularly suited to pharmaceutical and natural products research, where thematic organization of compounds libraries is essential for identifying novel bioactive leads. The platform enables:
 
-- Standardized curation and deduplication of chemical structures.
-- Semantic filtering of compounds based on biological taxonomy and physicochemical properties.
-- Generation of machine learning–ready molecular fingerprints.
-- Production of traceable, report-driven documentation for downstream analysis.
+- **Standardized curation and deduplication** of chemical structures.
+- **Semantic filtering** of compounds based on biological taxonomy and physicochemical properties.
+- **Generation of molecular fingerprints** for machine learning applications.
+- **Production of traceable, report-driven documentation** for downstream analysis.
 
 ---
 
