@@ -25,7 +25,8 @@ The primary objective of CHAMANP is to support the systematic and reproducible p
 
 ## Project Structure
 ```text
-chamanp/
+CHAMANP/Phase 3
+│
 ├── main.py                           # Entry point
 ├── config.py                         # Global system configuration
 │
