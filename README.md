@@ -9,15 +9,13 @@
 ---
 
 ## Description
-**CHAMANP** is a modular, extensible, and production-grade system for the curated preparation of molecular databases.
-Designed to process over 50 annotated natural product collections from the COCONUT dataset, CHAMANP enables rigorous, scalable, and reproducible data preparation for cheminformatics applications. 
-The framework is particularly suited to pharmaceutical and natural products research, where thematic organization of compounds libraries is essential for identifying novel bioactive leads.
-CHAMANP is developed following high-standards in object-oriented programming and scientific software development.
+**CHAMANP** is a modular, extensible, and production-grade system for the curated preparation of molecular databases. It is designed following high-standards in object-oriented programming to process over 50 annotated natural product collections from the COCONUT dataset. 
 
 ---
 
 ## Purpose
-The primary objective of CHAMANP is to support the systematic and reproducible preparation of curated molecular datasets. The platform enables:
+The primary objective of CHAMANP is to support the systematic and reproducible preparation of curated molecular datasets for cheminformatics workflows and **phase 3** machine learning applications within the computational drug discovery pipeline. The framework is particularly suited to pharmaceutical and natural products research, where thematic organization of compounds libraries is essential for identifying novel bioactive leads. The platform enables:
+
 - Standardized curation and deduplication of chemical structures.
 - Semantic filtering of compounds based on biological taxonomy and physicochemical properties.
 - Generation of machine learning–ready molecular fingerprints.
@@ -28,32 +26,32 @@ The primary objective of CHAMANP is to support the systematic and reproducible p
 ## Project Structure
 ```text
 chamanp/
-├── main.py                          # Pipeline entry point
-├── config.py                        # Global system configuration
+├── main.py                           # Pipeline entry point
+├── config.py                         # Global system configuration
 │
-├── core/                            # Core components of the pipeline
-│   ├── base_pipeline.py             # Main pipeline orchestrator class
-│   ├── curator.py                   # Input curation and validation
-│   ├── filter.py                    # Property and collection-based filtering
-│   ├── fingerprints.py              # Molecular fingerprint generation
-│   └── reporter.py                  # Technical report generation
+├── core/                             # Core components of the pipeline
+│   ├── base_pipeline.py              # Main pipeline orchestrator class
+│   ├── curator.py                    # Input curation and validation
+│   ├── filter.py                     # Property and collection-based filtering
+│   ├── fingerprints.py               # Molecular fingerprint generation
+│   └── reporter.py                   # Technical report generation
 │
-├── utils/                           # Auxiliary tools and utilities
-│   ├── path_manager.py              # Centralized path generation logic
-│   ├── result_manager.py            # Report header and file writing
-│   └── collection_utils.py          # Semantic validation of collections
+├── utils/                            # Auxiliary tools and utilities
+│   ├── path_manager.py               # Centralized path generation logic
+│   ├── result_manager.py             # Report header and file writing
+│   └── collection_utils.py           # Semantic validation of collections
 │
-├── source_data/                     # Source files (JSON + CSV)
-│   ├── coconut_05-2025.csv
-│   └── coconut_taxonomy.json
+├── source_data/                      
+│   ├── coconut_05-2025.csv           # Source database file
+│   └── coconut_taxonomy.json         # Taxonomy dataset
 │
-├── artifacts/                       # Automatically generated output files
-│   ├── reports/                     # Execution reports with formal headers
-│   ├── *.csv                        # Curated and filtered compound datasets
-│   ├── *.npy                        # Molecular fingerprints
-│   └── *.log                        # Execution logs
+├── artifacts/                        # Automatically generated output files
+│   ├── reports/                      # Execution reports with formal headers
+│   ├── valid_metadata_{dataset}.csv  # Output - curated and filtered compound datasets
+│   ├── X_{dataset}.npy               # Output - molecular fingerprints
+│   └── pipeline.log                  # Execution logs
 │
-└──README.md                         # This file
+└──README.md                          # This file
 ```
 
 ---
