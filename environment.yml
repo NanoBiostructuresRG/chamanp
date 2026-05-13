@@ -1,0 +1,10 @@
+name: chamanp_env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pandas=3.0.3
+  - numpy=2.4.3
+  - scipy=1.15.3
+  - rdkit=2025.09.2
+  - pytest=8.3.4

@@ -28,3 +28,6 @@ artifacts/
 # Allow configuration and data files
 !config.py
 !source_data/
+
+# Ignore local editor settings
+.vscode/
