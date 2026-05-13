@@ -68,7 +68,7 @@ Run the baseline test suite with:
 python -m pytest tests
 ```
 
-The current baseline contains 23 tests covering isolated components:
+The current baseline contains 27 tests covering isolated components:
 
 - `path_manager`
 - `collection_utils`
@@ -157,6 +157,8 @@ TARGET_COLLECTIONS = ["PubChem NPs"]
 COLLECTION_TAG = "pubchem"
 COLLECTION_LOGIC = "OR"
 ```
+
+Collection filtering uses exact collection-label matching. Multiple collection labels in the `collections` field are expected to be separated by semicolons, and surrounding whitespace around each label is stripped before matching. Matching is case-sensitive, which avoids substring false positives: for example, `PubChem NPs` does not match `NotPubChem NPs`.
 
 ## How to Run
 
