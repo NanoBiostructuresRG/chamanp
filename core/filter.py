@@ -18,11 +18,17 @@ class CompoundFilter:
 
         if self.logic == "OR":
             mask = self.df["collections"].apply(
-                lambda x: any(c in str(x) for c in self.collection_names)
+                lambda x: any(
+                    c in self._parse_collections(x)
+                    for c in self.collection_names
+                )
             )
         elif self.logic == "AND":
             mask = self.df["collections"].apply(
-                lambda x: all(c in str(x) for c in self.collection_names)
+                lambda x: all(
+                    c in self._parse_collections(x)
+                    for c in self.collection_names
+                )
             )
         else:
             raise ValueError("Logic must be 'OR' or 'AND'.")
@@ -40,3 +46,8 @@ class CompoundFilter:
 
     def get_dataframe(self):
         return self.filtered_df.copy()  
+
+    def _parse_collections(self, value):
+        if pd.isna(value):
+            return set()
+        return {c.strip() for c in str(value).split(";") if c.strip()}
