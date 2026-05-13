@@ -7,13 +7,16 @@ from rdkit import Chem
 from rdkit.Chem.rdFingerprintGenerator import GetMorganGenerator
 
 class FingerprintGenerator:
-    def __init__(self, input_csv, output_fp_file, output_metadata_file, smiles_column="canonical_smiles"):
+    def __init__(self, input_csv, output_fp_file, output_metadata_file,
+                 smiles_column="canonical_smiles", output_invalid_file=None):
         self.input_csv = input_csv
         self.output_fp_file = output_fp_file
         self.output_metadata_file = output_metadata_file
         self.smiles_column = smiles_column
+        self.output_invalid_file = output_invalid_file
         self.morgan_generator = GetMorganGenerator(radius=2, fpSize=1024)
         self.X = None
+        self.invalid_smiles_count = 0
 
     def _get_morgan_fingerprint(self, smiles):
         try:
@@ -36,20 +39,29 @@ class FingerprintGenerator:
 
         fingerprints = []
         valid_rows = []
+        invalid_rows = []
 
         for _, row in df.iterrows():
             fp = self._get_morgan_fingerprint(row[self.smiles_column])
             if fp is not None:
                 fingerprints.append(fp)
                 valid_rows.append(row)
+            else:
+                invalid_rows.append(row)
 
         self.X = np.array(fingerprints, dtype=int)
+        self.invalid_smiles_count = len(invalid_rows)
 
         try:
             pd.DataFrame(valid_rows).to_csv(self.output_metadata_file, index=False)
             np.save(self.output_fp_file, self.X)
+            if self.output_invalid_file:
+                pd.DataFrame(invalid_rows, columns=df.columns).to_csv(
+                    self.output_invalid_file,
+                    index=False
+                )
         except Exception as e:
-            raise IOError(f"Failed to save fingerprints or metadata: {e}")
+            raise IOError(f"Failed to save fingerprint outputs: {e}")
 
         return self
 

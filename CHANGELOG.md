@@ -1,5 +1,20 @@
 # Changelog
 
+## [dev-v0.1.0] - 2026-05-13
+
+- Added invalid SMILES traceability during fingerprint generation.
+- Added `invalid_smiles_{tag}.csv` output through `PathManager` and `Pipeline`.
+- Preserved existing valid fingerprint and valid metadata outputs.
+- Replaced substring-based collection filtering with exact label matching.
+- Collections are parsed as semicolon-separated labels with surrounding whitespace stripped.
+- Missing/NaN collection values do not match.
+- Added tests for substring non-match, semicolon-separated labels, whitespace handling, and missing/NaN values.
+- Reports now include invalid SMILES count/path when provided by the pipeline.
+- `FingerprintGenerator` exposes `invalid_smiles_count` for report traceability.
+- `ReportWriter` remains backward-compatible when invalid fields are omitted.
+- Added reporter tests and fingerprint count assertions.
+- Updated tests; current validation is 29 tests passing.
+
 ## [dev-v1.0.1] - 2026-05-12
 
 - CHAMANP is currently a pre-stable development prototype.

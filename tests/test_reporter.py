@@ -1,0 +1,44 @@
+from types import SimpleNamespace
+
+from core.reporter import ReportWriter
+
+
+def build_report(**overrides):
+    writer = ReportWriter(config=SimpleNamespace(REPORTS_PATH="unused"))
+    values = {
+        "total_input_size": 10,
+        "total_after_dedup": 8,
+        "stereo_removed_count": 2,
+        "target_collections": ["PubChem NPs"],
+        "logic": "OR",
+        "final_count": 3,
+        "retained_properties": ["identifier", "canonical_smiles"],
+        "curated_csv": "artifacts/curated_pubchem.csv",
+        "filtered_csv": "artifacts/filtered_pubchem.csv",
+        "metadata_csv": "artifacts/valid_metadata_pubchem.csv",
+        "fingerprints_npy": "artifacts/X_pubchem.npy",
+        "collection_tag": "pubchem",
+    }
+    values.update(overrides)
+    return writer._build_content(**values)
+
+
+def test_build_content_includes_invalid_smiles_traceability():
+    content = build_report(
+        invalid_smiles_csv="artifacts/invalid_smiles_pubchem.csv",
+        invalid_smiles_count=1,
+    )
+
+    assert "Invalid SMILES rows:          1" in content
+    assert "- Invalid SMILES CSV: artifacts/invalid_smiles_pubchem.csv" in content
+    assert "- Metadata CSV:      artifacts/valid_metadata_pubchem.csv" in content
+    assert "- Fingerprints NPY:  artifacts/X_pubchem.npy" in content
+
+
+def test_build_content_remains_compatible_without_invalid_smiles_fields():
+    content = build_report()
+
+    assert "Invalid SMILES rows:" not in content
+    assert "Invalid SMILES CSV:" not in content
+    assert "- Metadata CSV:      artifacts/valid_metadata_pubchem.csv" in content
+    assert "- Fingerprints NPY:  artifacts/X_pubchem.npy" in content

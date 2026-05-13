@@ -41,8 +41,7 @@ def test_apply_filters_or_logic_matches_any_requested_collection(tmp_path):
 
     filtered = compound_filter.get_dataframe()
 
-    # id4 is included because current filtering uses substring matching.
-    assert filtered["identifier"].tolist() == ["id1", "id2", "id3", "id4"]
+    assert filtered["identifier"].tolist() == ["id1", "id2", "id3"]
 
 
 def test_apply_filters_and_logic_matches_all_requested_collections(tmp_path):
@@ -71,6 +70,74 @@ def test_apply_filters_retains_selected_available_properties(tmp_path):
 
     assert filtered.columns.tolist() == ["identifier", "collections"]
     assert filtered["identifier"].tolist() == ["id1"]
+
+
+def test_apply_filters_does_not_match_collection_substrings(tmp_path):
+    compound_filter = apply_filter(
+        df=sample_compounds(),
+        tmp_path=tmp_path,
+        collection_names=["PubChem NPs"],
+        properties=["identifier", "collections"],
+    )
+
+    filtered = compound_filter.get_dataframe()
+
+    assert "id4" not in filtered["identifier"].tolist()
+
+
+def test_apply_filters_matches_semicolon_separated_collection_labels(tmp_path):
+    compound_filter = apply_filter(
+        df=sample_compounds(),
+        tmp_path=tmp_path,
+        collection_names=["FooDB"],
+        properties=["identifier", "collections"],
+    )
+
+    filtered = compound_filter.get_dataframe()
+
+    assert filtered["identifier"].tolist() == ["id1"]
+
+
+def test_apply_filters_strips_whitespace_around_collection_labels(tmp_path):
+    df = pd.DataFrame(
+        {
+            "identifier": ["id1"],
+            "canonical_smiles": ["CCO"],
+            "collections": ["PubChem NPs ; FooDB "],
+        }
+    )
+
+    compound_filter = apply_filter(
+        df=df,
+        tmp_path=tmp_path,
+        collection_names=["FooDB"],
+        properties=["identifier", "collections"],
+    )
+
+    filtered = compound_filter.get_dataframe()
+
+    assert filtered["identifier"].tolist() == ["id1"]
+
+
+def test_apply_filters_missing_collection_values_do_not_match(tmp_path):
+    df = pd.DataFrame(
+        {
+            "identifier": ["id1", "id2"],
+            "canonical_smiles": ["CCO", "CCN"],
+            "collections": [None, float("nan")],
+        }
+    )
+
+    compound_filter = apply_filter(
+        df=df,
+        tmp_path=tmp_path,
+        collection_names=["PubChem NPs"],
+        properties=["identifier", "collections"],
+    )
+
+    filtered = compound_filter.get_dataframe()
+
+    assert filtered.empty
 
 
 def test_apply_filters_raises_for_missing_collections_column(tmp_path):

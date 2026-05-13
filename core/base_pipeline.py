@@ -30,6 +30,7 @@ class Pipeline:
         self.total_input_size = 0
         self.total_after_dedup = 0
         self.stereo_removed_count = 0
+        self.invalid_smiles_count = 0
 
         self.paths = PathManager(tag=self.config.COLLECTION_TAG)
 
@@ -80,11 +81,13 @@ class Pipeline:
 
     def _generate_fingerprints(self):
         logging.info("Generating molecular fingerprints...")
-        FingerprintGenerator(
+        generator = FingerprintGenerator(
             input_csv=self.paths.filtered(),
             output_fp_file=self.paths.fingerprints(),
-            output_metadata_file=self.paths.metadata()
+            output_metadata_file=self.paths.metadata(),
+            output_invalid_file=self.paths.invalid_smiles()
         ).generate()
+        self.invalid_smiles_count = generator.invalid_smiles_count
         logging.info(f"Fingerprints and metadata saved.")
 
     def _write_report(self):
@@ -102,6 +105,8 @@ class Pipeline:
             filtered_csv=self.paths.filtered(),
             metadata_csv=self.paths.metadata(),
             fingerprints_npy=self.paths.fingerprints(),
+            invalid_smiles_csv=self.paths.invalid_smiles(),
+            invalid_smiles_count=self.invalid_smiles_count,
             collection_tag=self.config.COLLECTION_TAG
         )
         logging.info(f"Report saved to: {report_path}")
