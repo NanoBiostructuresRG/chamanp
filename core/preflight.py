@@ -26,11 +26,7 @@ def validate_config(config):
     elif not os.path.exists(taxonomy_path):
         errors.append(f"COLLECTION_TAXONOMY_PATH does not exist: {taxonomy_path}")
 
-    target_collections = getattr(config, "TARGET_COLLECTIONS", None)
-    if not target_collections:
-        errors.append("TARGET_COLLECTIONS is required and must not be empty.")
-    elif isinstance(target_collections, str):
-        errors.append("TARGET_COLLECTIONS must be a non-empty collection of names, not a string.")
+    _validate_target_collections(config, errors)
 
     collection_logic = getattr(config, "COLLECTION_LOGIC", None)
     if not isinstance(collection_logic, str):
@@ -73,3 +69,32 @@ def _validate_positive_integer(config, name, errors):
     value = getattr(config, name, None)
     if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
         errors.append(f"{name} must be a positive integer.")
+
+
+def _validate_target_collections(config, errors):
+    target_collections = getattr(config, "TARGET_COLLECTIONS", None)
+    if target_collections is None:
+        errors.append("TARGET_COLLECTIONS is required and must not be empty.")
+        return
+
+    if isinstance(target_collections, str):
+        errors.append("TARGET_COLLECTIONS must be a non-empty collection of names, not a string.")
+        return
+
+    try:
+        collections = list(target_collections)
+    except TypeError:
+        errors.append("TARGET_COLLECTIONS must be an iterable collection of names.")
+        return
+
+    if not collections:
+        errors.append("TARGET_COLLECTIONS is required and must not be empty.")
+        return
+
+    for collection_name in collections:
+        if not isinstance(collection_name, str):
+            errors.append("TARGET_COLLECTIONS entries must be strings.")
+            return
+        if not collection_name.strip():
+            errors.append("TARGET_COLLECTIONS entries must not be empty.")
+            return

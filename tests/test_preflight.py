@@ -41,6 +41,12 @@ def test_valid_config_passes_and_normalizes_harmless_whitespace(tmp_path):
     assert config.COLLECTION_TAG == "pubchem_test-1"
 
 
+def test_valid_target_collections_list_of_strings_passes(tmp_path):
+    config = make_config(tmp_path, TARGET_COLLECTIONS=["PubChem NPs", "COCONUT"])
+
+    validate_config(config)
+
+
 def test_missing_database_path_fails(tmp_path):
     config = make_config(tmp_path, DATABASE_PATH=str(tmp_path / "missing.csv"))
 
@@ -60,6 +66,30 @@ def test_empty_target_collections_fails(tmp_path):
     config = make_config(tmp_path, TARGET_COLLECTIONS=[])
 
     assert_invalid(config, "TARGET_COLLECTIONS is required and must not be empty")
+
+
+def test_target_collections_as_plain_string_fails(tmp_path):
+    config = make_config(tmp_path, TARGET_COLLECTIONS="PubChem NPs")
+
+    assert_invalid(config, "TARGET_COLLECTIONS must be a non-empty collection of names")
+
+
+def test_target_collections_containing_empty_string_fails(tmp_path):
+    config = make_config(tmp_path, TARGET_COLLECTIONS=["PubChem NPs", ""])
+
+    assert_invalid(config, "TARGET_COLLECTIONS entries must not be empty")
+
+
+def test_target_collections_containing_whitespace_only_string_fails(tmp_path):
+    config = make_config(tmp_path, TARGET_COLLECTIONS=["PubChem NPs", "   "])
+
+    assert_invalid(config, "TARGET_COLLECTIONS entries must not be empty")
+
+
+def test_target_collections_containing_non_string_value_fails(tmp_path):
+    config = make_config(tmp_path, TARGET_COLLECTIONS=["PubChem NPs", 123])
+
+    assert_invalid(config, "TARGET_COLLECTIONS entries must be strings")
 
 
 def test_invalid_collection_logic_fails(tmp_path):
