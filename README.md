@@ -21,7 +21,7 @@ This repository is under active development and should not yet be treated as a s
 
 CHAMANP currently targets Python 3.11.
 
-The development environment used for the `dev-v1.0.1` baseline is:
+The earlier `dev-v1.0.1` work established the documentation, dependency, and testing baseline that was incorporated into `v0.1.0`. The development environment used for that baseline is:
 
 ```text
 Python 3.11
@@ -192,7 +192,7 @@ Future generated reports include the invalid SMILES row count and the `invalid_s
 
 ## Development Status
 
-CHAMANP is still in pre-stable development. The `dev-v1.0.1` work established the conservative documentation, dependency, and testing baseline. The `dev-v0.1.0` work is adding conservative functional improvements toward the corrected `v0.1.0` baseline.
+CHAMANP is still in pre-stable development. Version `v0.1.0` establishes the corrected pre-stable baseline, including conservative documentation, dependency declarations, isolated tests, exact collection-label matching, invalid SMILES traceability, and report traceability for invalid SMILES.
 
 ## Future Extensions
 
