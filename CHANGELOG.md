@@ -1,6 +1,6 @@
 # Changelog
 
-## [dev-v0.3.0] - Unreleased
+## [v0.3.0] - 2026-05-13
 
 - Added configuration preflight validation before pipeline execution.
 - Added `ConfigurationError` for clear early failures when required config values are missing or invalid.
