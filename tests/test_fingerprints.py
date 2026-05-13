@@ -84,6 +84,7 @@ def test_generate_skips_invalid_smiles(tmp_path):
     metadata = pd.read_csv(generator.output_metadata_file)
 
     assert metadata["identifier"].tolist() == ["id2"]
+    assert generator.invalid_smiles_count == 1
 
 
 def test_generate_writes_invalid_smiles_file_when_output_path_is_provided(tmp_path):
@@ -112,6 +113,7 @@ def test_generate_writes_invalid_smiles_file_when_output_path_is_provided(tmp_pa
     assert metadata["identifier"].tolist() == ["id1", "id3"]
     assert output_invalid_file.exists()
     assert invalid_metadata["identifier"].tolist() == ["id2"]
+    assert generator.invalid_smiles_count == 1
 
 
 def test_generate_writes_empty_invalid_smiles_file_when_no_invalid_rows(tmp_path):
@@ -129,6 +131,7 @@ def test_generate_writes_empty_invalid_smiles_file_when_no_invalid_rows(tmp_path
 
     invalid_metadata = pd.read_csv(output_invalid_file)
 
+    assert generator.invalid_smiles_count == 0
     assert invalid_metadata.empty
     assert invalid_metadata.columns.tolist() == [
         "identifier",

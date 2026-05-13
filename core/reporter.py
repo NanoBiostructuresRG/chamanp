@@ -14,7 +14,9 @@ class ReportWriter:
 
     def _build_content(self, total_input_size, total_after_dedup, stereo_removed_count,
                        target_collections, logic, final_count, retained_properties,
-                       curated_csv, filtered_csv, metadata_csv, fingerprints_npy, collection_tag):
+                       curated_csv, filtered_csv, metadata_csv, fingerprints_npy,
+                       collection_tag, invalid_smiles_csv=None,
+                       invalid_smiles_count=None):
         lines = [
             "# Pipeline Report - ML-stage: Input Preparation",
             "",
@@ -28,6 +30,12 @@ class ReportWriter:
             f"Target collections:           {target_collections}",
             f"Logic:                        {logic}",
             f"Final compounds retained:     {final_count}",
+        ]
+
+        if invalid_smiles_count is not None:
+            lines.append(f"Invalid SMILES rows:          {invalid_smiles_count}")
+
+        lines += [
             "",
             "Properties retained:"
         ]
@@ -42,5 +50,8 @@ class ReportWriter:
             f"- Metadata CSV:      {metadata_csv}",
             f"- Fingerprints NPY:  {fingerprints_npy}"
         ]
+
+        if invalid_smiles_csv:
+            lines.append(f"- Invalid SMILES CSV: {invalid_smiles_csv}")
 
         return "\n".join(lines)

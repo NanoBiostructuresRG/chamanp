@@ -16,6 +16,7 @@ class FingerprintGenerator:
         self.output_invalid_file = output_invalid_file
         self.morgan_generator = GetMorganGenerator(radius=2, fpSize=1024)
         self.X = None
+        self.invalid_smiles_count = 0
 
     def _get_morgan_fingerprint(self, smiles):
         try:
@@ -49,6 +50,7 @@ class FingerprintGenerator:
                 invalid_rows.append(row)
 
         self.X = np.array(fingerprints, dtype=int)
+        self.invalid_smiles_count = len(invalid_rows)
 
         try:
             pd.DataFrame(valid_rows).to_csv(self.output_metadata_file, index=False)
