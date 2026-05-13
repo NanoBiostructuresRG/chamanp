@@ -8,6 +8,7 @@ def test_path_manager_builds_expected_artifact_paths_for_tag():
     assert paths.filtered() == "artifacts/filtered_pubchem.csv"
     assert paths.metadata() == "artifacts/valid_metadata_pubchem.csv"
     assert paths.fingerprints() == "artifacts/X_pubchem.npy"
+    assert paths.invalid_smiles() == "artifacts/invalid_smiles_pubchem.csv"
 
 
 def test_path_manager_respects_custom_base_dir():
@@ -17,3 +18,4 @@ def test_path_manager_respects_custom_base_dir():
     assert paths.filtered() == "tmp_outputs/filtered_pubchem.csv"
     assert paths.metadata() == "tmp_outputs/valid_metadata_pubchem.csv"
     assert paths.fingerprints() == "tmp_outputs/X_pubchem.npy"
+    assert paths.invalid_smiles() == "tmp_outputs/invalid_smiles_pubchem.csv"

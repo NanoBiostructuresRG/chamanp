@@ -83,7 +83,8 @@ class Pipeline:
         FingerprintGenerator(
             input_csv=self.paths.filtered(),
             output_fp_file=self.paths.fingerprints(),
-            output_metadata_file=self.paths.metadata()
+            output_metadata_file=self.paths.metadata(),
+            output_invalid_file=self.paths.invalid_smiles()
         ).generate()
         logging.info(f"Fingerprints and metadata saved.")
 

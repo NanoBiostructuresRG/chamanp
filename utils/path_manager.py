@@ -17,3 +17,6 @@ class PathManager:
 
     def fingerprints(self):
         return f"{self.base_dir}/X_{self.tag}.npy"
+
+    def invalid_smiles(self):
+        return f"{self.base_dir}/invalid_smiles_{self.tag}.csv"
