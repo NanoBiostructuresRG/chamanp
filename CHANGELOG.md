@@ -1,6 +1,6 @@
 # Changelog
 
-## [dev-v0.2.0] - Unreleased
+## [v0.2.0] - 2026-05-13
 
 - Added centralized project metadata in `core/version.py`.
 - Updated future report headers to use centralized CHAMANP version/status metadata.
