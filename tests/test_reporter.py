@@ -1,7 +1,7 @@
 from types import SimpleNamespace
 
 from core.reporter import ReportWriter
-from core.fingerprints import MORGAN_FP_SIZE, MORGAN_RADIUS
+from core.fingerprints import MORGAN_BITS, MORGAN_RADIUS
 
 
 def build_report(**overrides):
@@ -21,7 +21,7 @@ def build_report(**overrides):
         "collection_tag": "pubchem",
         "input_csv": "source_data/coconut_05-2025.csv",
         "fingerprint_radius": MORGAN_RADIUS,
-        "fingerprint_bits": MORGAN_FP_SIZE,
+        "fingerprint_bits": MORGAN_BITS,
         "valid_molecules_count": 2,
     }
     values.update(overrides)
@@ -50,7 +50,7 @@ def test_build_content_includes_execution_metadata():
     assert "- Collection tag:    pubchem" in content
     assert "- Input CSV:         source_data/coconut_05-2025.csv" in content
     assert f"- Fingerprint radius: {MORGAN_RADIUS}" in content
-    assert f"- Fingerprint bits:   {MORGAN_FP_SIZE}" in content
+    assert f"- Fingerprint bits:   {MORGAN_BITS}" in content
     assert "Valid molecules fingerprinted: 2" in content
 
 

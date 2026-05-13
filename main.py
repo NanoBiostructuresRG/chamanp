@@ -2,8 +2,10 @@
 
 import config
 from core.base_pipeline import Pipeline
+from core.preflight import validate_config
 
 def main():
+    validate_config(config)
     pipeline = Pipeline(config=config)
     pipeline.run()
 
