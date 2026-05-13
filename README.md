@@ -68,7 +68,7 @@ Run the baseline test suite with:
 python -m pytest tests
 ```
 
-The current baseline contains 21 tests covering isolated components:
+The current baseline contains 23 tests covering isolated components:
 
 - `path_manager`
 - `collection_utils`
@@ -179,9 +179,12 @@ Generated files are written under `artifacts/`, including:
 - `curated_*.csv`
 - `filtered_*.csv`
 - `valid_metadata_*.csv`
+- `invalid_smiles_*.csv`
 - `X_*.npy`
 - `reports/report_dbprep_*.txt`
 - `pipeline.log`
+
+`invalid_smiles_{tag}.csv` records rows whose configured SMILES column cannot be parsed by RDKit during fingerprint generation. This artifact improves traceability and does not change the valid fingerprint matrix or valid metadata outputs.
 
 ## Development Status
 
