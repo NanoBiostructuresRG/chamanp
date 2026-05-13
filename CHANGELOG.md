@@ -6,6 +6,7 @@
 - Added `ConfigurationError` for clear early failures when required config values are missing or invalid.
 - Validated configured database and collection taxonomy paths before entering curation or fingerprint generation.
 - Validated target collections, collection logic, safe collection tags, and Morgan fingerprint parameters.
+- Hardened `TARGET_COLLECTIONS` validation to require a non-empty collection of non-empty strings.
 - Added focused tests for preflight validation and entrypoint ordering.
 - Removed unused `OUTPUT_PATH` from `config.py`.
 - No chemical curation, SMILES validation, collection filtering, or fingerprint generation logic changes are intended in this development pass.

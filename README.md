@@ -150,7 +150,7 @@ SELECTED_PROPERTIES = [
 
 Pipeline behavior is currently controlled in `config.py`.
 
-Before the pipeline runs, CHAMANP validates the active configuration and fails early with a `ConfigurationError` if required inputs or execution parameters are invalid. The preflight check verifies that the configured database CSV and collection taxonomy paths exist, target collections are not empty, collection logic is `OR` or `AND`, the collection tag is safe for artifact filenames, and Morgan fingerprint parameters are valid integers.
+Before the pipeline runs, CHAMANP validates the active configuration and fails early with a `ConfigurationError` if required inputs or execution parameters are invalid. The preflight check verifies that the configured database CSV and collection taxonomy paths exist, `TARGET_COLLECTIONS` is a non-empty collection of non-empty strings, collection logic is `OR` or `AND`, the collection tag is safe for artifact filenames, and Morgan fingerprint parameters are valid integers. A plain string is not accepted as `TARGET_COLLECTIONS`.
 
 To ignore stereochemistry in SMILES during deduplication:
 
