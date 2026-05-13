@@ -3,6 +3,7 @@ import os
 import logging
 from datetime import datetime
 import textwrap
+from core.version import PROJECT_NAME, PROJECT_STATUS, PROJECT_VERSION
 
 class ResultManager:
     def __init__(self, output_file):
@@ -14,12 +15,13 @@ class ResultManager:
 
     def _get_header(self):
         return textwrap.dedent(f"""            =====================================================
-                                   CHAMANP
+                                   {PROJECT_NAME}
                  Curation-hierarchical analysis for molecular 
                         annotation of natural products
             -----------------------------------------------------
             Developer: Flavio F. Contreras-Torres
-            Version: v1.0 - May, 2025. Oviedo
+            Version: {PROJECT_VERSION}
+            Status: {PROJECT_STATUS}
             Execution Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
             -----------------------------------------------------
             GitHub: https://github.com/NanoBiostructuresRG
