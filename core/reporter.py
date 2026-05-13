@@ -16,7 +16,9 @@ class ReportWriter:
                        target_collections, logic, final_count, retained_properties,
                        curated_csv, filtered_csv, metadata_csv, fingerprints_npy,
                        collection_tag, invalid_smiles_csv=None,
-                       invalid_smiles_count=None):
+                       invalid_smiles_count=None, input_csv=None,
+                       valid_molecules_count=None, fingerprint_radius=None,
+                       fingerprint_bits=None):
         lines = [
             "# Pipeline Report - ML-stage: Input Preparation",
             "",
@@ -34,6 +36,24 @@ class ReportWriter:
 
         if invalid_smiles_count is not None:
             lines.append(f"Invalid SMILES rows:          {invalid_smiles_count}")
+
+        if valid_molecules_count is not None:
+            lines.append(f"Valid molecules fingerprinted: {valid_molecules_count}")
+
+        lines += [
+            "",
+            "Execution metadata:",
+            f"- Collection tag:    {collection_tag}",
+        ]
+
+        if input_csv:
+            lines.append(f"- Input CSV:         {input_csv}")
+
+        if fingerprint_radius is not None:
+            lines.append(f"- Fingerprint radius: {fingerprint_radius}")
+
+        if fingerprint_bits is not None:
+            lines.append(f"- Fingerprint bits:   {fingerprint_bits}")
 
         lines += [
             "",

@@ -104,7 +104,8 @@ CHAMANP/
 |   |-- curator.py                    # Input curation and validation
 |   |-- filter.py                     # Property and collection-based filtering
 |   |-- fingerprints.py               # Molecular fingerprint generation
-|   `-- reporter.py                   # Technical report generation
+|   |-- reporter.py                   # Technical report generation
+|   `-- version.py                    # Centralized project metadata
 |-- utils/                            # Auxiliary utilities
 |   |-- path_manager.py               # Centralized artifact paths
 |   |-- result_manager.py             # Report header and file writing
@@ -190,9 +191,13 @@ Generated files are written under `artifacts/`, including:
 
 Future generated reports include the invalid SMILES row count and the `invalid_smiles_{tag}.csv` path when invalid SMILES traceability is available from the pipeline. The tracked historical report under `artifacts/reports/` was not regenerated as part of this development change.
 
+Future reports identify the project using centralized metadata from `core/version.py`, including the CHAMANP development version, execution date, and pre-stable status.
+
+Future reports also include execution metadata already available to the pipeline: input CSV path, collection tag, fingerprint radius, fingerprint bit length, total molecule counts, valid fingerprinted molecules, and invalid SMILES counts.
+
 ## Development Status
 
-CHAMANP is still in pre-stable development. Version `v0.1.0` establishes the corrected pre-stable baseline, including conservative documentation, dependency declarations, isolated tests, exact collection-label matching, invalid SMILES traceability, and report traceability for invalid SMILES.
+CHAMANP is still in pre-stable development. Version `v0.1.0` establishes the corrected pre-stable baseline, including conservative documentation, dependency declarations, isolated tests, exact collection-label matching, invalid SMILES traceability, and report traceability for invalid SMILES. The `dev-v0.2.0` work focuses on centralized project metadata and reproducible report execution metadata without changing the chemical curation, filtering, or fingerprinting logic.
 
 ## Future Extensions
 
