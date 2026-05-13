@@ -9,7 +9,11 @@
 - Collections are parsed as semicolon-separated labels with surrounding whitespace stripped.
 - Missing/NaN collection values do not match.
 - Added tests for substring non-match, semicolon-separated labels, whitespace handling, and missing/NaN values.
-- Updated tests; current validation is 27 tests passing.
+- Reports now include invalid SMILES count/path when provided by the pipeline.
+- `FingerprintGenerator` exposes `invalid_smiles_count` for report traceability.
+- `ReportWriter` remains backward-compatible when invalid fields are omitted.
+- Added reporter tests and fingerprint count assertions.
+- Updated tests; current validation is 29 tests passing.
 
 ## [dev-v1.0.1] - 2026-05-12
 

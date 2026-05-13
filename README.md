@@ -68,7 +68,7 @@ Run the baseline test suite with:
 python -m pytest tests
 ```
 
-The current baseline contains 27 tests covering isolated components:
+The current baseline contains 29 tests covering isolated components:
 
 - `path_manager`
 - `collection_utils`
@@ -188,9 +188,11 @@ Generated files are written under `artifacts/`, including:
 
 `invalid_smiles_{tag}.csv` records rows whose configured SMILES column cannot be parsed by RDKit during fingerprint generation. This artifact improves traceability and does not change the valid fingerprint matrix or valid metadata outputs.
 
+Future generated reports include the invalid SMILES row count and the `invalid_smiles_{tag}.csv` path when invalid SMILES traceability is available from the pipeline. The tracked historical report under `artifacts/reports/` was not regenerated as part of this development change.
+
 ## Development Status
 
-CHAMANP is currently in pre-stable development. The `dev-v1.0.1` work is intended to establish a conservative documentation and dependency baseline before future functional changes.
+CHAMANP is still in pre-stable development. The `dev-v1.0.1` work established the conservative documentation, dependency, and testing baseline. The `dev-v0.1.0` work is adding conservative functional improvements toward the corrected `v0.1.0` baseline.
 
 ## Future Extensions
 
