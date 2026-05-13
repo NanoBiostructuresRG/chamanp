@@ -60,12 +60,40 @@ For development and testing tools with pip:
 pip install -r requirements-dev.txt
 ```
 
+## Testing
+
+Run the baseline test suite with:
+
+```bash
+python -m pytest tests
+```
+
+The current baseline contains 21 tests covering isolated components:
+
+- `path_manager`
+- `collection_utils`
+- `filter`
+- `curator`
+- `fingerprints`
+
+These tests do not run the full pipeline and do not require the full COCONUT source CSV.
+
+On Windows, if pytest cannot access the default temporary directory, use a local pytest temporary directory. For example, in the currently validated local environment:
+
+```powershell
+New-Item -ItemType Directory -Force .pytest_tmp | Out-Null
+C:\Users\Usuario\.conda\envs\chamanp_env\python.exe -m pytest tests -p no:cacheprovider --basetemp .pytest_tmp
+Remove-Item -Recurse -Force .pytest_tmp
+```
+
 ## Project Structure
 
 ```text
 CHAMANP/
 |-- main.py                           # Entry point
 |-- config.py                         # Global pipeline configuration
+|-- README.md                         # Project overview and usage guide
+|-- LICENSE                           # MIT license
 |-- requirements.txt                  # Runtime dependencies
 |-- requirements-dev.txt              # Development/test dependencies
 |-- environment.yml                   # Conda/mamba environment
