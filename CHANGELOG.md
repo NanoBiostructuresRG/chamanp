@@ -4,6 +4,7 @@
 
 - Added centralized project metadata in `core/version.py`.
 - Updated future report headers to use centralized CHAMANP version/status metadata.
+- Added future report execution metadata for input CSV path, collection tag, fingerprint radius, fingerprint bit length, and valid fingerprinted molecule count.
 - Removed the legacy hardcoded `v1.0 - May, 2025. Oviedo` report header for future reports.
 - Added tests to ensure report headers include centralized metadata and do not contain the legacy `v1.0` version string.
 - No chemical curation, collection filtering, or fingerprint generation logic changes are intended in this development pass.

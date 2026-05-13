@@ -6,6 +6,9 @@ import numpy as np
 from rdkit import Chem
 from rdkit.Chem.rdFingerprintGenerator import GetMorganGenerator
 
+MORGAN_RADIUS = 2
+MORGAN_FP_SIZE = 1024
+
 class FingerprintGenerator:
     def __init__(self, input_csv, output_fp_file, output_metadata_file,
                  smiles_column="canonical_smiles", output_invalid_file=None):
@@ -14,7 +17,10 @@ class FingerprintGenerator:
         self.output_metadata_file = output_metadata_file
         self.smiles_column = smiles_column
         self.output_invalid_file = output_invalid_file
-        self.morgan_generator = GetMorganGenerator(radius=2, fpSize=1024)
+        self.morgan_generator = GetMorganGenerator(
+            radius=MORGAN_RADIUS,
+            fpSize=MORGAN_FP_SIZE
+        )
         self.X = None
         self.invalid_smiles_count = 0
 

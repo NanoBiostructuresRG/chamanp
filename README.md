@@ -193,9 +193,11 @@ Future generated reports include the invalid SMILES row count and the `invalid_s
 
 Future reports identify the project using centralized metadata from `core/version.py`, including the CHAMANP development version, execution date, and pre-stable status.
 
+Future reports also include execution metadata already available to the pipeline: input CSV path, collection tag, fingerprint radius, fingerprint bit length, total molecule counts, valid fingerprinted molecules, and invalid SMILES counts.
+
 ## Development Status
 
-CHAMANP is still in pre-stable development. Version `v0.1.0` establishes the corrected pre-stable baseline, including conservative documentation, dependency declarations, isolated tests, exact collection-label matching, invalid SMILES traceability, and report traceability for invalid SMILES. The `dev-v0.2.0` work focuses on centralized project metadata and reproducible report headers without changing the chemical curation, filtering, or fingerprinting logic.
+CHAMANP is still in pre-stable development. Version `v0.1.0` establishes the corrected pre-stable baseline, including conservative documentation, dependency declarations, isolated tests, exact collection-label matching, invalid SMILES traceability, and report traceability for invalid SMILES. The `dev-v0.2.0` work focuses on centralized project metadata and reproducible report execution metadata without changing the chemical curation, filtering, or fingerprinting logic.
 
 ## Future Extensions
 

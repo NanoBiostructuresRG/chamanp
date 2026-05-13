@@ -1,6 +1,7 @@
 from types import SimpleNamespace
 
 from core.reporter import ReportWriter
+from core.fingerprints import MORGAN_FP_SIZE, MORGAN_RADIUS
 
 
 def build_report(**overrides):
@@ -18,6 +19,10 @@ def build_report(**overrides):
         "metadata_csv": "artifacts/valid_metadata_pubchem.csv",
         "fingerprints_npy": "artifacts/X_pubchem.npy",
         "collection_tag": "pubchem",
+        "input_csv": "source_data/coconut_05-2025.csv",
+        "fingerprint_radius": MORGAN_RADIUS,
+        "fingerprint_bits": MORGAN_FP_SIZE,
+        "valid_molecules_count": 2,
     }
     values.update(overrides)
     return writer._build_content(**values)
@@ -33,6 +38,20 @@ def test_build_content_includes_invalid_smiles_traceability():
     assert "- Invalid SMILES CSV: artifacts/invalid_smiles_pubchem.csv" in content
     assert "- Metadata CSV:      artifacts/valid_metadata_pubchem.csv" in content
     assert "- Fingerprints NPY:  artifacts/X_pubchem.npy" in content
+
+
+def test_build_content_includes_execution_metadata():
+    content = build_report(
+        invalid_smiles_csv="artifacts/invalid_smiles_pubchem.csv",
+        invalid_smiles_count=1,
+    )
+
+    assert "Execution metadata:" in content
+    assert "- Collection tag:    pubchem" in content
+    assert "- Input CSV:         source_data/coconut_05-2025.csv" in content
+    assert f"- Fingerprint radius: {MORGAN_RADIUS}" in content
+    assert f"- Fingerprint bits:   {MORGAN_FP_SIZE}" in content
+    assert "Valid molecules fingerprinted: 2" in content
 
 
 def test_build_content_remains_compatible_without_invalid_smiles_fields():
