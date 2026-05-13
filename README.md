@@ -94,6 +94,7 @@ CHAMANP/
 |-- config.py                         # Global pipeline configuration
 |-- README.md                         # Project overview and usage guide
 |-- LICENSE                           # MIT license
+|-- CITATION.cff                      # Citation metadata
 |-- requirements.txt                  # Runtime dependencies
 |-- requirements-dev.txt              # Development/test dependencies
 |-- environment.yml                   # Conda/mamba environment
