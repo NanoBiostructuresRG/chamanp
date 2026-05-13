@@ -5,7 +5,7 @@ import os
 import logging
 from core.curator import Curator
 from core.filter import CompoundFilter
-from core.fingerprints import FingerprintGenerator, MORGAN_FP_SIZE, MORGAN_RADIUS
+from core.fingerprints import FingerprintGenerator
 from utils.collection_utils import CollectionValidator
 from core.reporter import ReportWriter
 from utils.path_manager import PathManager
@@ -85,7 +85,9 @@ class Pipeline:
             input_csv=self.paths.filtered(),
             output_fp_file=self.paths.fingerprints(),
             output_metadata_file=self.paths.metadata(),
-            output_invalid_file=self.paths.invalid_smiles()
+            output_invalid_file=self.paths.invalid_smiles(),
+            morgan_radius=self.config.MORGAN_RADIUS,
+            morgan_bits=self.config.MORGAN_BITS
         ).generate()
         self.invalid_smiles_count = generator.invalid_smiles_count
         logging.info(f"Fingerprints and metadata saved.")
@@ -109,8 +111,8 @@ class Pipeline:
             invalid_smiles_csv=self.paths.invalid_smiles(),
             invalid_smiles_count=self.invalid_smiles_count,
             valid_molecules_count=len(self.filtered_df) - self.invalid_smiles_count,
-            fingerprint_radius=MORGAN_RADIUS,
-            fingerprint_bits=MORGAN_FP_SIZE,
+            fingerprint_radius=self.config.MORGAN_RADIUS,
+            fingerprint_bits=self.config.MORGAN_BITS,
             collection_tag=self.config.COLLECTION_TAG
         )
         logging.info(f"Report saved to: {report_path}")

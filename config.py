@@ -10,7 +10,11 @@ TARGET_COLLECTIONS = ["PubChem NPs"]
 
 COLLECTION_TAG = "pubchem"
 
-COLLECTION_LOGIC = "OR"  
+COLLECTION_LOGIC = "OR"
+
+MORGAN_RADIUS = 2
+
+MORGAN_BITS = 1024
 
 SELECTED_PROPERTIES = [
     "identifier",
@@ -24,14 +28,4 @@ SELECTED_PROPERTIES = [
 ]
 
 REMOVE_STEREO_DUPLICATES = True
-
-OUTPUT_PATH = "artifacts/filtered_compounds.csv" 
-
-
-
-
-
-
-
-
 

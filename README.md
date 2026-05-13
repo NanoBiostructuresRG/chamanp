@@ -68,13 +68,17 @@ Run the baseline test suite with:
 python -m pytest tests
 ```
 
-The current baseline contains 29 tests covering isolated components:
+The current baseline contains focused tests covering isolated components:
 
 - `path_manager`
 - `collection_utils`
 - `filter`
 - `curator`
 - `fingerprints`
+- `preflight`
+- `reporter`
+- `result_manager`
+- `main`
 
 These tests do not run the full pipeline and do not require the full COCONUT source CSV.
 
@@ -104,6 +108,7 @@ CHAMANP/
 |   |-- curator.py                    # Input curation and validation
 |   |-- filter.py                     # Property and collection-based filtering
 |   |-- fingerprints.py               # Molecular fingerprint generation
+|   |-- preflight.py                  # Configuration validation before execution
 |   |-- reporter.py                   # Technical report generation
 |   `-- version.py                    # Centralized project metadata
 |-- utils/                            # Auxiliary utilities
@@ -145,6 +150,8 @@ SELECTED_PROPERTIES = [
 
 Pipeline behavior is currently controlled in `config.py`.
 
+Before the pipeline runs, CHAMANP validates the active configuration and fails early with a `ConfigurationError` if required inputs or execution parameters are invalid. The preflight check verifies that the configured database CSV and collection taxonomy paths exist, target collections are not empty, collection logic is `OR` or `AND`, the collection tag is safe for artifact filenames, and Morgan fingerprint parameters are valid integers.
+
 To ignore stereochemistry in SMILES during deduplication:
 
 ```python
@@ -157,6 +164,8 @@ To filter compounds by COCONUT collection:
 TARGET_COLLECTIONS = ["PubChem NPs"]
 COLLECTION_TAG = "pubchem"
 COLLECTION_LOGIC = "OR"
+MORGAN_RADIUS = 2
+MORGAN_BITS = 1024
 ```
 
 Collection filtering uses exact collection-label matching. Multiple collection labels in the `collections` field are expected to be separated by semicolons, and surrounding whitespace around each label is stripped before matching. Matching is case-sensitive, which avoids substring false positives: for example, `PubChem NPs` does not match `NotPubChem NPs`.
@@ -197,7 +206,7 @@ Future reports also include execution metadata already available to the pipeline
 
 ## Development Status
 
-CHAMANP is still in pre-stable development. Version `v0.1.0` established the corrected pre-stable baseline, including conservative documentation, dependency declarations, isolated tests, exact collection-label matching, invalid SMILES traceability, and report traceability for invalid SMILES. Version `v0.2.0` focuses on centralized project metadata and reproducible report execution metadata without changing the chemical curation, filtering, or fingerprinting logic.
+CHAMANP is still in pre-stable development. Version `v0.1.0` established the corrected pre-stable baseline, including conservative documentation, dependency declarations, isolated tests, exact collection-label matching, invalid SMILES traceability, and report traceability for invalid SMILES. Version `v0.2.0` focused on centralized project metadata and reproducible report execution metadata. The `dev-v0.3.0` work focuses on configuration validation and execution preflight without changing the chemical curation, filtering, or fingerprinting logic.
 
 ## Future Extensions
 
