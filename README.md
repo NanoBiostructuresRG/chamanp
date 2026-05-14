@@ -58,16 +58,18 @@ CHAMANP is beginning a conservative transition toward an installable Python pack
 
 ```python
 import chamanp
-from chamanp import __version__
+from chamanp import __version__, ChamanpConfig
 ```
 
-Future releases are expected to expose a small public API for reusable curation workflows, for example:
+`ChamanpConfig` is the first public runtime configuration object. It provides an importable configuration contract for future reusable workflows and does not change the current repository-based pipeline behavior.
+
+Future releases are expected to expose a broader public API for reusable curation workflows. `Pipeline` and `validate_config` are not currently exported from `chamanp`.
 
 ```python
-from chamanp import ChamanpConfig, Pipeline, validate_config
+from chamanp import Pipeline, validate_config
 ```
 
-That API is a draft direction, not current implemented import support. CHAMANP is intended to remain independent and reusable; LigandHub is a future consumer, not a dependency or coupling target.
+That broader API is a draft direction, not current implemented import support. CHAMANP is intended to remain independent and reusable; LigandHub is a future consumer, not a dependency or coupling target.
 
 For development and testing tools with pip:
 
