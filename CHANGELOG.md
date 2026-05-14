@@ -1,5 +1,10 @@
 # Changelog
 
+## [dev-v0.7.0] - Unreleased
+
+- Started internal package migration planning for private `chamanp/_core` and `chamanp/_utils` namespaces, import-safety hardening, and a clean migration away from root-level `core/` and `utils/` without changing chemistry behavior, outputs, artifacts, or reports.
+- The current public API remains `from chamanp import __version__, ChamanpConfig`; `Pipeline` remains internal and is not publicly exported.
+
 ## [v0.6.0] - 2026-05-14
 
 - Started the external-facing documentation cycle, focused on CHAMANP's public usability contract without changing chemical processing behavior.
