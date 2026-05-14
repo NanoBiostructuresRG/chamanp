@@ -7,9 +7,9 @@ import logging
 from core.curator import Curator
 from core.filter import CompoundFilter
 from core.fingerprints import FingerprintGenerator
-from utils.collection_utils import CollectionValidator
+from chamanp._utils.collection_utils import CollectionValidator
 from core.reporter import ReportWriter
-from utils.path_manager import PathManager
+from chamanp._utils.path_manager import PathManager
 
 os.makedirs("artifacts", exist_ok=True)
 

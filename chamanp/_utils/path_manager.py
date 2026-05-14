@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
-# utils/path_manager.py
+# chamanp/_utils/path_manager.py
 
 class PathManager:
     def __init__(self, tag: str, base_dir: str = "artifacts"):

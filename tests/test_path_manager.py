@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
-from utils.path_manager import PathManager
+from chamanp._utils.path_manager import PathManager
 
 
 def test_path_manager_builds_expected_artifact_paths_for_tag():
