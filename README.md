@@ -1,6 +1,6 @@
 # CHAMANP: Curation and Hierarchical Analysis for Molecular Annotation of Natural Products
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: LGPL v3+](https://img.shields.io/badge/License-LGPL_v3%2B-blue.svg)](LICENSE)
 
 CHAMANP is a pre-stable development prototype for the curated preparation of molecular datasets used in cheminformatics workflows. It is being prepared as a future component of the LigandHub suite.
 
@@ -113,7 +113,7 @@ CHAMANP/
 |-- main.py                           # Entry point
 |-- config.py                         # Global pipeline configuration
 |-- README.md                         # Project overview and usage guide
-|-- LICENSE                           # MIT license
+|-- LICENSE                           # Project license notice
 |-- CITATION.cff                      # Citation metadata
 |-- requirements.txt                  # Runtime dependencies
 |-- requirements-dev.txt              # Development/test dependencies
@@ -241,4 +241,4 @@ Developed by Flavio F. Contreras-Torres, Tecnologico de Monterrey.
 
 ## License
 
-This project is licensed under the terms of the [MIT License](LICENSE). See the LICENSE file for details.
+This project is licensed under the terms of the [GNU Lesser General Public License v3.0 or later](LICENSE). SPDX identifier: `LGPL-3.0-or-later`.

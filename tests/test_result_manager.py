@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: LGPL-3.0-or-later
 from core.version import PROJECT_NAME, PROJECT_STATUS, PROJECT_VERSION
 from utils.result_manager import ResultManager
 

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: LGPL-3.0-or-later
 """Package version metadata."""
 
 __version__ = "0.4.0-dev"
