@@ -354,7 +354,7 @@ CHAMANP is still in pre-stable development.
 - `v0.4.0` established the package foundation and public API doorway.
 - `v0.5.0` introduced `ChamanpConfig` as the first public runtime configuration object.
 - `v0.6.0` focused on external-facing documentation and the public usability contract.
-- `v0.7.0` focuses on internal package migration into private namespaces while preserving the current public API.
+- `v0.7.0` focused on internal package migration into private namespaces while preserving the current public API.
 
 The earlier `dev-v1.0.1` work established the documentation, dependency, and testing baseline that was incorporated into `v0.1.0`. The development environment used for that baseline was:
 
