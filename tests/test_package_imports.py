@@ -6,7 +6,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from core.version import PROJECT_VERSION
+from chamanp.version import PROJECT_VERSION
 
 
 def test_chamanp_package_imports_without_pipeline_side_effects():
@@ -15,7 +15,7 @@ def test_chamanp_package_imports_without_pipeline_side_effects():
     assert package.__version__ == PROJECT_VERSION
 
 
-def test_chamanp_version_export_matches_core_project_version():
+def test_chamanp_version_export_matches_package_project_version():
     from chamanp import __version__
 
     assert __version__ == PROJECT_VERSION
