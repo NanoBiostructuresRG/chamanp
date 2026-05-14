@@ -1,5 +1,7 @@
+# SPDX-License-Identifier: LGPL-3.0-or-later
 # core/version.py
 
 PROJECT_NAME = "CHAMANP"
-PROJECT_VERSION = "0.3.0"
-PROJECT_STATUS = "pre-stable development"
+from chamanp.version import PROJECT_STATUS, PROJECT_VERSION, __version__
+
+__all__ = ["PROJECT_NAME", "PROJECT_VERSION", "PROJECT_STATUS", "__version__"]

@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chamanp"
+dynamic = ["version"]
+description = "Pre-stable tools for reproducible molecular dataset curation and preparation."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "LGPL-3.0-or-later"
+license-files = ["LICENSE", "COPYING", "COPYING.LESSER"]
+authors = [
+    { name = "Flavio F. Contreras-Torres" }
+]
+keywords = [
+    "cheminformatics",
+    "natural products",
+    "molecular datasets",
+    "data curation",
+    "RDKit"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Chemistry"
+]
+dependencies = [
+    "pandas==3.0.3",
+    "numpy==2.4.3",
+    "scipy==1.15.3",
+    "rdkit==2025.9.2"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.3.4"
+]
+
+[project.urls]
+Repository = "https://github.com/NanoBiostructuresRG/chamanp"
+
+[tool.setuptools.dynamic]
+version = { attr = "chamanp.version.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["chamanp*"]

@@ -1,6 +1,6 @@
 # CHAMANP: Curation and Hierarchical Analysis for Molecular Annotation of Natural Products
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: LGPL v3+](https://img.shields.io/badge/License-LGPL_v3%2B-blue.svg)](LICENSE)
 
 CHAMANP is a pre-stable development prototype for the curated preparation of molecular datasets used in cheminformatics workflows. It is being prepared as a future component of the LigandHub suite.
 
@@ -54,6 +54,21 @@ Alternatively, install runtime dependencies with pip:
 pip install -r requirements.txt
 ```
 
+CHAMANP is beginning a conservative transition toward an installable Python package. The conda/mamba environment remains the recommended setup because RDKit is commonly distributed through conda-forge. The current package namespace is intentionally minimal and can be imported without running the pipeline:
+
+```python
+import chamanp
+from chamanp import __version__
+```
+
+Future releases are expected to expose a small public API for reusable curation workflows, for example:
+
+```python
+from chamanp import ChamanpConfig, Pipeline, validate_config
+```
+
+That API is a draft direction, not current implemented import support. CHAMANP is intended to remain independent and reusable; LigandHub is a future consumer, not a dependency or coupling target.
+
 For development and testing tools with pip:
 
 ```bash
@@ -79,6 +94,7 @@ The current baseline contains focused tests covering isolated components:
 - `reporter`
 - `result_manager`
 - `main`
+- `package imports`
 
 These tests do not run the full pipeline and do not require the full COCONUT source CSV.
 
@@ -97,12 +113,16 @@ CHAMANP/
 |-- main.py                           # Entry point
 |-- config.py                         # Global pipeline configuration
 |-- README.md                         # Project overview and usage guide
-|-- LICENSE                           # MIT license
+|-- LICENSE                           # Project license notice
 |-- CITATION.cff                      # Citation metadata
 |-- requirements.txt                  # Runtime dependencies
 |-- requirements-dev.txt              # Development/test dependencies
 |-- environment.yml                   # Conda/mamba environment
+|-- pyproject.toml                    # Package metadata
 |-- CHANGELOG.md                      # Development history
+|-- chamanp/                          # Minimal package namespace
+|   |-- __init__.py                   # Public package doorway
+|   `-- version.py                    # Package version bridge
 |-- core/                             # Pipeline modules
 |   |-- base_pipeline.py              # Pipeline orchestrator
 |   |-- curator.py                    # Input curation and validation
@@ -206,7 +226,7 @@ Future reports also include execution metadata already available to the pipeline
 
 ## Development Status
 
-CHAMANP is still in pre-stable development. Version `v0.1.0` established the corrected pre-stable baseline, including conservative documentation, dependency declarations, isolated tests, exact collection-label matching, invalid SMILES traceability, and report traceability for invalid SMILES. Version `v0.2.0` focused on centralized project metadata and reproducible report execution metadata. Version `v0.3.0` focuses on configuration validation and execution preflight without changing the chemical curation, filtering, or fingerprinting logic.
+CHAMANP is still in pre-stable development. Version `v0.1.0` established the corrected pre-stable baseline, including conservative documentation, dependency declarations, isolated tests, exact collection-label matching, invalid SMILES traceability, and report traceability for invalid SMILES. Version `v0.2.0` focused on centralized project metadata and reproducible report execution metadata. Version `v0.3.0` focused on configuration validation and execution preflight. The `dev-v0.4.0` work begins the package foundation and public API doorway without changing the chemical curation, filtering, or fingerprinting logic.
 
 ## Future Extensions
 
@@ -221,4 +241,4 @@ Developed by Flavio F. Contreras-Torres, Tecnologico de Monterrey.
 
 ## License
 
-This project is licensed under the terms of the [MIT License](LICENSE). See the LICENSE file for details.
+This project is licensed under the terms of the [GNU Lesser General Public License v3.0 or later](LICENSE). SPDX identifier: `LGPL-3.0-or-later`.

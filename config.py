@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: LGPL-3.0-or-later
 # config.py
 
 DATABASE_PATH = "source_data/coconut_05-2025.csv"
