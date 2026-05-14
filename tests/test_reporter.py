@@ -2,9 +2,9 @@
 from pathlib import Path
 from types import SimpleNamespace
 
-from core.reporter import ReportWriter
+from chamanp._core.reporter import ReportWriter
 from chamanp._core.fingerprints import MORGAN_BITS, MORGAN_RADIUS
-from core.version import PROJECT_NAME, PROJECT_STATUS, PROJECT_VERSION
+from chamanp.version import PROJECT_NAME, PROJECT_STATUS, PROJECT_VERSION
 
 
 def build_report(**overrides):

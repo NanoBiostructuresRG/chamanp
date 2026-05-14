@@ -1,10 +1,9 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
 import os
-import logging
 from datetime import datetime
 import textwrap
-from core.version import PROJECT_NAME, PROJECT_STATUS, PROJECT_VERSION
+from chamanp.version import PROJECT_NAME, PROJECT_STATUS, PROJECT_VERSION
 
 class ResultManager:
     def __init__(self, output_file):

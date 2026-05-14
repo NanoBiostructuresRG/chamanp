@@ -8,7 +8,7 @@ from chamanp._core.curator import Curator
 from chamanp._core.filter import CompoundFilter
 from chamanp._core.fingerprints import FingerprintGenerator
 from chamanp._utils.collection_utils import CollectionValidator
-from core.reporter import ReportWriter
+from chamanp._core.reporter import ReportWriter
 from chamanp._utils.path_manager import PathManager
 
 os.makedirs("artifacts", exist_ok=True)
