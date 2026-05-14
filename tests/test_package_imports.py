@@ -74,3 +74,46 @@ print(json.dumps({
     }
     assert not (tmp_path / "artifacts").exists()
     assert not (tmp_path / "artifacts" / "pipeline.log").exists()
+
+
+def test_private_internal_namespaces_import_without_side_effects(tmp_path):
+    repo_root = Path(__file__).resolve().parents[1]
+    env = os.environ.copy()
+    existing_pythonpath = env.get("PYTHONPATH")
+    env["PYTHONPATH"] = (
+        str(repo_root)
+        if not existing_pythonpath
+        else os.pathsep.join([str(repo_root), existing_pythonpath])
+    )
+    code = """
+import json
+import chamanp
+import chamanp._core
+import chamanp._utils
+
+print(json.dumps({
+    "public_api": chamanp.__all__,
+    "has_pipeline": hasattr(chamanp, "Pipeline"),
+    "core_package": chamanp._core.__name__,
+    "utils_package": chamanp._utils.__name__,
+}))
+"""
+
+    completed = subprocess.run(
+        [sys.executable, "-c", code],
+        cwd=tmp_path,
+        env=env,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    observed = json.loads(completed.stdout)
+
+    assert observed == {
+        "public_api": ["__version__", "ChamanpConfig"],
+        "has_pipeline": False,
+        "core_package": "chamanp._core",
+        "utils_package": "chamanp._utils",
+    }
+    assert not (tmp_path / "artifacts").exists()
+    assert not (tmp_path / "artifacts" / "pipeline.log").exists()
