@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import pytest
 
 from chamanp import ChamanpConfig, __version__
-from core.preflight import validate_config
+from chamanp._core.preflight import validate_config
 
 
 def make_module_like_config(**overrides):

@@ -4,9 +4,9 @@
 
 import os
 import logging
-from core.curator import Curator
-from core.filter import CompoundFilter
-from core.fingerprints import FingerprintGenerator
+from chamanp._core.curator import Curator
+from chamanp._core.filter import CompoundFilter
+from chamanp._core.fingerprints import FingerprintGenerator
 from chamanp._utils.collection_utils import CollectionValidator
 from core.reporter import ReportWriter
 from chamanp._utils.path_manager import PathManager

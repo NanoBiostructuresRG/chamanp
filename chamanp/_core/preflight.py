@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
-# core/preflight.py
+# chamanp/_core/preflight.py
 
 import os
 import re

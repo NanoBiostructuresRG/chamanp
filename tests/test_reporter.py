@@ -3,7 +3,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from core.reporter import ReportWriter
-from core.fingerprints import MORGAN_BITS, MORGAN_RADIUS
+from chamanp._core.fingerprints import MORGAN_BITS, MORGAN_RADIUS
 from core.version import PROJECT_NAME, PROJECT_STATUS, PROJECT_VERSION
 
 

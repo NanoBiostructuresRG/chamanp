@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
-# core/fingerprints.py
+# chamanp/_core/fingerprints.py
 
 import pandas as pd
 import numpy as np

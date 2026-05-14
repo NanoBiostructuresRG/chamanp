@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
-# core/filter.py
+# chamanp/_core/filter.py
 
 import pandas as pd
 
@@ -46,7 +46,7 @@ class CompoundFilter:
         return self
 
     def get_dataframe(self):
-        return self.filtered_df.copy()  
+        return self.filtered_df.copy()
 
     def _parse_collections(self, value):
         if pd.isna(value):

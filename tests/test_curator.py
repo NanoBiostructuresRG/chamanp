@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 import pandas as pd
 
-from core.curator import Curator
+from chamanp._core.curator import Curator
 
 
 def write_compounds(path, rows):

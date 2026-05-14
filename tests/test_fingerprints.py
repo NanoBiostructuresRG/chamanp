@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from core.fingerprints import FingerprintGenerator
+from chamanp._core.fingerprints import FingerprintGenerator
 
 
 def make_generator(tmp_path, rows=None, columns=None, output_invalid_file=None):
