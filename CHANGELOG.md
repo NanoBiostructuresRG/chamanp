@@ -1,5 +1,13 @@
 # Changelog
 
+## [dev-v0.4.0] - Unreleased
+
+- Added minimal package metadata in `pyproject.toml`.
+- Added a minimal `chamanp` package namespace exposing `__version__`.
+- Added package import smoke tests that do not run the pipeline or require source data.
+- Documented the package transition direction and draft future public API.
+- No chemical curation, SMILES validation, collection filtering, fingerprint generation, reporting, or artifact naming changes are intended in this development pass.
+
 ## [v0.3.0] - 2026-05-13
 
 - Added configuration preflight validation before pipeline execution.
