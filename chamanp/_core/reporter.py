@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
-from utils.result_manager import ResultManager
+from chamanp._utils.result_manager import ResultManager
 
 class ReportWriter:
     def __init__(self, config):

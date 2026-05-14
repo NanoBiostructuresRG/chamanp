@@ -2,7 +2,7 @@
 import pandas as pd
 import pytest
 
-from core.filter import CompoundFilter
+from chamanp._core.filter import CompoundFilter
 
 
 def sample_compounds():

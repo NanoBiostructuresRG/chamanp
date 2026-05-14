@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
-# core/curator.py
+# chamanp/_core/curator.py
 
 import pandas as pd
 from rdkit import Chem

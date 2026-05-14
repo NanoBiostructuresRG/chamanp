@@ -2,8 +2,8 @@
 # main.py
 
 import config
-from core.base_pipeline import Pipeline
-from core.preflight import validate_config
+from chamanp._core.base_pipeline import Pipeline
+from chamanp._core.preflight import validate_config
 
 def main():
     validate_config(config)

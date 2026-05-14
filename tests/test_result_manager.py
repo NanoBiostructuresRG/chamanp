@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
-from core.version import PROJECT_NAME, PROJECT_STATUS, PROJECT_VERSION
-from utils.result_manager import ResultManager
+from chamanp.version import PROJECT_NAME, PROJECT_STATUS, PROJECT_VERSION
+from chamanp._utils.result_manager import ResultManager
 
 
 def test_report_header_uses_centralized_project_metadata(tmp_path):

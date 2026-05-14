@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from utils.collection_utils import CollectionValidator
+from chamanp._utils.collection_utils import CollectionValidator
 
 
 def write_taxonomy(path, entries):

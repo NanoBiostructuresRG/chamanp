@@ -158,7 +158,7 @@ This creates a configuration object from a module with the expected uppercase co
 
 CHAMANP is currently pre-stable.
 
-The package foundation exists, and the minimal public package imports are available. Because `core/` and `utils/` have not yet been migrated into `chamanp/`, CHAMANP is not yet a fully packaged execution library. The repository workflow remains the current complete execution path.
+The package foundation exists, and the minimal public package imports are available. Internal implementation modules now live under private package namespaces, `chamanp/_core/` and `chamanp/_utils/`. These private namespaces are not user-facing API. The repository workflow remains the current complete execution path while the public execution API is still future work.
 
 CHAMANP currently targets Python 3.11. Because CHAMANP uses RDKit, conda/mamba is the recommended environment path:
 
@@ -322,19 +322,18 @@ CHAMANP/
 |-- chamanp/                          # Minimal package namespace
 |   |-- __init__.py                   # Public package doorway
 |   |-- config.py                     # Public configuration object
-|   `-- version.py                    # Package version source
-|-- core/                             # Internal pipeline modules
-|   |-- base_pipeline.py              # Pipeline orchestrator
-|   |-- curator.py                    # Input curation and validation
-|   |-- filter.py                     # Property and collection-based filtering
-|   |-- fingerprints.py               # Molecular fingerprint generation
-|   |-- preflight.py                  # Configuration validation before execution
-|   |-- reporter.py                   # Technical report generation
-|   `-- version.py                    # Backward-compatible version bridge
-|-- utils/                            # Internal auxiliary utilities
-|   |-- path_manager.py               # Centralized artifact paths
-|   |-- result_manager.py             # Report header and file writing
-|   `-- collection_utils.py           # Collection taxonomy validation
+|   |-- version.py                    # Package version source
+|   |-- _core/                        # Private internal pipeline modules
+|   |   |-- base_pipeline.py          # Pipeline orchestrator
+|   |   |-- curator.py                # Input curation and validation
+|   |   |-- filter.py                 # Property and collection-based filtering
+|   |   |-- fingerprints.py           # Molecular fingerprint generation
+|   |   |-- preflight.py              # Configuration validation before execution
+|   |   `-- reporter.py               # Technical report generation
+|   `-- _utils/                       # Private internal auxiliary utilities
+|       |-- path_manager.py           # Centralized artifact paths
+|       |-- result_manager.py         # Report header and file writing
+|       `-- collection_utils.py       # Collection taxonomy validation
 |-- source_data/
 |   |-- README.md                     # Source-data policy
 |   |-- coconut_05-2025.csv           # User-provided source database file
@@ -343,7 +342,7 @@ CHAMANP/
     `-- reports/                      # Execution reports
 ```
 
-`core/` and `utils/` are internal today. They should not be treated as stable public API.
+`chamanp/_core/` and `chamanp/_utils/` are private implementation namespaces. They should not be treated as stable public API.
 
 ## Development Status
 
@@ -354,7 +353,8 @@ CHAMANP is still in pre-stable development.
 - `v0.3.0` focused on configuration validation and execution preflight.
 - `v0.4.0` established the package foundation and public API doorway.
 - `v0.5.0` introduced `ChamanpConfig` as the first public runtime configuration object.
-- `v0.6.0` focuses on external-facing documentation and the public usability contract.
+- `v0.6.0` focused on external-facing documentation and the public usability contract.
+- `v0.7.0` focuses on internal package migration into private namespaces while preserving the current public API.
 
 The earlier `dev-v1.0.1` work established the documentation, dependency, and testing baseline that was incorporated into `v0.1.0`. The development environment used for that baseline was:
 
@@ -373,8 +373,8 @@ Planned development remains conservative:
 
 - Keep `import chamanp` side-effect free.
 - Keep CHAMANP independent from LigandHub while remaining easy for LigandHub to consume.
-- Migrate internal modules into private package paths before exposing a public execution API.
-- Add a public execution API only after import-time side effects are resolved.
+- Keep private implementation modules under `chamanp/_core/` and `chamanp/_utils/` out of the public API.
+- Add a public execution API only after the private execution boundary is ready.
 - Defer CLI commands and YAML/TOML/JSON configuration profiles until the public Python API is clearer.
 
 Future extension areas may include:

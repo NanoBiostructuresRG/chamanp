@@ -3,7 +3,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from core.preflight import ConfigurationError, validate_config
+from chamanp._core.preflight import ConfigurationError, validate_config
 
 
 def make_config(tmp_path, **overrides):

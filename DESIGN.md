@@ -130,7 +130,7 @@ onboarding other natural product datasets with equivalent or adapted metadata.
 
 ## 6. Current Public API
 
-As of v0.5.0, the public package API is:
+As of v0.7.0, the public package API is:
 
 ```python
 from chamanp import __version__, ChamanpConfig
@@ -141,8 +141,9 @@ from chamanp import __version__, ChamanpConfig
 | `__version__` | `str` | Package version |
 | `ChamanpConfig` | dataclass | Public runtime configuration contract |
 
-Everything in `core/` and `utils/` is internal today. `Pipeline` and
-`validate_config` are not currently part of the public `chamanp` API.
+Implementation internals now live under private package namespaces,
+`chamanp._core` and `chamanp._utils`. `Pipeline` and `validate_config` are not
+currently part of the public `chamanp` API.
 
 ---
 
@@ -180,32 +181,31 @@ should not need to import directly from `core/`, `utils/`, `chamanp._core`, or
 | v0.4.0 | Package foundation | Minimal `chamanp` namespace and package metadata |
 | v0.5.0 | Configuration contract | `ChamanpConfig` as first public runtime configuration object |
 | v0.6.0 | External usability | README rewritten for external users and public usability contract |
-| v0.7.0 | Internal package migration | Move `core/` and `utils/` into private package paths |
+| v0.7.0 | Internal package migration | Move internals into private `chamanp/_core` and `chamanp/_utils` paths |
 | v0.8.0 | Public execution API | Import-safe public execution entrypoint |
 | v1.0.0 | Stable public API | Stable package API and PyPI target |
 
 ---
 
-## 9. Structural Migration Plan
+## 9. Structural Migration Status
 
-Today `core/` and `utils/` live outside the installable package namespace. They
-are internal implementation directories and should not be treated as public API.
-
-The planned migration path is:
+The v0.7.0 migration retired root-level `core/` and `utils/` from tracked
+source. Runtime implementation internals now live inside the package namespace
+under private paths:
 
 ```text
-Before:                  After:
-core/                    chamanp/_core/
-utils/                   chamanp/_utils/
+chamanp/_core/
+chamanp/_utils/
 ```
 
 The underscore prefix marks these as private subpackages. External consumers
 should use public imports exposed by `chamanp`, not private implementation
 paths.
 
-Before migration, import-time side effects in `core/base_pipeline.py` must be
-resolved. In particular, importing pipeline code should not create `artifacts/`
-or configure `artifacts/pipeline.log`.
+Import-safety has also been improved: importing `chamanp` does not load the
+private pipeline implementation, create `artifacts/`, or configure
+`artifacts/pipeline.log`. `Pipeline` remains private, and public execution API
+design remains future work.
 
 ---
 
@@ -229,7 +229,7 @@ The following decisions are intentionally deferred:
 - YAML/TOML/JSON configuration profiles.
 - Public validation API exposure.
 - Automated taxonomy construction.
-- Migration details for `core/` and `utils/`.
+- Public execution API over the private pipeline internals.
 - PyPI and conda-forge packaging details.
 
 ---

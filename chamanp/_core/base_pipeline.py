@@ -1,26 +1,28 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
-# core/base_pipeline.py
+# chamanp/_core/base_pipeline.py
 
 import os
 import logging
-from core.curator import Curator
-from core.filter import CompoundFilter
-from core.fingerprints import FingerprintGenerator
-from utils.collection_utils import CollectionValidator
-from core.reporter import ReportWriter
-from utils.path_manager import PathManager
+from chamanp._core.curator import Curator
+from chamanp._core.filter import CompoundFilter
+from chamanp._core.fingerprints import FingerprintGenerator
+from chamanp._utils.collection_utils import CollectionValidator
+from chamanp._core.reporter import ReportWriter
+from chamanp._utils.path_manager import PathManager
 
-os.makedirs("artifacts", exist_ok=True)
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.FileHandler("artifacts/pipeline.log"),
-        logging.StreamHandler()
-    ]
-)
+def _configure_logging():
+    os.makedirs("artifacts", exist_ok=True)
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(message)s",
+        handlers=[
+            logging.FileHandler("artifacts/pipeline.log"),
+            logging.StreamHandler()
+        ],
+        force=True,
+    )
 
 class Pipeline:
     def __init__(self, config):
@@ -36,6 +38,7 @@ class Pipeline:
         self.paths = PathManager(tag=self.config.COLLECTION_TAG)
 
     def run(self):
+        _configure_logging()
         logging.info("Pipeline execution started.")
         self._create_directories()
         self._curate_data()
