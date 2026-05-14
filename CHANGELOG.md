@@ -1,6 +1,6 @@
 # Changelog
 
-## [dev-v0.5.0] - Unreleased
+## [v0.5.0] - 2026-05-14
 
 - Started the configuration API development cycle, focused on introducing a public runtime configuration object for CHAMANP without changing chemical processing behavior.
 - Added `ChamanpConfig` as the first public runtime configuration object, with no chemical processing behavior changes.
