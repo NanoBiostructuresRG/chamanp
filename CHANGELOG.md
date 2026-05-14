@@ -1,15 +1,14 @@
 # Changelog
 
-## [dev-v0.7.0] - Unreleased
+## [v0.7.0] - 2026-05-14
 
-- Started internal package migration planning for private `chamanp/_core` and `chamanp/_utils` namespaces, import-safety hardening, and a clean migration away from root-level `core/` and `utils/` without changing chemistry behavior, outputs, artifacts, or reports.
+- Completed the internal package migration for private `chamanp/_core` and `chamanp/_utils` namespaces, import-safety hardening, and a clean migration away from root-level `core/` and `utils/` without changing chemistry behavior, outputs, artifacts, or reports.
 - The current public API remains `from chamanp import __version__, ChamanpConfig`; `Pipeline` remains internal and is not publicly exported.
 - Added private internal namespaces under `chamanp/_core` and `chamanp/_utils`.
 - Moved internal utility modules into `chamanp/_utils`.
 - Moved internal core pipeline modules into `chamanp/_core`.
 - Deferred pipeline logging setup until execution so importing pipeline internals no longer creates `artifacts/` or `artifacts/pipeline.log`.
 - Removed the root-level `core/version.py` compatibility bridge after package metadata moved fully to `chamanp.version`.
-- Preserved the minimal public API and kept `Pipeline` private.
 - No chemistry, output, artifact, or report behavior changes are intended in this migration.
 
 ## [v0.6.0] - 2026-05-14
