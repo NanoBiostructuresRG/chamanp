@@ -51,7 +51,7 @@ print(json.dumps({
     "has_config": hasattr(chamanp, "ChamanpConfig"),
     "config_name": ChamanpConfig.__name__,
     "has_pipeline": hasattr(chamanp, "Pipeline"),
-    "base_pipeline_loaded": "core.base_pipeline" in sys.modules,
+    "base_pipeline_loaded": "chamanp._core.base_pipeline" in sys.modules,
 }))
 """
 

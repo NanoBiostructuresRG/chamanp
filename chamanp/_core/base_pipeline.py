@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
-# core/base_pipeline.py
+# chamanp/_core/base_pipeline.py
 
 import os
 import logging

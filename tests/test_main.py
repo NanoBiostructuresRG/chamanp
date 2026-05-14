@@ -7,7 +7,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import main
-from core.base_pipeline import Pipeline
+from chamanp._core.base_pipeline import Pipeline
 
 
 def test_main_runs_preflight_before_pipeline(monkeypatch):
@@ -46,10 +46,10 @@ def test_importing_base_pipeline_has_no_pipeline_side_effects(tmp_path):
     )
     code = """
 import json
-import core.base_pipeline
+import chamanp._core.base_pipeline
 
 print(json.dumps({
-    "has_pipeline": hasattr(core.base_pipeline, "Pipeline"),
+    "has_pipeline": hasattr(chamanp._core.base_pipeline, "Pipeline"),
 }))
 """
 
