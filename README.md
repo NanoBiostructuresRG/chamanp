@@ -226,7 +226,7 @@ Future reports also include execution metadata already available to the pipeline
 
 ## Development Status
 
-CHAMANP is still in pre-stable development. Version `v0.1.0` established the corrected pre-stable baseline, including conservative documentation, dependency declarations, isolated tests, exact collection-label matching, invalid SMILES traceability, and report traceability for invalid SMILES. Version `v0.2.0` focused on centralized project metadata and reproducible report execution metadata. Version `v0.3.0` focused on configuration validation and execution preflight. The `dev-v0.4.0` work begins the package foundation and public API doorway without changing the chemical curation, filtering, or fingerprinting logic.
+CHAMANP is still in pre-stable development. Version `v0.1.0` established the corrected pre-stable baseline, including conservative documentation, dependency declarations, isolated tests, exact collection-label matching, invalid SMILES traceability, and report traceability for invalid SMILES. Version `v0.2.0` focused on centralized project metadata and reproducible report execution metadata. Version `v0.3.0` focused on configuration validation and execution preflight. Version `v0.4.0` establishes the package foundation and public API doorway without changing the chemical curation, filtering, or fingerprinting logic.
 
 ## Future Extensions
 

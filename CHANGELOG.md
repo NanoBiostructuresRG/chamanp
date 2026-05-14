@@ -1,6 +1,6 @@
 # Changelog
 
-## [dev-v0.4.0] - Unreleased
+## [v0.4.0] - 2026-05-13
 
 - Added minimal package metadata in `pyproject.toml`.
 - Added a minimal `chamanp` package namespace exposing `__version__`.
