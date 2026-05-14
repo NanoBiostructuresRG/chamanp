@@ -3,6 +3,7 @@
 ## [dev-v0.6.0] - Unreleased
 
 - Started the external-facing documentation cycle, focused on CHAMANP's public usability contract without changing chemical processing behavior.
+- Added `DESIGN.md` as an internal strategic design reference for CHAMANP identity, public API direction, COCONUT-as-reference-dataset scope, and roadmap.
 
 ## [v0.5.0] - 2026-05-14
 
