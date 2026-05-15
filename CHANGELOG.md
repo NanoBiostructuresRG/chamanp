@@ -1,5 +1,9 @@
 # Changelog
 
+## [dev-v0.12.0] - Unreleased
+
+- Started packaging readiness development, focused on distribution metadata, package build validation, and clean-install smoke checks without changing runtime behavior.
+
 ## [v0.11.0] - 2026-05-15
 
 - Started CLI development, focused on a minimal public terminal interface for loading TOML profiles, validating configuration, and running CHAMANP through the existing public API.
