@@ -1,8 +1,8 @@
 # CHAMANP Strategic Design Document
 
-**Version:** draft-v0.6.0  
-**Status:** Internal reference. Not part of the public API.  
-**Author:** Flavio F. Contreras-Torres, Tecnologico de Monterrey  
+**Version:** draft-v0.13.0
+**Status:** Internal reference. Not part of the public API.
+**Author:** Flavio F. Contreras-Torres, Tecnologico de Monterrey
 
 ---
 
@@ -52,11 +52,14 @@ computational analysis:
 - Drug discovery and repositioning groups working with natural product libraries.
 - Nutrition, biomedicine, and nutraceutics researchers curating compound sets.
 - Computational labs integrating molecular curation into reproducible workflows.
-- Developers building applications or platforms, such as LigandHub, that require
-  a reusable molecular dataset preparation engine.
+- Developers building notebooks, pipelines, servers, or applications that need a
+  reusable molecular dataset preparation engine.
 
-CHAMANP should remain useful outside LigandHub. LigandHub is a future consumer,
-not a dependency or coupling target.
+CHAMANP is not developed specifically for LigandHub. It should remain useful to
+scientists, notebooks, pipelines, servers, and external applications outside any
+single downstream project. LigandHub-API may become an early real downstream
+consumer through pip installation in Docker, but it must not couple or constrain
+CHAMANP's package design.
 
 ---
 
@@ -82,8 +85,8 @@ hidden global state. The first public configuration contract is
 `ChamanpConfig`.
 
 The legacy repository-level `config.py` remains part of the current repository
-workflow, but external consumers should eventually configure CHAMANP through
-package-level objects and functions.
+workflow, while external consumers can configure CHAMANP through package-level
+objects and functions.
 
 ### 4.3 Fail Early, Fail Clearly
 
@@ -130,29 +133,33 @@ onboarding other natural product datasets with equivalent or adapted metadata.
 
 ## 6. Current Public API
 
-As of v0.7.0, the public package API is:
+As of v0.12.0, the public package API is:
 
 ```python
-from chamanp import __version__, ChamanpConfig
+from chamanp import ChamanpConfig, ChamanpResult, validate_config, run
 ```
 
 | Symbol | Type | Purpose |
 |---|---|---|
 | `__version__` | `str` | Package version |
 | `ChamanpConfig` | dataclass | Public runtime configuration contract |
+| `ChamanpResult` | frozen dataclass | Lightweight execution result containing artifact paths and summary counts |
+| `validate_config` | function | Public validation entrypoint for runtime configuration |
+| `run` | function | Public execution entrypoint over the private pipeline implementation |
 
 Implementation internals now live under private package namespaces,
-`chamanp._core` and `chamanp._utils`. `Pipeline` and `validate_config` are not
-currently part of the public `chamanp` API.
+`chamanp._core` and `chamanp._utils`. `Pipeline` remains private and is not part
+of the public `chamanp` API.
 
 ---
 
-## 7. Intended Public API
+## 7. Public Execution Contract
 
-The following represents a design target, not the current implementation:
+The public execution doorway is implemented through `validate_config(config)`
+and `run(config)`:
 
 ```python
-from chamanp import ChamanpConfig, validate_config, run
+from chamanp import ChamanpConfig, ChamanpResult, validate_config, run
 
 config = ChamanpConfig(
     DATABASE_PATH="path/to/database.csv",
@@ -166,10 +173,16 @@ config = ChamanpConfig(
 
 validate_config(config)
 result = run(config)
+assert isinstance(result, ChamanpResult)
 ```
 
-The stable public API should hide internal implementation details. Consumers
-should not need to import directly from `core/`, `utils/`, `chamanp._core`, or
+`run(config)` preserves disk-output behavior and returns a lightweight
+`ChamanpResult`. The result object reports completed executions and artifact
+paths without loading datasets, fingerprint matrices, or reports into memory.
+Execution failures remain exception-based.
+
+The public API should hide internal implementation details. Consumers should
+not need to import directly from `core/`, `utils/`, `chamanp._core`, or
 `chamanp._utils`.
 
 ---
@@ -183,9 +196,11 @@ should not need to import directly from `core/`, `utils/`, `chamanp._core`, or
 | v0.6.0 | External usability | README rewritten for external users and public usability contract |
 | v0.7.0 | Internal package migration | Move internals into private `chamanp/_core` and `chamanp/_utils` paths |
 | v0.8.0 | Public execution API | Import-safe public execution entrypoint |
+| v0.9.0 | Structured execution result | Public `ChamanpResult` returned by `run(config)` |
 | v0.10.0 | TOML profile loading | External TOML configuration profiles through `ChamanpConfig.from_toml(path)` |
 | v0.11.0 | Minimal CLI | Public `chamanp --version`, `chamanp check-config`, and `chamanp run` commands |
 | v0.12.0 | Packaging readiness | Build validation, distribution metadata, and clean-install smoke checks |
+| v0.13.0 | Dependency hardening | pip/PyPI readiness, packaging portability, and dependency policy cleanup |
 | v1.0.0 | Stable public API | Stable package API and PyPI target |
 
 ---
@@ -219,7 +234,8 @@ functions, plus the minimal `chamanp` CLI.
 - CHAMANP is not a docking or virtual screening tool.
 - CHAMANP is not a database. It prepares data from databases.
 - CHAMANP is not COCONUT-specific. COCONUT is the current reference dataset.
-- CHAMANP is not a component of LigandHub. LigandHub is a consumer of CHAMANP.
+- CHAMANP is not a component of LigandHub. LigandHub-API may consume CHAMANP,
+  but it is not CHAMANP's design target.
 - CHAMANP's internal directories are not a stable public API.
 
 ---
@@ -232,10 +248,14 @@ The following decisions are intentionally deferred:
 - CLI extensions beyond the minimal public commands.
 - YAML/JSON configuration profiles.
 - Environment variables, command-line overrides, and multiple named profiles.
-- Public validation API exposure.
 - Automated taxonomy construction.
-- Public execution API over the private pipeline internals.
-- PyPI and conda-forge packaging details.
+- Additional public result formats beyond the current lightweight
+  `ChamanpResult`.
+- Conda-forge packaging details.
+
+pip/PyPI installability is no longer deferred: it is a minimum requirement for
+broad external reuse. Conda-forge may become an additional distribution channel
+later, but it should not replace the pip/PyPI goal.
 
 ---
 
