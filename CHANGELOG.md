@@ -1,6 +1,6 @@
 # Changelog
 
-## [dev-v0.12.0] - Unreleased
+## [v0.12.0] - 2026-05-15
 
 - Started packaging readiness development, focused on distribution metadata, package build validation, and clean-install smoke checks without changing runtime behavior.
 - Added source distribution manifest coverage for the example TOML profile used in documentation.
