@@ -175,6 +175,8 @@ chamanp run examples/chamanp.toml
 
 The CLI uses TOML profiles. `check-config` loads and validates a profile without running the pipeline. `run` loads the profile, validates it, executes CHAMANP, and prints a short summary from the returned `ChamanpResult`.
 
+The `examples/chamanp.toml` profile is provided in the repository and source distribution as a minimal reference profile. Wheels do not currently install example profiles as package resources.
+
 CLI errors are user-facing by default:
 
 ```text
@@ -422,7 +424,7 @@ Planned development remains conservative:
 - Keep CHAMANP independent from LigandHub while remaining easy for LigandHub to consume.
 - Keep private implementation modules under `chamanp/_core/` and `chamanp/_utils/` out of the public API.
 - Expand the public execution API conservatively while keeping heavyweight datasets and fingerprint matrices out of default result objects.
-- Defer CLI commands, YAML/JSON configuration profiles, environment configuration, and command-line overrides until the public Python API is clearer.
+- Keep the CLI and TOML profile support conservative while deferring YAML/JSON configuration profiles, environment configuration, and command-line overrides.
 
 Future extension areas may include:
 

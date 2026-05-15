@@ -183,6 +183,9 @@ should not need to import directly from `core/`, `utils/`, `chamanp._core`, or
 | v0.6.0 | External usability | README rewritten for external users and public usability contract |
 | v0.7.0 | Internal package migration | Move internals into private `chamanp/_core` and `chamanp/_utils` paths |
 | v0.8.0 | Public execution API | Import-safe public execution entrypoint |
+| v0.10.0 | TOML profile loading | External TOML configuration profiles through `ChamanpConfig.from_toml(path)` |
+| v0.11.0 | Minimal CLI | Public `chamanp --version`, `chamanp check-config`, and `chamanp run` commands |
+| v0.12.0 | Packaging readiness | Build validation, distribution metadata, and clean-install smoke checks |
 | v1.0.0 | Stable public API | Stable package API and PyPI target |
 
 ---
@@ -204,8 +207,9 @@ paths.
 
 Import-safety has also been improved: importing `chamanp` does not load the
 private pipeline implementation, create `artifacts/`, or configure
-`artifacts/pipeline.log`. `Pipeline` remains private, and public execution API
-design remains future work.
+`artifacts/pipeline.log`. `Pipeline` remains private. Public execution is now
+available through the `validate_config(config)` and `run(config)` package
+functions, plus the minimal `chamanp` CLI.
 
 ---
 
@@ -225,8 +229,9 @@ design remains future work.
 The following decisions are intentionally deferred:
 
 - Public execution API shape.
-- CLI design.
-- YAML/TOML/JSON configuration profiles.
+- CLI extensions beyond the minimal public commands.
+- YAML/JSON configuration profiles.
+- Environment variables, command-line overrides, and multiple named profiles.
 - Public validation API exposure.
 - Automated taxonomy construction.
 - Public execution API over the private pipeline internals.
