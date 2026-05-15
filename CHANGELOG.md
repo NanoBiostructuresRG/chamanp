@@ -1,5 +1,12 @@
 # Changelog
 
+## [dev-v0.13.0] - Unreleased
+
+- Started dependency and installation hardening development, focused on pip/PyPI readiness, packaging portability, and documentation alignment after v0.12.0.
+- Treat pip installability as a minimum requirement for broad external reuse; LigandHub-API may be an early downstream consumer, but it is not the design target for CHAMANP.
+- Clarified installation documentation for editable installs, local wheel/sdist installs, runtime dependency minimums, RDKit installation sensitivity, and CHAMANP's independent package direction.
+- Refreshed README development status to align with the current public API, dependency policy, and pip/PyPI readiness focus.
+
 ## [v0.12.0] - 2026-05-15
 
 - Started packaging readiness development, focused on distribution metadata, package build validation, and clean-install smoke checks without changing runtime behavior.
