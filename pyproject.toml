@@ -41,6 +41,9 @@ dev = [
 [project.urls]
 Repository = "https://github.com/NanoBiostructuresRG/chamanp"
 
+[project.scripts]
+chamanp = "chamanp.cli:main"
+
 [tool.setuptools.dynamic]
 version = { attr = "chamanp.version.__version__" }
 

@@ -101,7 +101,6 @@ from chamanp import __version__, ChamanpConfig, ChamanpResult, validate_config, 
 These are not current public `chamanp` exports:
 
 - `Pipeline`
-- CLI commands
 - YAML/JSON configuration profiles
 - Environment-variable or command-line configuration overrides
 
@@ -165,6 +164,24 @@ result = run(cfg)
 ```
 
 TOML loading uses lower_snake_case keys and builds a `ChamanpConfig` object. It does not run the pipeline and does not replace `validate_config(config)`. Unknown TOML fields fail clearly instead of being ignored. The repository-level `config.py` workflow remains supported for local runs.
+
+### Use The Minimal CLI
+
+```bash
+chamanp --version
+chamanp check-config examples/chamanp.toml
+chamanp run examples/chamanp.toml
+```
+
+The CLI uses TOML profiles. `check-config` loads and validates a profile without running the pipeline. `run` loads the profile, validates it, executes CHAMANP, and prints a short summary from the returned `ChamanpResult`.
+
+CLI errors are user-facing by default:
+
+```text
+Error: <message>
+```
+
+Python tracebacks are not shown by default.
 
 ### Validate And Run From Python
 
