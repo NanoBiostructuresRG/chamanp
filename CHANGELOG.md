@@ -1,5 +1,12 @@
 # Changelog
 
+## [dev-v0.11.0] - Unreleased
+
+- Started CLI development, focused on a minimal public terminal interface for loading TOML profiles, validating configuration, and running CHAMANP through the existing public API.
+- The CLI is designed to present clean user-facing errors without Python tracebacks by default.
+- Added a minimal `chamanp` CLI with `--version`, `check-config`, and `run` commands backed by the existing public Python API.
+- CLI command failures now print clean `Error: <message>` output without Python tracebacks by default.
+
 ## [v0.10.0] - 2026-05-14
 
 - Started TOML configuration profile development, focused on loading reproducible external configuration files through `ChamanpConfig.from_toml(path)` without changing pipeline behavior.
