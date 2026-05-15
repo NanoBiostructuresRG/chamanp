@@ -6,6 +6,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 from chamanp.version import PROJECT_VERSION
 
 
@@ -23,12 +25,19 @@ def test_chamanp_version_export_matches_package_project_version():
 
 def test_chamanp_public_api_boundary():
     import chamanp
-    from chamanp import ChamanpConfig, __version__
+    from chamanp import ChamanpConfig, __version__, run, validate_config
 
     assert __version__ == chamanp.__version__
     assert chamanp.ChamanpConfig is ChamanpConfig
-    assert chamanp.__all__ == ["__version__", "ChamanpConfig"]
+    assert chamanp.validate_config is validate_config
+    assert chamanp.run is run
+    assert chamanp.__all__ == ["__version__", "ChamanpConfig", "validate_config", "run"]
     assert not hasattr(chamanp, "Pipeline")
+
+
+def test_pipeline_is_not_publicly_importable_from_chamanp():
+    with pytest.raises(ImportError):
+        from chamanp import Pipeline  # noqa: F401
 
 
 def test_import_chamanp_in_clean_process_has_no_pipeline_side_effects(tmp_path):
@@ -44,14 +53,19 @@ def test_import_chamanp_in_clean_process_has_no_pipeline_side_effects(tmp_path):
 import json
 import sys
 import chamanp
-from chamanp import ChamanpConfig, __version__
+from chamanp import ChamanpConfig, __version__, run, validate_config
 
 print(json.dumps({
     "version": __version__,
     "has_config": hasattr(chamanp, "ChamanpConfig"),
     "config_name": ChamanpConfig.__name__,
+    "has_validate_config": hasattr(chamanp, "validate_config"),
+    "has_run": hasattr(chamanp, "run"),
     "has_pipeline": hasattr(chamanp, "Pipeline"),
+    "has_core_attr": hasattr(chamanp, "_core"),
+    "has_utils_attr": hasattr(chamanp, "_utils"),
     "base_pipeline_loaded": "chamanp._core.base_pipeline" in sys.modules,
+    "public_names": chamanp.__all__,
 }))
 """
 
@@ -69,8 +83,13 @@ print(json.dumps({
         "version": PROJECT_VERSION,
         "has_config": True,
         "config_name": "ChamanpConfig",
+        "has_validate_config": True,
+        "has_run": True,
         "has_pipeline": False,
+        "has_core_attr": False,
+        "has_utils_attr": False,
         "base_pipeline_loaded": False,
+        "public_names": ["__version__", "ChamanpConfig", "validate_config", "run"],
     }
     assert not (tmp_path / "artifacts").exists()
     assert not (tmp_path / "artifacts" / "pipeline.log").exists()
@@ -110,7 +129,7 @@ print(json.dumps({
     observed = json.loads(completed.stdout)
 
     assert observed == {
-        "public_api": ["__version__", "ChamanpConfig"],
+        "public_api": ["__version__", "ChamanpConfig", "validate_config", "run"],
         "has_pipeline": False,
         "core_package": "chamanp._core",
         "utils_package": "chamanp._utils",

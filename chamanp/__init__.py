@@ -2,6 +2,7 @@
 """Public package doorway for CHAMANP."""
 
 from chamanp.config import ChamanpConfig
+from chamanp.pipeline import run, validate_config
 from chamanp.version import __version__
 
-__all__ = ["__version__", "ChamanpConfig"]
+__all__ = ["__version__", "ChamanpConfig", "validate_config", "run"]

@@ -8,7 +8,7 @@ CHAMANP fills a gap between raw molecular databases and analysis-ready datasets 
 
 It helps turn raw molecular tables into curated, traceable, fingerprint-ready datasets for reproducible cheminformatics workflows.
 
-CHAMANP is pre-stable. The repository workflow is the current complete execution path, while the package API is being introduced gradually.
+CHAMANP is pre-stable. The repository workflow remains available, while the package API is being introduced gradually.
 
 ## Why CHAMANP?
 
@@ -76,18 +76,18 @@ This executes:
 input curation -> collection validation -> filtering -> fingerprinting -> reporting
 ```
 
-### Minimal Package API
+### Package API
 
-CHAMANP also has a minimal importable package doorway:
+CHAMANP also has an importable package doorway:
 
 ```python
 import chamanp
-from chamanp import __version__, ChamanpConfig
+from chamanp import __version__, ChamanpConfig, validate_config, run
 ```
 
-`ChamanpConfig` is the first public runtime configuration object. It provides an importable configuration contract for future reusable workflows and does not change the current repository-based pipeline behavior.
+`ChamanpConfig` is the public runtime configuration object. `validate_config(config)` validates configuration before execution. `run(config)` validates the configuration, executes the current pipeline behavior, writes configured artifacts to disk, and returns `None`.
 
-The full execution API is not public yet.
+Structured in-memory result objects are not available yet; they are deferred to a future development version.
 
 ## Current Public API
 
@@ -95,17 +95,16 @@ Current public imports:
 
 ```python
 import chamanp
-from chamanp import __version__, ChamanpConfig
+from chamanp import __version__, ChamanpConfig, validate_config, run
 ```
 
 These are not current public `chamanp` exports:
 
 - `Pipeline`
-- `validate_config`
 - CLI commands
 - YAML/TOML/JSON configuration profiles
 
-Future releases may expose a public execution API, but that API is still a draft direction.
+Future releases may add structured in-memory results, but `run(config)` currently returns `None` and writes configured artifacts to disk.
 
 ## Minimal Usage Examples
 
@@ -154,11 +153,25 @@ cfg = ChamanpConfig.from_module(my_config)
 
 This creates a configuration object from a module with the expected uppercase configuration attributes. It does not run the pipeline.
 
+### Validate And Run From Python
+
+```python
+from chamanp import ChamanpConfig, validate_config, run
+import my_config
+
+cfg = ChamanpConfig.from_module(my_config)
+validate_config(cfg)
+result = run(cfg)
+assert result is None
+```
+
+`run(config)` preserves the current disk-output behavior. It writes configured artifacts and reports to disk. A structured result object is planned for a future development version, likely after the public execution doorway has stabilized.
+
 ## Installation Status
 
 CHAMANP is currently pre-stable.
 
-The package foundation exists, and the minimal public package imports are available. Internal implementation modules now live under private package namespaces, `chamanp/_core/` and `chamanp/_utils/`. These private namespaces are not user-facing API. The repository workflow remains the current complete execution path while the public execution API is still future work.
+The package foundation exists, and the public package imports for configuration validation and execution are available. Internal implementation modules live under private package namespaces, `chamanp/_core/` and `chamanp/_utils/`. These private namespaces are not user-facing API. The repository workflow remains available while the Python API continues to mature.
 
 CHAMANP currently targets Python 3.11. Because CHAMANP uses RDKit, conda/mamba is the recommended environment path:
 
@@ -374,7 +387,7 @@ Planned development remains conservative:
 - Keep `import chamanp` side-effect free.
 - Keep CHAMANP independent from LigandHub while remaining easy for LigandHub to consume.
 - Keep private implementation modules under `chamanp/_core/` and `chamanp/_utils/` out of the public API.
-- Add a public execution API only after the private execution boundary is ready.
+- Expand the public execution API conservatively, including structured in-memory results in a future development version.
 - Defer CLI commands and YAML/TOML/JSON configuration profiles until the public Python API is clearer.
 
 Future extension areas may include:
