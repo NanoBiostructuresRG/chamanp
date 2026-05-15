@@ -2,6 +2,7 @@
 """Public execution doorway for CHAMANP."""
 
 from chamanp.config import ChamanpConfig
+from chamanp.result import ChamanpResult
 
 
 def validate_config(config: ChamanpConfig | None = None) -> ChamanpConfig:
@@ -10,12 +11,11 @@ def validate_config(config: ChamanpConfig | None = None) -> ChamanpConfig:
     return _validate_config_impl(active_config)
 
 
-def run(config: ChamanpConfig | None = None) -> None:
+def run(config: ChamanpConfig | None = None) -> ChamanpResult:
     """Validate and execute CHAMANP, writing configured artifacts to disk."""
     active_config = validate_config(config)
     pipeline = _pipeline_cls()(config=active_config)
-    pipeline.run()
-    return None
+    return pipeline.run()
 
 
 def _validate_config_impl(config):

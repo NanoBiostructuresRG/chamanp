@@ -3,6 +3,7 @@
 
 from chamanp.config import ChamanpConfig
 from chamanp.pipeline import run, validate_config
+from chamanp.result import ChamanpResult
 from chamanp.version import __version__
 
-__all__ = ["__version__", "ChamanpConfig", "validate_config", "run"]
+__all__ = ["__version__", "ChamanpConfig", "validate_config", "run", "ChamanpResult"]
