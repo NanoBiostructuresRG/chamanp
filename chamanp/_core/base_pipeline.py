@@ -9,7 +9,9 @@ from chamanp._core.filter import CompoundFilter
 from chamanp._core.fingerprints import FingerprintGenerator
 from chamanp._utils.collection_utils import CollectionValidator
 from chamanp._core.reporter import ReportWriter
+from chamanp.result import ChamanpResult
 from chamanp._utils.path_manager import PathManager
+from chamanp.version import __version__
 
 
 def _configure_logging():
@@ -34,6 +36,7 @@ class Pipeline:
         self.total_after_dedup = 0
         self.stereo_removed_count = 0
         self.invalid_smiles_count = 0
+        self.report_path = None
 
         self.paths = PathManager(tag=self.config.COLLECTION_TAG)
 
@@ -47,6 +50,7 @@ class Pipeline:
         self._generate_fingerprints()
         self._write_report()
         logging.info("Pipeline execution completed.")
+        return self._build_result()
 
     def _create_directories(self):
         os.makedirs("artifacts", exist_ok=True)
@@ -99,7 +103,7 @@ class Pipeline:
     def _write_report(self):
         logging.info("Generating final report...")
         writer = ReportWriter(config=self.config)
-        report_path = writer.generate_phase2_report(
+        self.report_path = writer.generate_phase2_report(
             total_input_size=self.total_input_size,
             total_after_dedup=self.total_after_dedup,
             stereo_removed_count=self.stereo_removed_count,
@@ -119,4 +123,34 @@ class Pipeline:
             fingerprint_bits=self.config.MORGAN_BITS,
             collection_tag=self.config.COLLECTION_TAG
         )
-        logging.info(f"Report saved to: {report_path}")
+        logging.info(f"Report saved to: {self.report_path}")
+
+    def _build_result(self):
+        filtered_count = len(self.filtered_df) if self.filtered_df is not None else None
+        valid_molecules_count = (
+            filtered_count - self.invalid_smiles_count
+            if filtered_count is not None and self.invalid_smiles_count is not None
+            else None
+        )
+        return ChamanpResult(
+            status="completed",
+            version=__version__,
+            collection_tag=self.config.COLLECTION_TAG,
+            curated_path=self.paths.curated(),
+            filtered_path=self.paths.filtered(),
+            metadata_path=self.paths.metadata(),
+            fingerprints_path=self.paths.fingerprints(),
+            invalid_smiles_path=self.paths.invalid_smiles(),
+            report_path=(
+                self.report_path
+                or f"{self.config.REPORTS_PATH}/report_dbprep_{self.config.COLLECTION_TAG}.txt"
+            ),
+            fingerprint_radius=self.config.MORGAN_RADIUS,
+            fingerprint_bits=self.config.MORGAN_BITS,
+            total_input_size=self.total_input_size,
+            total_after_dedup=self.total_after_dedup,
+            stereo_removed_count=self.stereo_removed_count,
+            filtered_count=filtered_count,
+            valid_molecules_count=valid_molecules_count,
+            invalid_smiles_count=self.invalid_smiles_count,
+        )

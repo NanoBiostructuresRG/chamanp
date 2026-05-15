@@ -71,7 +71,12 @@ print(json.dumps({
 def test_pipeline_run_configures_logging_without_real_pipeline_steps(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     calls = []
-    config = SimpleNamespace(COLLECTION_TAG="pubchem")
+    config = SimpleNamespace(
+        COLLECTION_TAG="pubchem",
+        REPORTS_PATH="artifacts/reports",
+        MORGAN_RADIUS=2,
+        MORGAN_BITS=1024,
+    )
     pipeline = Pipeline(config=config)
     pipeline.filtered_df = []
 

@@ -82,12 +82,12 @@ CHAMANP also has an importable package doorway:
 
 ```python
 import chamanp
-from chamanp import __version__, ChamanpConfig, validate_config, run
+from chamanp import __version__, ChamanpConfig, ChamanpResult, validate_config, run
 ```
 
-`ChamanpConfig` is the public runtime configuration object. `validate_config(config)` validates configuration before execution. `run(config)` validates the configuration, executes the current pipeline behavior, writes configured artifacts to disk, and returns `None`.
+`ChamanpConfig` is the public runtime configuration object. `validate_config(config)` validates configuration before execution. `run(config)` validates the configuration, executes the current pipeline behavior, writes configured artifacts to disk, and returns a lightweight `ChamanpResult`.
 
-Structured in-memory result objects are not available yet; they are deferred to a future development version.
+`ChamanpResult` contains artifact paths and summary counts. Successful runs currently use `status="completed"`. It does not load fingerprint matrices, datasets, or reports into memory by default. Execution failures raise exceptions rather than returning a failed `ChamanpResult`.
 
 ## Current Public API
 
@@ -95,7 +95,7 @@ Current public imports:
 
 ```python
 import chamanp
-from chamanp import __version__, ChamanpConfig, validate_config, run
+from chamanp import __version__, ChamanpConfig, ChamanpResult, validate_config, run
 ```
 
 These are not current public `chamanp` exports:
@@ -104,7 +104,7 @@ These are not current public `chamanp` exports:
 - CLI commands
 - YAML/TOML/JSON configuration profiles
 
-Future releases may add structured in-memory results, but `run(config)` currently returns `None` and writes configured artifacts to disk.
+`Pipeline` remains private and is not exported from `chamanp`.
 
 ## Minimal Usage Examples
 
@@ -156,16 +156,20 @@ This creates a configuration object from a module with the expected uppercase co
 ### Validate And Run From Python
 
 ```python
-from chamanp import ChamanpConfig, validate_config, run
+from chamanp import ChamanpConfig, ChamanpResult, validate_config, run
 import my_config
 
 cfg = ChamanpConfig.from_module(my_config)
 validate_config(cfg)
 result = run(cfg)
-assert result is None
+assert isinstance(result, ChamanpResult)
+print(result.valid_molecules_count)
+print(result.fingerprints_path)
 ```
 
-`run(config)` preserves the current disk-output behavior. It writes configured artifacts and reports to disk. A structured result object is planned for a future development version, likely after the public execution doorway has stabilized.
+`run(config)` preserves the current disk-output behavior. It writes configured artifacts and reports to disk, then returns a `ChamanpResult` with paths and summary counts. The result object does not load `X_*.npy`, CSV files, or reports into memory by default.
+
+For successful runs, `result.status` is currently `"completed"`. If validation or execution fails, `run(config)` raises the underlying exception and does not return a failed result object.
 
 ## Installation Status
 
@@ -387,7 +391,7 @@ Planned development remains conservative:
 - Keep `import chamanp` side-effect free.
 - Keep CHAMANP independent from LigandHub while remaining easy for LigandHub to consume.
 - Keep private implementation modules under `chamanp/_core/` and `chamanp/_utils/` out of the public API.
-- Expand the public execution API conservatively, including structured in-memory results in a future development version.
+- Expand the public execution API conservatively while keeping heavyweight datasets and fingerprint matrices out of default result objects.
 - Defer CLI commands and YAML/TOML/JSON configuration profiles until the public Python API is clearer.
 
 Future extension areas may include:

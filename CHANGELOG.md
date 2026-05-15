@@ -1,5 +1,13 @@
 # Changelog
 
+## [dev-v0.9.0] - Unreleased
+
+- Started structured execution result development, focused on returning a public `ChamanpResult` from `run(config)` without changing chemistry behavior, artifact names, output formats, or report contents.
+- Added public `ChamanpResult` as a frozen dataclass containing execution status, version, artifact paths, fingerprint settings, and summary counts.
+- Updated public `run(config)` to return `ChamanpResult` while preserving existing artifact-writing behavior.
+- Kept `Pipeline` private and avoided loading fingerprint matrices, datasets, or reports into the result object.
+- Documented that `ChamanpResult` reports completed executions and failures remain exception-based.
+
 ## [v0.8.0] - 2026-05-14
 
 - Added the public execution API doorway, exposing `validate_config` and `run` from the main `chamanp` namespace while keeping `Pipeline` private.
