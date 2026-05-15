@@ -209,7 +209,51 @@ CHAMANP is currently pre-stable.
 
 The package foundation exists, and the public package imports for configuration validation and execution are available. Internal implementation modules live under private package namespaces, `chamanp/_core/` and `chamanp/_utils/`. These private namespaces are not user-facing API. The repository workflow remains available while the Python API continues to mature.
 
-CHAMANP currently targets Python 3.11. Because CHAMANP uses RDKit, conda/mamba is the recommended environment path:
+CHAMANP is an independent package. It is not developed specifically for LigandHub, although LigandHub-API may become an early downstream consumer through pip installation in Docker. CHAMANP should remain reusable by scientists, notebooks, pipelines, servers, and external applications.
+
+CHAMANP currently targets Python 3.11. pip/PyPI installability is a minimum requirement for broad external reuse. Conda/mamba can be useful for local scientific environments, especially because RDKit is the most platform-sensitive dependency, but conda-forge is an additional future channel rather than a replacement for pip/PyPI readiness.
+
+### Runtime Dependencies
+
+`pyproject.toml` declares minimum runtime dependencies for users and downstream packages:
+
+```text
+pandas>=1.5
+numpy>=1.23.2
+rdkit>=2022.9
+```
+
+Exact runtime pins should not live in `project.dependencies` unless there is a strong compatibility reason. Reproducible development or release environments can be documented separately. `scipy` is not a current runtime dependency because CHAMANP does not import it.
+
+### Editable Install From The Repository
+
+```bash
+python -m pip install -e .
+```
+
+### Local Wheel Or Source Distribution
+
+Build the local distribution artifacts:
+
+```bash
+python -m build --no-isolation
+```
+
+Install the generated wheel:
+
+```bash
+python -m pip install dist/<wheel>.whl
+```
+
+or install from the generated source distribution:
+
+```bash
+python -m pip install dist/<sdist>.tar.gz
+```
+
+### Conda/Mamba Environment For Local Research
+
+For local scientific work, conda/mamba may still be convenient because of RDKit:
 
 ```bash
 mamba env create -f environment.yml
@@ -221,12 +265,6 @@ or:
 ```bash
 conda env create -f environment.yml
 conda activate chamanp_env
-```
-
-Alternatively, install runtime dependencies with pip:
-
-```bash
-pip install -r requirements.txt
 ```
 
 For development and testing tools with pip:
@@ -421,17 +459,18 @@ pytest 8.3.4
 Planned development remains conservative:
 
 - Keep `import chamanp` side-effect free.
-- Keep CHAMANP independent from LigandHub while remaining easy for LigandHub to consume.
+- Keep CHAMANP independent from LigandHub while remaining easy for downstream applications, including LigandHub-API, to consume.
 - Keep private implementation modules under `chamanp/_core/` and `chamanp/_utils/` out of the public API.
 - Expand the public execution API conservatively while keeping heavyweight datasets and fingerprint matrices out of default result objects.
 - Keep the CLI and TOML profile support conservative while deferring YAML/JSON configuration profiles, environment configuration, and command-line overrides.
+- Continue hardening pip/PyPI installation as a minimum requirement for broad external reuse.
 
 Future extension areas may include:
 
 - Integration with bioactivity repositories such as ChEMBL or PubChem BioAssay.
 - Support for additional fingerprint types and molecular descriptors.
 - Broader test coverage and reproducibility metadata.
-- Future integration into the LigandHub suite as one consumer of CHAMANP.
+- Downstream application integration, with LigandHub-API as one possible consumer of CHAMANP.
 
 ## Author
 
