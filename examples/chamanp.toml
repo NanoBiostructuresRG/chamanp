@@ -1,0 +1,22 @@
+# Example CHAMANP TOML configuration profile.
+# This file is illustrative and not authoritative for every dataset.
+
+database_path = "source_data/coconut_05-2025.csv"
+reports_path = "artifacts/reports"
+collection_taxonomy_path = "source_data/coconut_taxonomy.json"
+target_collections = ["PubChem NPs"]
+collection_tag = "pubchem"
+collection_logic = "OR"
+morgan_radius = 2
+morgan_bits = 1024
+selected_properties = [
+  "identifier",
+  "canonical_smiles",
+  "name",
+  "molecular_weight",
+  "alogp",
+  "topological_polar_surface_area",
+  "np_likeness",
+  "collections",
+]
+remove_stereo_duplicates = true
