@@ -1,5 +1,14 @@
 # Changelog
 
+## [dev-v0.8.0] - Unreleased
+
+- Started public execution API development, focused on exposing `validate_config` and `run` from the main `chamanp` namespace while keeping `Pipeline` private.
+- `run(config)` is planned to preserve current disk-output behavior and return `None` in this development cycle; structured in-memory results are deferred to a future development version.
+- No chemistry, fingerprint, artifact, output, or report behavior changes are intended.
+- Added public `validate_config(config)` and `run(config)` exports from the main `chamanp` namespace.
+- Kept `Pipeline` private and out of `chamanp.__all__`.
+- Documented that `run(config)` returns `None` in v0.8.0 and writes configured artifacts to disk.
+
 ## [v0.7.0] - 2026-05-14
 
 - Completed the internal package migration for private `chamanp/_core` and `chamanp/_utils` namespaces, import-safety hardening, and a clean migration away from root-level `core/` and `utils/` without changing chemistry behavior, outputs, artifacts, or reports.
