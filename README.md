@@ -46,7 +46,7 @@ The current repository pipeline can:
 - Record invalid SMILES encountered during fingerprint generation.
 - Write curated datasets, filtered datasets, fingerprint matrices, valid metadata, invalid SMILES files, and preparation reports.
 
-CHAMANP does not currently provide molecular property prediction, docking, virtual screening, or a stable public execution API.
+CHAMANP does not currently provide molecular property prediction, docking, virtual screening, or a stable v1.0 public API. A pre-stable public API is available through `ChamanpConfig`, `ChamanpResult`, `validate_config`, and `run`.
 
 ## COCONUT As Reference Dataset
 
@@ -376,8 +376,12 @@ The current baseline contains focused tests covering isolated components:
 - `reporter`
 - `result_manager`
 - `main`
-- `package imports`
 - `ChamanpConfig`
+- `ChamanpResult`
+- TOML configuration loading
+- public pipeline API doorway
+- CLI behavior
+- package import safety
 
 These tests do not run the full pipeline and do not require the full COCONUT source CSV.
 
@@ -401,14 +405,17 @@ CHAMANP/
 |-- COPYING                           # GNU GPLv3 text
 |-- COPYING.LESSER                    # GNU LGPLv3 text
 |-- CITATION.cff                      # Citation metadata
-|-- requirements.txt                  # Runtime dependencies
+|-- requirements.txt                  # Legacy/reproducible environment dependency file
 |-- requirements-dev.txt              # Development/test dependencies
 |-- environment.yml                   # Conda/mamba environment
-|-- pyproject.toml                    # Package metadata
+|-- pyproject.toml                    # Package metadata and canonical runtime dependencies
 |-- CHANGELOG.md                      # Development history
-|-- chamanp/                          # Minimal package namespace
+|-- chamanp/                          # Package namespace with public API doorways and private internals
 |   |-- __init__.py                   # Public package doorway
+|   |-- cli.py                        # Minimal public CLI
 |   |-- config.py                     # Public configuration object
+|   |-- pipeline.py                   # Public validate_config/run doorway
+|   |-- result.py                     # Public ChamanpResult object
 |   |-- version.py                    # Package version source
 |   |-- _core/                        # Private internal pipeline modules
 |   |   |-- base_pipeline.py          # Pipeline orchestrator
@@ -442,17 +449,14 @@ CHAMANP is still in pre-stable development.
 - `v0.5.0` introduced `ChamanpConfig` as the first public runtime configuration object.
 - `v0.6.0` focused on external-facing documentation and the public usability contract.
 - `v0.7.0` focused on internal package migration into private namespaces while preserving the current public API.
+- `v0.8.0` introduced the public `validate_config(config)` and `run(config)` execution doorway while keeping `Pipeline` private.
+- `v0.9.0` introduced `ChamanpResult` as the lightweight structured result returned by `run(config)`.
+- `v0.10.0` added TOML configuration profile loading through `ChamanpConfig.from_toml(path)`.
+- `v0.11.0` added the minimal public CLI.
+- `v0.12.0` validated packaging readiness through local wheel/sdist builds and install smoke checks.
+- `dev-v0.13.0` focuses on dependency hardening, runtime dependency policy, pip/PyPI readiness, and installation documentation.
 
-The earlier `dev-v1.0.1` work established the documentation, dependency, and testing baseline that was incorporated into `v0.1.0`. The development environment used for that baseline was:
-
-```text
-Python 3.11
-pandas 3.0.3
-numpy 2.4.3
-scipy 1.15.3
-rdkit 2025.09.2
-pytest 8.3.4
-```
+The current package runtime dependency policy is defined in `pyproject.toml`, with minimum dependency ranges intended for users and downstream packages.
 
 ## Future Direction
 
@@ -461,7 +465,7 @@ Planned development remains conservative:
 - Keep `import chamanp` side-effect free.
 - Keep CHAMANP independent from LigandHub while remaining easy for downstream applications, including LigandHub-API, to consume.
 - Keep private implementation modules under `chamanp/_core/` and `chamanp/_utils/` out of the public API.
-- Expand the public execution API conservatively while keeping heavyweight datasets and fingerprint matrices out of default result objects.
+- Evolve the public execution API conservatively while keeping heavyweight datasets and fingerprint matrices out of default result objects.
 - Keep the CLI and TOML profile support conservative while deferring YAML/JSON configuration profiles, environment configuration, and command-line overrides.
 - Continue hardening pip/PyPI installation as a minimum requirement for broad external reuse.
 
