@@ -1,6 +1,6 @@
 # Changelog
 
-## [dev-v0.9.0] - Unreleased
+## [v0.9.0] - 2026-05-14
 
 - Started structured execution result development, focused on returning a public `ChamanpResult` from `run(config)` without changing chemistry behavior, artifact names, output formats, or report contents.
 - Added public `ChamanpResult` as a frozen dataclass containing execution status, version, artifact paths, fingerprint settings, and summary counts.

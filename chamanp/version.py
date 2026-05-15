@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 """Package version metadata."""
 
-__version__ = "0.9.0-dev"
+__version__ = "0.9.0"
 PROJECT_NAME = "CHAMANP"
 PROJECT_VERSION = __version__
 PROJECT_STATUS = "pre-stable development"
