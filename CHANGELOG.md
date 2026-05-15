@@ -1,6 +1,6 @@
 # Changelog
 
-## [dev-v0.11.0] - Unreleased
+## [v0.11.0] - 2026-05-15
 
 - Started CLI development, focused on a minimal public terminal interface for loading TOML profiles, validating configuration, and running CHAMANP through the existing public API.
 - The CLI is designed to present clean user-facing errors without Python tracebacks by default.
