@@ -1,6 +1,6 @@
 # Changelog
 
-## [dev-v0.10.0] - Unreleased
+## [v0.10.0] - 2026-05-14
 
 - Started TOML configuration profile development, focused on loading reproducible external configuration files through `ChamanpConfig.from_toml(path)` without changing pipeline behavior.
 - Added `ChamanpConfig.from_toml(path)` using Python 3.11 `tomllib` for external TOML configuration profiles.
