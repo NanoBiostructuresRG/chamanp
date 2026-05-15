@@ -1,5 +1,11 @@
 # Changelog
 
+## [dev-v0.10.0] - Unreleased
+
+- Started TOML configuration profile development, focused on loading reproducible external configuration files through `ChamanpConfig.from_toml(path)` without changing pipeline behavior.
+- Added `ChamanpConfig.from_toml(path)` using Python 3.11 `tomllib` for external TOML configuration profiles.
+- TOML loading accepts lower_snake_case keys, maps them to existing CHAMANP configuration fields, rejects unknown keys, and leaves semantic validation to `validate_config(config)`.
+
 ## [v0.9.0] - 2026-05-14
 
 - Started structured execution result development, focused on returning a public `ChamanpResult` from `run(config)` without changing chemistry behavior, artifact names, output formats, or report contents.

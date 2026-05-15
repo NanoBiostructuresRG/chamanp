@@ -102,7 +102,8 @@ These are not current public `chamanp` exports:
 
 - `Pipeline`
 - CLI commands
-- YAML/TOML/JSON configuration profiles
+- YAML/JSON configuration profiles
+- Environment-variable or command-line configuration overrides
 
 `Pipeline` remains private and is not exported from `chamanp`.
 
@@ -152,6 +153,18 @@ cfg = ChamanpConfig.from_module(my_config)
 ```
 
 This creates a configuration object from a module with the expected uppercase configuration attributes. It does not run the pipeline.
+
+### Load A TOML Configuration Profile
+
+```python
+from chamanp import ChamanpConfig, validate_config, run
+
+cfg = ChamanpConfig.from_toml("examples/chamanp.toml")
+validate_config(cfg)
+result = run(cfg)
+```
+
+TOML loading uses lower_snake_case keys and builds a `ChamanpConfig` object. It does not run the pipeline and does not replace `validate_config(config)`. Unknown TOML fields fail clearly instead of being ignored. The repository-level `config.py` workflow remains supported for local runs.
 
 ### Validate And Run From Python
 
@@ -392,7 +405,7 @@ Planned development remains conservative:
 - Keep CHAMANP independent from LigandHub while remaining easy for LigandHub to consume.
 - Keep private implementation modules under `chamanp/_core/` and `chamanp/_utils/` out of the public API.
 - Expand the public execution API conservatively while keeping heavyweight datasets and fingerprint matrices out of default result objects.
-- Defer CLI commands and YAML/TOML/JSON configuration profiles until the public Python API is clearer.
+- Defer CLI commands, YAML/JSON configuration profiles, environment configuration, and command-line overrides until the public Python API is clearer.
 
 Future extension areas may include:
 
