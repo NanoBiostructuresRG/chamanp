@@ -27,10 +27,9 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Chemistry"
 ]
 dependencies = [
-    "pandas==3.0.3",
-    "numpy==2.4.3",
-    "scipy==1.15.3",
-    "rdkit==2025.9.2"
+    "pandas>=1.5",
+    "numpy>=1.23.2",
+    "rdkit>=2022.9"
 ]
 
 [project.optional-dependencies]
