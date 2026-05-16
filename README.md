@@ -209,6 +209,8 @@ CHAMANP is currently pre-stable.
 
 The package foundation exists, and the public package imports for configuration validation and execution are available. Internal implementation modules live under private package namespaces, `chamanp/_core/` and `chamanp/_utils/`. These private namespaces are not user-facing API. The repository workflow remains available while the Python API continues to mature.
 
+For more detailed installation and distribution notes, see [INSTALL.md](INSTALL.md).
+
 CHAMANP is an independent package. It is not developed specifically for LigandHub, although LigandHub-API may become an early downstream consumer through pip installation in Docker. CHAMANP should remain reusable by scientists, notebooks, pipelines, servers, and external applications.
 
 CHAMANP currently targets Python 3.11. pip/PyPI installability is a minimum requirement for broad external reuse. Conda/mamba can be useful for local scientific environments, especially because RDKit is the most platform-sensitive dependency, but conda-forge is an additional future channel rather than a replacement for pip/PyPI readiness.
