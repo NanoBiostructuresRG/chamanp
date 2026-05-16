@@ -1,5 +1,11 @@
 # Changelog
 
+## [dev-v0.16.0] - Unreleased
+
+### Changed
+- Started the dev-v0.16.0 stable-release gate cycle.
+- Development version metadata now uses the PEP 440-compliant `.dev0` format instead of the previous `-dev` style.
+
 ## [v0.15.0] - 2026-05-15
 
 - Started PyPI/TestPyPI publication readiness and stable-release contract hardening work after the v0.14.0 pre-release validation cycle.
