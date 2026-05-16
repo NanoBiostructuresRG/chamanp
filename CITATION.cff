@@ -15,8 +15,8 @@ abstract: >-
   CHAMANP is a pre-stable development prototype for the systematic and
   reproducible preparation of curated molecular datasets for cheminformatics
   workflows, molecular annotation, natural products research, and downstream
-  machine learning applications. It is being prepared as a future component
-  of the LigandHub suite.
+  machine learning applications. It is an independent package that may be
+  consumed by LigandHub or other downstream systems.
 keywords:
   - cheminformatics
   - natural products

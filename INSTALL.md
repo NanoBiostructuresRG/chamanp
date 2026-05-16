@@ -1,8 +1,11 @@
 # CHAMANP Installation And Distribution Notes
 
-CHAMANP is a pre-stable package. The current installation goal is to make the
-package buildable, installable, and usable outside the repository checkout while
-preserving the existing public API and repository workflow.
+CHAMANP is a pre-stable package currently in a stable-release gate cycle. The
+current installation goal is to keep the package buildable, installable, and
+usable outside the repository checkout while preserving the existing public API
+and repository workflow.
+
+Development versions use the PEP 440 `.dev0` format, such as `0.16.0.dev0`.
 
 ## Dependency Sources
 
@@ -23,6 +26,13 @@ as a reproducible local or legacy environment file while CHAMANP is pre-stable.
 local scientific work, especially because RDKit can be sensitive to Python,
 platform, and installer channel combinations. Conda/mamba support is helpful,
 but it does not replace the pip/PyPI readiness goal.
+
+## TestPyPI And PyPI
+
+TestPyPI may be used to validate publication mechanics and dependency
+resolution before an official release. It is a testing index, not the official
+user installation channel. A future stable publication should be validated
+against the official PyPI package state separately from any TestPyPI upload.
 
 ## Editable Install
 
@@ -55,7 +65,9 @@ dist/chamanp-<version>-py3-none-any.whl
 ```
 
 `examples/chamanp.toml` is included in the source distribution. Wheels do not
-currently install example profiles as package resources.
+currently install example profiles as package resources. Users installing from a
+wheel should create their own TOML profile or copy the reference profile from
+the repository or source distribution.
 
 ## Install From A Local Wheel
 

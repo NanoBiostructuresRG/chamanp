@@ -5,6 +5,11 @@
 ### Changed
 - Started the dev-v0.16.0 stable-release gate cycle.
 - Development version metadata now uses the PEP 440-compliant `.dev0` format instead of the previous `-dev` style.
+- Aligned DESIGN, README, and INSTALL documentation around release governance before any stable publication.
+- Documented the current pre-stable public API contract and clarified that `Pipeline`, `chamanp._core`, and `chamanp._utils` remain private implementation details.
+- Clarified that TestPyPI is only a publication-validation index, while official PyPI readiness remains a separate stable-publication requirement.
+- Clarified that `examples/chamanp.toml` is available in the repository and source distribution, but is not installed as a wheel package resource.
+- Updated citation wording so CHAMANP is described as an independent package that may be consumed by LigandHub or other downstream systems.
 
 ## [v0.15.0] - 2026-05-15
 

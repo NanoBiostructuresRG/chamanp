@@ -1,6 +1,6 @@
 # CHAMANP Strategic Design Document
 
-**Version:** draft-v0.13.0
+**Version:** draft-v0.16.0
 **Status:** Internal reference. Not part of the public API.
 **Author:** Flavio F. Contreras-Torres, Tecnologico de Monterrey
 
@@ -55,11 +55,11 @@ computational analysis:
 - Developers building notebooks, pipelines, servers, or applications that need a
   reusable molecular dataset preparation engine.
 
-CHAMANP is not developed specifically for LigandHub. It should remain useful to
-scientists, notebooks, pipelines, servers, and external applications outside any
-single downstream project. LigandHub-API may become an early real downstream
-consumer through pip installation in Docker, but it must not couple or constrain
-CHAMANP's package design.
+CHAMANP is an independent package. It should remain useful to scientists,
+notebooks, pipelines, servers, and external applications outside any single
+downstream project. LigandHub-API may become an early real downstream consumer
+through pip installation in Docker, but it must not define CHAMANP's identity,
+public API, or package design.
 
 ---
 
@@ -133,10 +133,10 @@ onboarding other natural product datasets with equivalent or adapted metadata.
 
 ## 6. Current Public API
 
-As of v0.12.0, the public package API is:
+The current pre-stable public package contract is:
 
 ```python
-from chamanp import ChamanpConfig, ChamanpResult, validate_config, run
+from chamanp import __version__, ChamanpConfig, validate_config, run, ChamanpResult
 ```
 
 | Symbol | Type | Purpose |
@@ -149,7 +149,9 @@ from chamanp import ChamanpConfig, ChamanpResult, validate_config, run
 
 Implementation internals now live under private package namespaces,
 `chamanp._core` and `chamanp._utils`. `Pipeline` remains private and is not part
-of the public `chamanp` API.
+of the public `chamanp` API. External consumers should not rely on direct imports
+from `chamanp._core`, `chamanp._utils`, or `Pipeline`; those names may change
+outside the stable public contract.
 
 ---
 
@@ -187,7 +189,18 @@ not need to import directly from `core/`, `utils/`, `chamanp._core`, or
 
 ---
 
-## 8. Planned Version Roadmap
+## 8. Release Governance And Roadmap
+
+CHAMANP is being prepared for a future stable, publishable release. The stable
+release number is intentionally not fixed here. It may be `v1.0.0` or another
+appropriate version number, depending on release governance, package index
+state, and the cleanup needed before public stability is declared.
+
+The historical `v1.0.0` tag from May 2025 predates the current package
+structure, public API, and pre-stable release sequence. It should be treated as
+a historical anomaly, not as evidence of a stable CHAMANP package contract.
+Before any stable publication, the project should make that history clear enough
+that users are not confused about which release represents the stable package.
 
 | Version | Theme | Key Deliverable |
 |---|---|---|
@@ -201,7 +214,10 @@ not need to import directly from `core/`, `utils/`, `chamanp._core`, or
 | v0.11.0 | Minimal CLI | Public `chamanp --version`, `chamanp check-config`, and `chamanp run` commands |
 | v0.12.0 | Packaging readiness | Build validation, distribution metadata, and clean-install smoke checks |
 | v0.13.0 | Dependency hardening | pip/PyPI readiness, packaging portability, and dependency policy cleanup |
-| v1.0.0 | Stable public API | Stable package API and PyPI target |
+| v0.14.0 | Install validation | Local distribution install smoke checks outside the repository checkout |
+| v0.15.0 | External publication readiness | TestPyPI validation and external dependency-resolution checks |
+| dev-v0.16.0 | Stable-release gate | Release governance, CI readiness, documentation alignment, and stable-publication checklist |
+| Future stable release | Stable public API | Stable package API and official publication target |
 
 ---
 
@@ -235,22 +251,26 @@ functions, plus the minimal `chamanp` CLI.
 - CHAMANP is not a database. It prepares data from databases.
 - CHAMANP is not COCONUT-specific. COCONUT is the current reference dataset.
 - CHAMANP is not a component of LigandHub. LigandHub-API may consume CHAMANP,
-  but it is not CHAMANP's design target.
-- CHAMANP's internal directories are not a stable public API.
+  but it does not define CHAMANP's identity or public contract.
+- `Pipeline`, `chamanp._core`, and `chamanp._utils` are private implementation
+  details, not stable public API.
 
 ---
 
 ## 11. Deferred Decisions
 
-The following decisions are intentionally deferred:
+The current public execution API shape is no longer deferred. The current
+contract is `__version__`, `ChamanpConfig`, `validate_config`, `run`, and
+`ChamanpResult` from the top-level `chamanp` namespace.
 
-- Public execution API shape.
+The following decisions remain intentionally deferred:
+
 - CLI extensions beyond the minimal public commands.
 - YAML/JSON configuration profiles.
 - Environment variables, command-line overrides, and multiple named profiles.
 - Automated taxonomy construction.
 - Additional public result formats beyond the current lightweight
-  `ChamanpResult`.
+  `ChamanpResult` contract.
 - Conda-forge packaging details.
 
 pip/PyPI installability is no longer deferred: it is a minimum requirement for
