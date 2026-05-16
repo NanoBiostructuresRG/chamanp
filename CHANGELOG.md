@@ -1,6 +1,6 @@
 # Changelog
 
-## [dev-v0.18.0] - Unreleased
+## [v0.18.0] - 2026-05-16
 
 ### Changed
 - Started the dev-v0.18.0 first official PyPI publication preparation cycle using Trusted Publishing as the intended publication path.
