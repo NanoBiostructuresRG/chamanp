@@ -122,6 +122,12 @@ access and keep the check deterministic in restricted environments. Use it as a
 packaging and entrypoint smoke test, not as proof that all runtime dependencies
 resolve on every platform.
 
+## Continuous Integration
+
+The versioned GitHub Actions workflow validates tests, package build metadata,
+`twine check`, and a clean wheel smoke install without running the real pipeline
+or regenerating scientific artifacts.
+
 ## Out Of Scope For The Smoke Test
 
 The install smoke test does not run the real CHAMANP pipeline, does not generate
