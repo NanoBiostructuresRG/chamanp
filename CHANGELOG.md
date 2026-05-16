@@ -12,6 +12,7 @@
 - Updated citation wording so CHAMANP is described as an independent package that may be consumed by LigandHub or other downstream systems.
 - Removed the tracked legacy generated report artifact and clarified that `artifacts/` contains local generated outputs ignored by Git.
 - Added a versioned GitHub Actions workflow for tests, distribution builds, `twine check`, and wheel smoke-install validation without running the real pipeline.
+- Added `.pytest_cache/` to `.gitignore`; removed local `core/__pycache__` and `utils/__pycache__` residue left over from the pre-migration source layout.
 
 ## [v0.15.0] - 2026-05-15
 
