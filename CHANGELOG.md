@@ -1,6 +1,6 @@
 # Changelog
 
-## [dev-v0.16.0] - Unreleased
+## [v0.16.0] - 2026-05-16
 
 ### Changed
 - Started the dev-v0.16.0 stable-release gate cycle.

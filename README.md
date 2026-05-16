@@ -477,8 +477,8 @@ CHAMANP is still in pre-stable development.
 
 The current package runtime dependency policy is defined in `pyproject.toml`, with minimum dependency ranges intended for users and downstream packages.
 
-Development version metadata uses the PEP 440 `.dev0` format. For example, the
-current development cycle reports `0.16.0.dev0`.
+Development version metadata uses the PEP 440 `.dev0` format. During the
+v0.16.0 development cycle, pre-release metadata used `0.16.0.dev0`.
 
 ## Future Direction
 
