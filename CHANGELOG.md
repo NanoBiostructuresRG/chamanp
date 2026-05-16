@@ -1,5 +1,11 @@
 # Changelog
 
+## [dev-v0.15.0] - Unreleased
+
+- Started PyPI/TestPyPI publication readiness and stable-release contract hardening work after the v0.14.0 pre-release validation cycle.
+- This development cycle will focus on distribution publication checks, external install validation, and documenting the stable public contract without changing chemistry behavior, output artifacts, reports, or the public API.
+- Validated local builds with `twine check`, uploaded `0.15.0.dev0` to TestPyPI for publication validation (`https://test.pypi.org/project/chamanp/0.15.0.dev0/`), and confirmed external clean-environment installation with real runtime dependency resolution.
+
 ## [v0.14.0] - 2026-05-15
 
 - Started pre-release installation validation work, focused on building CHAMANP distributions and smoke-testing wheel installation outside the repository checkout before v1.0.0.
