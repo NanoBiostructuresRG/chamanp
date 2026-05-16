@@ -1,6 +1,6 @@
 # Changelog
 
-## [dev-v0.14.0] - Unreleased
+## [v0.14.0] - 2026-05-15
 
 - Started pre-release installation validation work, focused on building CHAMANP distributions and smoke-testing wheel installation outside the repository checkout before v1.0.0.
 - Added documentation and local smoke-test support for editable installs, wheel installs, source distributions, and the distinction between package runtime dependencies and reproducible local environments.
