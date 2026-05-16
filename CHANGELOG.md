@@ -1,6 +1,6 @@
 # Changelog
 
-## [dev-v0.17.0] - Unreleased
+## [v0.17.0] - 2026-05-16
 
 ### Changed
 - Started the dev-v0.17.0 official publication rehearsal and stable-release governance cycle.
