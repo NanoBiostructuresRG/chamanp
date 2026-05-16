@@ -1,5 +1,12 @@
 # Changelog
 
+## [dev-v0.17.0] - Unreleased
+
+### Changed
+- Started the dev-v0.17.0 official publication rehearsal and stable-release governance cycle.
+- Recorded that the historical `v1.0.0` anomaly was remediated before public stable publication: the GitHub Release was removed manually, the local and remote tags were deleted, and no DOI, Zenodo record, or external release assets were associated with it.
+- Added stable publication checklist and repository workflow vs. package API boundary documentation to `INSTALL.md`.
+
 ## [v0.16.0] - 2026-05-16
 
 ### Changed
