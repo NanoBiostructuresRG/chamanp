@@ -1,5 +1,13 @@
 # Changelog
 
+## [dev-v0.18.0] - Unreleased
+
+### Changed
+- Started the dev-v0.18.0 first official PyPI publication preparation cycle using Trusted Publishing as the intended publication path.
+- CHAMANP remains pre-stable; this cycle prepares official PyPI publication without declaring the package stable.
+- Added a manual PyPI Trusted Publishing workflow for the first official pre-stable PyPI publication.
+- Documented Trusted Publishing setup, GitHub environment configuration, PyPI pending publisher required values, and the first official publication order in `INSTALL.md`.
+
 ## [v0.17.0] - 2026-05-16
 
 ### Changed
