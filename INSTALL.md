@@ -5,7 +5,7 @@ current installation goal is to keep the package buildable, installable, and
 usable outside the repository checkout while preserving the existing public API
 and repository workflow.
 
-Development versions use the PEP 440 `.dev0` format, such as `0.17.0.dev0`.
+Development versions use the PEP 440 `.dev0` format, such as `0.18.0.dev0`.
 
 ## Dependency Sources
 
@@ -63,6 +63,106 @@ TestPyPI may be used to validate publication mechanics and dependency
 resolution before an official release. It is a testing index, not the official
 user installation channel. A future stable publication should be validated
 against the official PyPI package state separately from any TestPyPI upload.
+
+## Trusted Publishing And First Publication Order
+
+### Configure The GitHub Environment
+
+The publishing workflow uses a GitHub Actions environment named `pypi`. Create
+this environment in the repository settings under **Settings → Environments**
+before running the workflow for the first time. Protect it with required
+reviewers or branch restrictions appropriate for a publication gate.
+
+The `publish` job in `publish-to-pypi.yml` references this environment and
+requests the `id-token: write` permission required for Trusted Publishing OIDC
+token exchange.
+
+### Configure The PyPI Pending Publisher
+
+On PyPI, configure a pending publisher for the `chamanp` project before the
+first upload. A pending publisher allows Trusted Publishing to be set up before
+the project name is claimed by an initial upload. Use these exact values:
+
+| Field | Value |
+|---|---|
+| Project name | `chamanp` |
+| Owner | `NanoBiostructuresRG` |
+| Repository name | `chamanp` |
+| Workflow filename | `publish-to-pypi.yml` |
+| Environment name | `pypi` |
+
+Configure the pending publisher at `https://pypi.org/manage/account/publishing/`.
+
+**A pending publisher does not reserve the `chamanp` name on PyPI.** The name
+is claimed only when the first successful upload completes. Verify that the name
+is still available immediately before running the publishing workflow.
+
+### Verify Name Availability Before Publishing
+
+Check that `chamanp` is not registered by another owner before the first
+upload:
+
+```
+https://pypi.org/project/chamanp/
+```
+
+A 404 response means the name is available. If the page returns a project owned
+by another party, resolve the conflict before publishing.
+
+### First Official Publication Order
+
+The repository must be public before Zenodo can access GitHub Releases. The
+GitHub Release must exist before Zenodo mints a DOI. PyPI publication should
+follow Zenodo archival so the citation record is in place before external users
+install the package. Complete these steps in order:
+
+1. **Merge the release branch into `main`.** Confirm `main` is clean and the
+   release commit is at the tip.
+
+2. **Create and push the annotated release tag.**
+   ```bash
+   git tag -a v<version> -m "Release v<version>"
+   git push origin v<version>
+   ```
+
+3. **Make the GitHub repository public.** The repository must be public for
+   Zenodo to access GitHub Releases. Change visibility under
+   **Settings → General → Danger Zone**.
+
+4. **Enable Zenodo integration before creating the GitHub Release.** Link the
+   repository to Zenodo at `https://zenodo.org/account/settings/github/` while
+   the repository is already public. Confirm the repository appears in the
+   Zenodo list and toggle it on. Zenodo must be configured before the GitHub
+   Release is created so it can harvest the release automatically.
+
+5. **Create the GitHub Release.** Creating the release triggers Zenodo archival
+   if the integration was enabled in the previous step.
+   ```bash
+   gh release create v<version> \
+     --title "CHAMANP v<version>" \
+     --notes-file <release_notes_file>
+   ```
+   Mark as **pre-release** while CHAMANP is pre-stable.
+
+6. **Verify Zenodo archival and DOI.** Check
+   `https://zenodo.org/account/settings/github/` and confirm the release was
+   harvested and a DOI was minted. Review the Zenodo record metadata before the
+   DOI becomes public. DOI records are permanent and cannot be deleted.
+
+7. **Run the manual PyPI publishing workflow.** Trigger `publish-to-pypi.yml`
+   via **Actions → Publish Python package to PyPI → Run workflow** with the
+   release tag as input, for example `v0.18.0`. The workflow validates the tag
+   format, confirms the tag exists in the repository, verifies the package
+   version matches the tag, builds distributions, checks metadata with `twine`,
+   and uploads to PyPI via Trusted Publishing.
+
+8. **Verify clean installation from PyPI.** In a clean environment outside the
+   repository checkout, install the published package and confirm the version
+   and public API:
+   ```bash
+   pip install chamanp
+   python -c "import chamanp; print(chamanp.__version__, chamanp.__all__, hasattr(chamanp, 'Pipeline'))"
+   ```
 
 ## Editable Install
 
