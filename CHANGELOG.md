@@ -1,5 +1,10 @@
 # Changelog
 
+## [dev-v0.14.0] - Unreleased
+
+- Started pre-release installation validation work, focused on building CHAMANP distributions and smoke-testing wheel installation outside the repository checkout before v1.0.0.
+- Added documentation and local smoke-test support for editable installs, wheel installs, source distributions, and the distinction between package runtime dependencies and reproducible local environments.
+
 ## [v0.13.0] - 2026-05-15
 
 - Started dependency and installation hardening development, focused on pip/PyPI readiness, packaging portability, and documentation alignment after v0.12.0.
