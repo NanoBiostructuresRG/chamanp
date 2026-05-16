@@ -456,7 +456,9 @@ CHAMANP is still in pre-stable development.
 - `v0.10.0` added TOML configuration profile loading through `ChamanpConfig.from_toml(path)`.
 - `v0.11.0` added the minimal public CLI.
 - `v0.12.0` validated packaging readiness through local wheel/sdist builds and install smoke checks.
-- `dev-v0.13.0` focuses on dependency hardening, runtime dependency policy, pip/PyPI readiness, and installation documentation.
+- `v0.13.0` hardened runtime dependency policy, pip/PyPI readiness, and installation documentation.
+- `v0.14.0` added pre-release installation validation for local distributions and wheel smoke tests outside the repository checkout.
+- `dev-v0.15.0` focuses on external publication readiness. The `0.15.0.dev0` distribution has been checked with `twine`, uploaded to TestPyPI, and installed from a clean external environment with real runtime dependency resolution.
 
 The current package runtime dependency policy is defined in `pyproject.toml`, with minimum dependency ranges intended for users and downstream packages.
 
