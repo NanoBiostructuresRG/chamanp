@@ -10,6 +10,7 @@
 - Clarified that TestPyPI is only a publication-validation index, while official PyPI readiness remains a separate stable-publication requirement.
 - Clarified that `examples/chamanp.toml` is available in the repository and source distribution, but is not installed as a wheel package resource.
 - Updated citation wording so CHAMANP is described as an independent package that may be consumed by LigandHub or other downstream systems.
+- Removed the tracked legacy generated report artifact and clarified that `artifacts/` contains local generated outputs ignored by Git.
 
 ## [v0.15.0] - 2026-05-15
 

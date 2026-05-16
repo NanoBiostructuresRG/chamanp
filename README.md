@@ -359,6 +359,9 @@ Generated files are written under `artifacts/`, including:
 - `reports/report_dbprep_*.txt`
 - `pipeline.log`
 
+The `artifacts/` directory contains local generated outputs and logs. These
+files are not versioned as project source files.
+
 At a high level, CHAMANP produces:
 
 - A curated dataset.
@@ -445,7 +448,7 @@ CHAMANP/
 |   |-- README.md                     # Source-data policy
 |   |-- coconut_05-2025.csv           # User-provided source database file
 |   `-- coconut_taxonomy.json         # Tracked taxonomy reference
-`-- artifacts/                        # Generated output files
+`-- artifacts/                        # Generated local output files, ignored by Git
     `-- reports/                      # Execution reports
 ```
 
