@@ -1,6 +1,7 @@
 
 # Ignore Python cache and metadata
 __pycache__/
+.pytest_cache/
 *.py[cod]
 *.pyo
 *.pyd
@@ -21,9 +22,8 @@ __pycache__/
 *.bak
 .DS_Store
 
-# Ignore reports and generated outputs (if needed)
+# Ignore generated pipeline outputs
 artifacts/
-!artifacts/reports/
 
 # Allow configuration and data files
 !config.py

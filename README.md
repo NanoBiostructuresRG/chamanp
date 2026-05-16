@@ -8,7 +8,9 @@ CHAMANP fills a gap between raw molecular databases and analysis-ready datasets 
 
 It helps turn raw molecular tables into curated, traceable, fingerprint-ready datasets for reproducible cheminformatics workflows.
 
-CHAMANP is pre-stable. The repository workflow remains available, while the package API is being introduced gradually.
+CHAMANP is pre-stable and is currently being prepared for a future stable,
+publishable release. The repository workflow remains available, while the
+current public package API is being hardened before stability is declared.
 
 ## Why CHAMANP?
 
@@ -46,7 +48,9 @@ The current repository pipeline can:
 - Record invalid SMILES encountered during fingerprint generation.
 - Write curated datasets, filtered datasets, fingerprint matrices, valid metadata, invalid SMILES files, and preparation reports.
 
-CHAMANP does not currently provide molecular property prediction, docking, virtual screening, or a stable v1.0 public API. A pre-stable public API is available through `ChamanpConfig`, `ChamanpResult`, `validate_config`, and `run`.
+CHAMANP does not currently provide molecular property prediction, docking,
+virtual screening, or a stable public API. A pre-stable public API is available
+through `ChamanpConfig`, `ChamanpResult`, `validate_config`, and `run`.
 
 ## COCONUT As Reference Dataset
 
@@ -97,6 +101,9 @@ Current public imports:
 import chamanp
 from chamanp import __version__, ChamanpConfig, ChamanpResult, validate_config, run
 ```
+
+This is the current pre-stable public contract being prepared for a future
+stable publication. The eventual stable release number is not fixed here.
 
 These are not current public `chamanp` exports:
 
@@ -175,7 +182,11 @@ chamanp run examples/chamanp.toml
 
 The CLI uses TOML profiles. `check-config` loads and validates a profile without running the pipeline. `run` loads the profile, validates it, executes CHAMANP, and prints a short summary from the returned `ChamanpResult`.
 
-The `examples/chamanp.toml` profile is provided in the repository and source distribution as a minimal reference profile. Wheels do not currently install example profiles as package resources.
+The `examples/chamanp.toml` profile is provided in the repository and source
+distribution as a minimal reference profile. Wheels do not currently install
+example profiles as package resources. Users installing from a wheel or from a
+future PyPI release should create their own TOML profile or copy the reference
+profile from the source distribution or repository.
 
 CLI errors are user-facing by default:
 
@@ -213,7 +224,7 @@ For more detailed installation and distribution notes, see [INSTALL.md](INSTALL.
 
 CHAMANP is an independent package. It is not developed specifically for LigandHub, although LigandHub-API may become an early downstream consumer through pip installation in Docker. CHAMANP should remain reusable by scientists, notebooks, pipelines, servers, and external applications.
 
-CHAMANP currently targets Python 3.11. pip/PyPI installability is a minimum requirement for broad external reuse. Conda/mamba can be useful for local scientific environments, especially because RDKit is the most platform-sensitive dependency, but conda-forge is an additional future channel rather than a replacement for pip/PyPI readiness.
+CHAMANP currently targets Python 3.11. pip/PyPI installability is a minimum requirement for broad external reuse. TestPyPI is used only for publication validation and is not the official user installation channel. Conda/mamba can be useful for local scientific environments, especially because RDKit is the most platform-sensitive dependency, but conda-forge is an additional future channel rather than a replacement for pip/PyPI readiness.
 
 ### Runtime Dependencies
 
@@ -348,6 +359,9 @@ Generated files are written under `artifacts/`, including:
 - `reports/report_dbprep_*.txt`
 - `pipeline.log`
 
+The `artifacts/` directory contains local generated outputs and logs. These
+files are not versioned as project source files.
+
 At a high level, CHAMANP produces:
 
 - A curated dataset.
@@ -434,7 +448,7 @@ CHAMANP/
 |   |-- README.md                     # Source-data policy
 |   |-- coconut_05-2025.csv           # User-provided source database file
 |   `-- coconut_taxonomy.json         # Tracked taxonomy reference
-`-- artifacts/                        # Generated output files
+`-- artifacts/                        # Generated local output files, ignored by Git
     `-- reports/                      # Execution reports
 ```
 
@@ -458,9 +472,13 @@ CHAMANP is still in pre-stable development.
 - `v0.12.0` validated packaging readiness through local wheel/sdist builds and install smoke checks.
 - `v0.13.0` hardened runtime dependency policy, pip/PyPI readiness, and installation documentation.
 - `v0.14.0` added pre-release installation validation for local distributions and wheel smoke tests outside the repository checkout.
-- `dev-v0.15.0` focuses on external publication readiness. The `0.15.0.dev0` distribution has been checked with `twine`, uploaded to TestPyPI for publication validation (`https://test.pypi.org/project/chamanp/0.15.0.dev0/`), and installed from a clean external environment with real runtime dependency resolution. TestPyPI is a testing index, not the official user installation channel.
+- `dev-v0.15.0` focused on external publication readiness. The `0.15.0.dev0` distribution was checked with `twine`, uploaded to TestPyPI for publication validation (`https://test.pypi.org/project/chamanp/0.15.0.dev0/`), and installed from a clean external environment with real runtime dependency resolution. TestPyPI is a testing index, not the official user installation channel.
+- `dev-v0.16.0` is the stable-release gate cycle. It focuses on release governance, documentation alignment, stable-publication readiness, and deciding how to avoid confusion with historical release metadata before any stable release is declared.
 
 The current package runtime dependency policy is defined in `pyproject.toml`, with minimum dependency ranges intended for users and downstream packages.
+
+Development version metadata uses the PEP 440 `.dev0` format. For example, the
+current development cycle reports `0.16.0.dev0`.
 
 ## Future Direction
 
@@ -469,9 +487,10 @@ Planned development remains conservative:
 - Keep `import chamanp` side-effect free.
 - Keep CHAMANP independent from LigandHub while remaining easy for downstream applications, including LigandHub-API, to consume.
 - Keep private implementation modules under `chamanp/_core/` and `chamanp/_utils/` out of the public API.
-- Evolve the public execution API conservatively while keeping heavyweight datasets and fingerprint matrices out of default result objects.
+- Preserve the current public execution API contract and evolve it conservatively while keeping heavyweight datasets and fingerprint matrices out of default result objects.
 - Keep the CLI and TOML profile support conservative while deferring YAML/JSON configuration profiles, environment configuration, and command-line overrides.
 - Continue hardening pip/PyPI installation as a minimum requirement for broad external reuse.
+- Reach a stable, publishable release without assuming in advance that the final stable number must be `v1.0.0`.
 
 Future extension areas may include:
 

@@ -1,5 +1,20 @@
 # Changelog
 
+## [dev-v0.16.0] - Unreleased
+
+### Changed
+- Started the dev-v0.16.0 stable-release gate cycle.
+- Development version metadata now uses the PEP 440-compliant `.dev0` format instead of the previous `-dev` style.
+- Aligned DESIGN, README, and INSTALL documentation around release governance before any stable publication.
+- Documented the current pre-stable public API contract and clarified that `Pipeline`, `chamanp._core`, and `chamanp._utils` remain private implementation details.
+- Clarified that TestPyPI is only a publication-validation index, while official PyPI readiness remains a separate stable-publication requirement.
+- Clarified that `examples/chamanp.toml` is available in the repository and source distribution, but is not installed as a wheel package resource.
+- Updated citation wording so CHAMANP is described as an independent package that may be consumed by LigandHub or other downstream systems.
+- Removed the tracked legacy generated report artifact and clarified that `artifacts/` contains local generated outputs ignored by Git.
+- Added a versioned GitHub Actions workflow for tests, distribution builds, `twine check`, and wheel smoke-install validation without running the real pipeline.
+- Added `.pytest_cache/` to `.gitignore`; removed local `core/__pycache__` and `utils/__pycache__` residue left over from the pre-migration source layout.
+- Removed stale `scipy` entries from auxiliary environment files because CHAMANP does not currently use SciPy as a runtime dependency.
+
 ## [v0.15.0] - 2026-05-15
 
 - Started PyPI/TestPyPI publication readiness and stable-release contract hardening work after the v0.14.0 pre-release validation cycle.
