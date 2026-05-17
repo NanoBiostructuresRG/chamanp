@@ -6,13 +6,96 @@ from chamanp.result import ChamanpResult
 
 
 def validate_config(config: ChamanpConfig | None = None) -> ChamanpConfig:
-    """Validate a CHAMANP runtime configuration object."""
+    """Validate a CHAMANP runtime configuration object.
+
+    Checks that required file paths exist, that collection settings are
+    well-formed, and that fingerprint parameters are valid integers.
+    ``COLLECTION_LOGIC`` and ``COLLECTION_TAG`` values are normalized
+    in-place (stripped and upper-cased where applicable) before the
+    validated configuration is returned.
+
+    Parameters
+    ----------
+    config : ChamanpConfig, optional
+        Configuration to validate. When ``None``, a default
+        ``ChamanpConfig`` is constructed and validated.
+
+    Returns
+    -------
+    ChamanpConfig
+        The validated configuration object, with ``COLLECTION_LOGIC`` and
+        ``COLLECTION_TAG`` normalized.
+
+    Raises
+    ------
+    chamanp._core.preflight.ConfigurationError
+        If one or more validation checks fail. The error message lists all
+        failing checks.
+
+    Examples
+    --------
+    Validate a configuration before running the pipeline:
+
+    >>> from chamanp import ChamanpConfig, validate_config
+    >>> config = ChamanpConfig(
+    ...     DATABASE_PATH="data/coconut.csv",
+    ...     COLLECTION_TAXONOMY_PATH="data/taxonomy.json",
+    ...     TARGET_COLLECTIONS=["PubChem NPs"],
+    ...     COLLECTION_TAG="pubchem",
+    ... )
+    >>> validated = validate_config(config)  # doctest: +SKIP
+    """
     active_config = ChamanpConfig() if config is None else config
     return _validate_config_impl(active_config)
 
 
 def run(config: ChamanpConfig | None = None) -> ChamanpResult:
-    """Validate and execute CHAMANP, writing configured artifacts to disk."""
+    """Validate and execute CHAMANP, writing configured artifacts to disk.
+
+    Calls ``validate_config`` on *config*, then runs the private pipeline
+    implementation. The pipeline curates the molecular dataset, filters by
+    target collections, generates Morgan fingerprints, and writes a summary
+    report. The pipeline writes configured artifacts to disk during execution.
+
+    Parameters
+    ----------
+    config : ChamanpConfig, optional
+        Runtime configuration. When ``None``, a default ``ChamanpConfig``
+        is constructed, validated, and used.
+
+    Returns
+    -------
+    ChamanpResult
+        A frozen result object containing execution status, artifact paths,
+        and summary counts. See ``ChamanpResult`` for field descriptions.
+
+    Raises
+    ------
+    chamanp._core.preflight.ConfigurationError
+        If configuration validation fails before execution begins.
+
+    Notes
+    -----
+    ``run`` validates the configuration, instantiates the private pipeline
+    implementation internally, and writes configured artifacts to disk during
+    execution.
+
+    The internal pipeline implementation is private and should not be imported
+    or used directly.
+
+    Examples
+    --------
+    Run the pipeline with a custom configuration:
+
+    >>> from chamanp import ChamanpConfig, run
+    >>> config = ChamanpConfig(
+    ...     DATABASE_PATH="data/coconut.csv",
+    ...     COLLECTION_TAXONOMY_PATH="data/taxonomy.json",
+    ...     TARGET_COLLECTIONS=["PubChem NPs"],
+    ...     COLLECTION_TAG="pubchem",
+    ... )
+    >>> result = run(config)  # doctest: +SKIP
+    """
     active_config = validate_config(config)
     pipeline = _pipeline_cls()(config=active_config)
     return pipeline.run()

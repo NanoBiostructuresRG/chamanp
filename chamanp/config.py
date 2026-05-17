@@ -20,7 +20,71 @@ DEFAULT_SELECTED_PROPERTIES = [
 
 @dataclass
 class ChamanpConfig:
-    """Runtime configuration object compatible with the current pipeline."""
+    """Runtime configuration contract for a CHAMANP pipeline execution.
+
+    All fields have defaults matching the current COCONUT reference molecular dataset
+    configuration. Construct a custom configuration by passing field values
+    directly, or load an external profile with ``from_module`` or
+    ``from_toml``. Loaded configurations are not preflight-validated until
+    ``validate_config`` is called.
+
+    Attributes
+    ----------
+    DATABASE_PATH : str
+        Path to the input molecular dataset CSV file.
+        Default: ``"source_data/coconut_05-2025.csv"``.
+    REPORTS_PATH : str
+        Directory for pipeline execution reports.
+        Default: ``"artifacts/reports"``.
+    COLLECTION_TAXONOMY_PATH : str
+        Path to the collection taxonomy JSON file.
+        Default: ``"source_data/coconut_taxonomy.json"``.
+    TARGET_COLLECTIONS : list of str
+        Collection labels to include in the filtered dataset.
+        Default: ``["PubChem NPs"]``.
+    COLLECTION_TAG : str
+        Short alphanumeric tag used in artifact file names.
+        Default: ``"pubchem"``.
+    COLLECTION_LOGIC : str
+        Logical operator applied when filtering across target collections.
+        Must be ``"OR"`` or ``"AND"``.
+        Default: ``"OR"``.
+    MORGAN_RADIUS : int
+        Morgan fingerprint radius. Must be an integer >= 0.
+        Default: ``2``.
+    MORGAN_BITS : int
+        Morgan fingerprint bit length. Must be a positive integer.
+        Default: ``1024``.
+    SELECTED_PROPERTIES : list of str
+        Column names retained from the molecular dataset after curation.
+        Default: the eight columns in ``DEFAULT_SELECTED_PROPERTIES``.
+    REMOVE_STEREO_DUPLICATES : bool
+        Whether stereochemical duplicates are removed during curation.
+        Default: ``True``.
+
+    Examples
+    --------
+    Construct a configuration with default values:
+
+    >>> from chamanp import ChamanpConfig
+    >>> config = ChamanpConfig()
+    >>> config.COLLECTION_TAG
+    'pubchem'
+
+    Construct a configuration with custom values:
+
+    >>> config = ChamanpConfig(
+    ...     DATABASE_PATH="data/my_dataset.csv",
+    ...     COLLECTION_TAXONOMY_PATH="data/taxonomy.json",
+    ...     TARGET_COLLECTIONS=["Marine NPs"],
+    ...     COLLECTION_TAG="marine",
+    ...     COLLECTION_LOGIC="OR",
+    ...     MORGAN_RADIUS=2,
+    ...     MORGAN_BITS=2048,
+    ... )
+    >>> config.COLLECTION_TAG
+    'marine'
+    """
 
     DATABASE_PATH: str = "source_data/coconut_05-2025.csv"
     REPORTS_PATH: str = "artifacts/reports"
@@ -37,7 +101,39 @@ class ChamanpConfig:
 
     @classmethod
     def from_module(cls, module):
-        """Build a configuration object from a module-like object."""
+        """Build a ``ChamanpConfig`` from a module-like object.
+
+        Reads every ``ChamanpConfig`` field name as an attribute from
+        *module* and returns a new ``ChamanpConfig`` instance. The loaded
+        configuration is not preflight-validated; call ``validate_config``
+        to validate before execution.
+
+        Parameters
+        ----------
+        module : module-like
+            An object that exposes all ``ChamanpConfig`` field names as
+            uppercase attributes, such as a Python module imported with
+            ``import config``.
+
+        Returns
+        -------
+        ChamanpConfig
+            A new configuration instance populated from the module
+            attributes.
+
+        Raises
+        ------
+        AttributeError
+            If any ``ChamanpConfig`` field name is absent from *module*.
+
+        Examples
+        --------
+        Load configuration from the repository-level ``config.py``:
+
+        >>> import config  # doctest: +SKIP
+        >>> from chamanp import ChamanpConfig
+        >>> cfg = ChamanpConfig.from_module(config)  # doctest: +SKIP
+        """
         values = {}
         missing = []
 
@@ -57,7 +153,45 @@ class ChamanpConfig:
 
     @classmethod
     def from_toml(cls, path):
-        """Build a configuration object from a TOML file."""
+        """Build a ``ChamanpConfig`` from a TOML file.
+
+        Reads configuration values from a TOML file at *path*. TOML keys
+        must be lowercase versions of ``ChamanpConfig`` field names (for
+        example, ``database_path`` maps to ``DATABASE_PATH``). Unknown keys
+        raise a ``ValueError``. The loaded configuration is not
+        preflight-validated; call ``validate_config`` to validate before
+        execution.
+
+        Parameters
+        ----------
+        path : str or path-like
+            File system path to the TOML configuration profile.
+
+        Returns
+        -------
+        ChamanpConfig
+            A new configuration instance populated from the TOML file.
+
+        Raises
+        ------
+        FileNotFoundError
+            If *path* does not exist.
+        ValueError
+            If the file is not valid TOML, or if it contains unknown keys.
+
+        Notes
+        -----
+        ``from_toml`` does not perform preflight validation. File paths
+        referenced in the loaded configuration are not checked for existence
+        until ``validate_config`` is called.
+
+        Examples
+        --------
+        Load configuration from the reference TOML profile:
+
+        >>> from chamanp import ChamanpConfig
+        >>> config = ChamanpConfig.from_toml("examples/chamanp.toml")  # doctest: +SKIP
+        """
         config_path = Path(path)
 
         try:
@@ -93,7 +227,13 @@ class ChamanpConfig:
 
     @classmethod
     def required_fields(cls):
-        """Return the attribute names required by the current pipeline."""
+        """Return the names of all ``ChamanpConfig`` fields.
+
+        Returns
+        -------
+        tuple of str
+            Names of all configuration fields in declaration order.
+        """
         return tuple(cls.__dataclass_fields__)
 
     @classmethod

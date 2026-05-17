@@ -458,27 +458,34 @@ CHAMANP/
 
 CHAMANP is still in pre-stable development.
 
-- `v0.1.0` established the corrected pre-stable baseline.
-- `v0.2.0` focused on centralized project metadata and reproducible report execution metadata.
-- `v0.3.0` focused on configuration validation and execution preflight.
-- `v0.4.0` established the package foundation and public API doorway.
-- `v0.5.0` introduced `ChamanpConfig` as the first public runtime configuration object.
-- `v0.6.0` focused on external-facing documentation and the public usability contract.
-- `v0.7.0` focused on internal package migration into private namespaces while preserving the current public API.
-- `v0.8.0` introduced the public `validate_config(config)` and `run(config)` execution doorway while keeping `Pipeline` private.
-- `v0.9.0` introduced `ChamanpResult` as the lightweight structured result returned by `run(config)`.
-- `v0.10.0` added TOML configuration profile loading through `ChamanpConfig.from_toml(path)`.
-- `v0.11.0` added the minimal public CLI.
-- `v0.12.0` validated packaging readiness through local wheel/sdist builds and install smoke checks.
-- `v0.13.0` hardened runtime dependency policy, pip/PyPI readiness, and installation documentation.
-- `v0.14.0` added pre-release installation validation for local distributions and wheel smoke tests outside the repository checkout.
-- `dev-v0.15.0` focused on external publication readiness. The `0.15.0.dev0` distribution was checked with `twine`, uploaded to TestPyPI for publication validation (`https://test.pypi.org/project/chamanp/0.15.0.dev0/`), and installed from a clean external environment with real runtime dependency resolution. TestPyPI is a testing index, not the official user installation channel.
-- `dev-v0.16.0` is the stable-release gate cycle. It focuses on release governance, documentation alignment, stable-publication readiness, and deciding how to avoid confusion with historical release metadata before any stable release is declared.
+The project is published as an Alpha-stage Python package while its public API,
+documentation contract, and external distribution workflow continue to mature.
+
+Key pre-stable milestones:
+
+- v0.1.0 established the corrected pre-stable baseline.
+- v0.2.0 focused on centralized project metadata and reproducible report execution metadata.
+- v0.3.0 focused on configuration validation and execution preflight.
+- v0.4.0 established the package foundation and public API doorway.
+- v0.5.0 introduced `ChamanpConfig` as the first public runtime configuration object.
+- v0.6.0 focused on external-facing documentation and the public usability contract.
+- v0.7.0 migrated internal implementation modules into private namespaces while preserving the current public API.
+- v0.8.0 introduced the public `validate_config(config)` and `run(config)` execution doorway while keeping `Pipeline` private.
+- v0.9.0 introduced `ChamanpResult` as the lightweight structured result returned by `run(config)`.
+- v0.10.0 added TOML configuration profile loading through `ChamanpConfig.from_toml(path)`.
+- v0.11.0 added the minimal public CLI.
+- v0.12.0 validated packaging readiness through local wheel/sdist builds and install smoke checks.
+- v0.13.0 hardened runtime dependency policy, pip/PyPI readiness, and installation documentation.
+- v0.14.0 added pre-release installation validation for local distributions and wheel smoke tests outside the repository checkout.
+- v0.15.0 focused on external publication readiness and TestPyPI validation.
+- v0.16.0 focused on release governance, documentation alignment, and stable-publication readiness.
+- v0.17.0 defined the stable publication checklist and clarified pre-stable release governance.
+- v0.18.0 completed the first official PyPI publication through Trusted Publishing while preserving Alpha-stage status.
+- dev-v0.19.0 focuses on making CHAMANP’s public API understandable through truthful, English, NumPy-style docstrings while preserving the current API boundary and avoiding any unrelated infrastructure or behavior changes.
 
 The current package runtime dependency policy is defined in `pyproject.toml`, with minimum dependency ranges intended for users and downstream packages.
 
-Development version metadata uses the PEP 440 `.dev0` format. During the
-v0.16.0 development cycle, pre-release metadata used `0.16.0.dev0`.
+Development version metadata uses the PEP 440 `.dev0` format. During the current development cycle, version metadata uses `0.19.0.dev0`.
 
 ## Future Direction
 
