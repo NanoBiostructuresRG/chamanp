@@ -1,9 +1,10 @@
 # Changelog
 
-## [dev-v0.19.0] - Unreleased
+## [v0.19.0] - 2026-05-16
 
 ### Documentation
-- `dev-v0.19.0` should make CHAMANP’s public API understandable through truthful, English, NumPy-style docstrings while preserving the current API boundary and avoiding any unrelated infrastructure or behavior changes.
+- Make CHAMANP’s public API understandable through truthful, English, NumPy-style docstrings while preserving the current API boundary and avoiding any unrelated infrastructure or behavior changes.
+- Update the README development-status section to reflect the completed v0.18.0 PyPI publication milestone and the current v0.19.0 public API documentation cycle.
 
 ## [v0.18.0] - 2026-05-16
 
