@@ -22,8 +22,8 @@ DEFAULT_SELECTED_PROPERTIES = [
 class ChamanpConfig:
     """Runtime configuration contract for a CHAMANP pipeline execution.
 
-    All fields have defaults matching the current COCONUT reference dataset
-    workflow. Construct a custom configuration by passing field values
+    All fields have defaults matching the current COCONUT reference molecular dataset
+    configuration. Construct a custom configuration by passing field values
     directly, or load an external profile with ``from_module`` or
     ``from_toml``. Loaded configurations are not preflight-validated until
     ``validate_config`` is called.

@@ -25,7 +25,7 @@ class ChamanpResult:
     version : str
         CHAMANP package version at the time of execution.
     collection_tag : str
-        Short alphanumeric tag used to name output artifacts, taken from
+        Short collection tag used to name output artifacts, taken from
         ``ChamanpConfig.COLLECTION_TAG``.
     curated_path : str
         File system path to the curated molecular dataset CSV.
@@ -53,9 +53,9 @@ class ChamanpResult:
         Number of rows removed during stereochemical deduplication
         (``total_input_size - total_after_dedup``).
     filtered_count : int or None
-        Number of compounds remaining after collection filtering.
+        Number of molecular dataset entries remaining after collection filtering.
     valid_molecules_count : int or None
-        Number of compounds for which a valid fingerprint was generated
+        Number of molecular dataset entries for which a valid fingerprint was generated.
         (``filtered_count - invalid_smiles_count``).
     invalid_smiles_count : int or None
         Number of compounds whose SMILES string could not be parsed by

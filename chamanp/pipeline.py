@@ -55,8 +55,7 @@ def run(config: ChamanpConfig | None = None) -> ChamanpResult:
     Calls ``validate_config`` on *config*, then runs the private pipeline
     implementation. The pipeline curates the molecular dataset, filters by
     target collections, generates Morgan fingerprints, and writes a summary
-    report. All artifacts are written to the ``artifacts/`` directory under
-    the current working directory.
+    report. The pipeline writes configured artifacts to disk during execution.
 
     Parameters
     ----------
@@ -77,9 +76,12 @@ def run(config: ChamanpConfig | None = None) -> ChamanpResult:
 
     Notes
     -----
-    ``run`` creates ``artifacts/`` and ``artifacts/pipeline.log`` in the
-    current working directory. Execution failures after preflight raise
-    exceptions from the private pipeline internals.
+    ``run`` validates the configuration, instantiates the private pipeline
+    implementation internally, and writes configured artifacts to disk during
+    execution.
+
+    The internal pipeline implementation is private and should not be imported
+    or used directly.
 
     Examples
     --------
