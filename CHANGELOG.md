@@ -1,5 +1,10 @@
 # Changelog
 
+## [dev-v0.19.0] - Unreleased
+
+### Documentation
+- `dev-v0.19.0` should make CHAMANP’s public API understandable through truthful, English, NumPy-style docstrings while preserving the current API boundary and avoiding any unrelated infrastructure or behavior changes.
+
 ## [v0.18.0] - 2026-05-16
 
 ### Changed
