@@ -7,7 +7,6 @@ repo_name: NanoBiostructuresRG/chamanp
 
 theme:
   name: material
-  favicon: assets/chamanp-logo.png
   palette:
     - scheme: default
       primary: custom
@@ -46,6 +45,9 @@ extra:
     - icon: fontawesome/brands/github
       link: https://nanobiostructuresrg.github.io/
       name: NanoBiostructuresRG
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/chamanp/
+      name: CHAMANP on PyPI
 
 plugins:
   - search
@@ -55,7 +57,8 @@ plugins:
           options:
             docstring_style: numpy
             show_source: false
-            show_root_heading: true
+            show_root_heading: false
+            show_root_toc_entry: false
 
 nav:
   - Home: index.md

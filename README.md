@@ -1,16 +1,46 @@
 # CHAMANP: Curation and Hierarchical Analysis for Molecular Annotation of Natural Products
 
-[![License: LGPL v3+](https://img.shields.io/badge/License-LGPL_v3%2B-blue.svg)](LICENSE)
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-v0.20.0-blue.svg)](https://pypi.org/project/chamanp/)
+[![PyPI](https://img.shields.io/pypi/v/chamanp.svg)](https://pypi.org/project/chamanp/)
+[![Python](https://img.shields.io/pypi/pyversions/chamanp.svg)](https://pypi.org/project/chamanp/)
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-teal.svg)](https://nanobiostructuresrg.github.io/chamanp/)
 
-CHAMANP is a Python library for systematic, reproducible curation and preparation of molecular datasets of natural products.
+---
+
+## Description
+
+**CHAMANP** is a Python library for systematic, reproducible curation and preparation of molecular datasets of natural products.
 
 CHAMANP fills a gap between raw molecular databases and analysis-ready datasets for cheminformatics or machine learning pipelines. Current development uses COCONUT as the reference dataset.
 
-It helps turn raw molecular tables into curated, traceable, fingerprint-ready datasets for reproducible cheminformatics workflows.
+---
+
+## Purpose
+
+The primary objective of **CHAMANP** is to automate the preparation of molecular
+datasets for cheminformatics workflows and **phase 1** machine learning applications
+within the computational drug discovery pipeline.
+
+The platform enables:
+
+- Turn raw molecular tables into curated, traceable, fingerprint-ready datasets for reproducible cheminformatics workflows.
 
 CHAMANP is pre-stable and is currently being prepared for a future stable,
 publishable release. The repository workflow remains available, while the
 current public package API is being hardened before stability is declared.
+
+---
+
+## Installation
+
+```bash
+pip install chamanp
+```
+
+> RDKit is required and installed automatically (`rdkit>=2022.09`).
+
+---
 
 ## Why CHAMANP?
 
@@ -224,7 +254,7 @@ For more detailed installation and distribution notes, see [INSTALL.md](INSTALL.
 
 CHAMANP is an independent package. It is not developed specifically for LigandHub, although LigandHub-API may become an early downstream consumer through pip installation in Docker. CHAMANP should remain reusable by scientists, notebooks, pipelines, servers, and external applications.
 
-CHAMANP currently targets Python 3.11. pip/PyPI installability is a minimum requirement for broad external reuse. TestPyPI is used only for publication validation and is not the official user installation channel. Conda/mamba can be useful for local scientific environments, especially because RDKit is the most platform-sensitive dependency, but conda-forge is an additional future channel rather than a replacement for pip/PyPI readiness.
+CHAMANP currently targets Python 3.11 and 3.12. pip/PyPI installability is a minimum requirement for broad external reuse. TestPyPI is used only for publication validation and is not the official user installation channel. Conda/mamba can be useful for local scientific environments, especially because RDKit is the most platform-sensitive dependency, but conda-forge is an additional future channel rather than a replacement for pip/PyPI readiness.
 
 ### Runtime Dependencies
 
@@ -481,11 +511,12 @@ Key pre-stable milestones:
 - v0.16.0 focused on release governance, documentation alignment, and stable-publication readiness.
 - v0.17.0 defined the stable publication checklist and clarified pre-stable release governance.
 - v0.18.0 completed the first official PyPI publication through Trusted Publishing while preserving Alpha-stage status.
-- dev-v0.19.0 focuses on making CHAMANP’s public API understandable through truthful, English, NumPy-style docstrings while preserving the current API boundary and avoiding any unrelated infrastructure or behavior changes.
+- v0.19.0 made CHAMANP's public API understandable through truthful, English, NumPy-style docstrings while preserving the current API boundary and avoiding unrelated infrastructure or behavior changes.
+- dev-v0.20.0 focuses on CI/CD improvements, GitHub Pages documentation with MkDocs Material and mkdocstrings, and iterative aesthetics improvements for the documentation site.
 
 The current package runtime dependency policy is defined in `pyproject.toml`, with minimum dependency ranges intended for users and downstream packages.
 
-Development version metadata uses the PEP 440 `.dev0` format. During the current development cycle, version metadata uses `0.19.0.dev0`.
+Package version metadata is sourced dynamically from `chamanp/version.py` during builds. Development snapshots should continue to use the PEP 440 `.dev0` format when a cycle needs pre-release metadata.
 
 ## Future Direction
 
