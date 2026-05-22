@@ -2,6 +2,8 @@
 
 # chamanp/_core/filter.py
 
+import re
+
 import pandas as pd
 
 class CompoundFilter:
@@ -51,4 +53,4 @@ class CompoundFilter:
     def _parse_collections(self, value):
         if pd.isna(value):
             return set()
-        return {c.strip() for c in str(value).split(";") if c.strip()}
+        return {c.strip() for c in re.split(r"[;|]", str(value)) if c.strip()}

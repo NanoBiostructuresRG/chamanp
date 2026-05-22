@@ -99,6 +99,49 @@ def test_apply_filters_matches_semicolon_separated_collection_labels(tmp_path):
     assert filtered["identifier"].tolist() == ["id1"]
 
 
+def test_apply_filters_matches_pipe_separated_collection_labels(tmp_path):
+    df = pd.DataFrame(
+        {
+            "identifier": ["id1", "id2"],
+            "canonical_smiles": ["CCO", "CCN"],
+            "collections": ["ChEMBL NPs|DrugBankNP", "ChEMBL NPs"],
+        }
+    )
+
+    compound_filter = apply_filter(
+        df=df,
+        tmp_path=tmp_path,
+        collection_names=["DrugBankNP"],
+        properties=["identifier", "collections"],
+    )
+
+    filtered = compound_filter.get_dataframe()
+
+    assert filtered["identifier"].tolist() == ["id1"]
+
+
+def test_apply_filters_matches_mixed_collection_separators(tmp_path):
+    df = pd.DataFrame(
+        {
+            "identifier": ["id1"],
+            "canonical_smiles": ["CCO"],
+            "collections": ["ChEMBL NPs|DrugBankNP; NPAtlas"],
+        }
+    )
+
+    compound_filter = apply_filter(
+        df=df,
+        tmp_path=tmp_path,
+        collection_names=["DrugBankNP", "NPAtlas"],
+        properties=["identifier", "collections"],
+        logic="AND",
+    )
+
+    filtered = compound_filter.get_dataframe()
+
+    assert filtered["identifier"].tolist() == ["id1"]
+
+
 def test_apply_filters_strips_whitespace_around_collection_labels(tmp_path):
     df = pd.DataFrame(
         {

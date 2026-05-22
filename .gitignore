@@ -46,6 +46,8 @@ logs/*
 
 # Distribution and build files
 dist/
+site/
+.build_check/
 *.egg-info/
 build/
 __pycache__/

@@ -7,11 +7,28 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 ### Added
 - Added GitHub Pages documentation built with MkDocs, Material for MkDocs, and mkdocstrings.
 
+### Docs
+- Added a user-facing input-process-output workflow contract to the README and MkDocs Home page, including how the COCONUT-like example CSV should be interpreted.
+- Clarified CHAMANP's taxonomy-backed collection filtering concept, the role of `source_data/coconut_taxonomy.json`, and the project-name analogy to "shaman".
+- Added a beginner-facing example execution walkthrough with the TOML profile, CLI commands, expected output, and generated artifacts.
+- Grouped documented outputs into essential user-facing artifacts and audit artifacts to reduce confusion about the number of generated files.
+- Clarified that TOML profiles are manually written configuration files based on the user's CSV paths, columns, target collections, and output settings.
+- Reorganized the MkDocs Home page so installation and the CLI example appear before conceptual sections, removed fragile API anchors, and made citation guidance rely on `CITATION.cff`.
+- Polished the MkDocs Home hero, workflow card placement, heading capitalization, and API link style for the final v0.20.0 documentation pass.
+
 ### Changed
 - Started the documentation aesthetics cycle for the MkDocs site while preserving chemistry behavior and the public API boundary.
+- Clarified TOML profile examples so PyPI users are directed to create their own runtime profile instead of relying on a repository-specific example file.
+- Collection filtering now accepts both semicolon (`;`) and pipe (`|`) separators in the `collections` field, matching COCONUT-style example data while preserving existing semicolon support.
 
 ### Improved
 - Improved CI coverage with a Python 3.11/3.12 matrix, public API assertions, wheel smoke installation, source distribution smoke installation, and strict documentation builds.
+
+### Removed
+- Removed the repository-specific `examples/chamanp.toml` file from the source tree and source distribution to avoid ambiguity for PyPI users.
+- Removed the local PowerShell wheel smoke script and the obsolete `MANIFEST.in`; CI now owns wheel and source distribution smoke validation.
+- Removed the internal `DESIGN.md` planning document from the public source tree to keep the PyPI-facing project surface focused on user documentation, API docs, tests, and release notes.
+- Removed the internal `INSTALL.md` release checklist; PyPI-facing installation guidance now lives in README and the MkDocs Home page.
 
 ## 0.19.0 - 2026-05-16
 
@@ -55,7 +72,6 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - Aligned DESIGN, README, and INSTALL documentation around release governance before any stable publication.
 - Documented the current pre-stable public API contract and clarified that `Pipeline`, `chamanp._core`, and `chamanp._utils` remain private implementation details.
 - Clarified that TestPyPI is only a publication-validation index, while official PyPI readiness remains a separate stable-publication requirement.
-- Clarified that `examples/chamanp.toml` is available in the repository and source distribution, but is not installed as a wheel package resource.
 - Clarified that `artifacts/` contains local generated outputs ignored by Git.
 
 ### Removed
@@ -91,9 +107,6 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - Refreshed README development status to align with the current public API, dependency policy, and pip/PyPI readiness focus.
 
 ## 0.12.0 - 2026-05-15
-
-### Added
-- Added source distribution manifest coverage for the example TOML profile used in documentation.
 
 ### Changed
 - Started packaging readiness development, focused on distribution metadata, package build validation, and clean-install smoke checks without changing runtime behavior.
