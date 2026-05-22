@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
 title: "CHAMANP: Curation and Hierarchical Analysis for Molecular Annotation of Natural Products"
-version: "0.19.0"
-date-released: "2026-05-16"
+version: "0.20.0"
+date-released: "2026-05-21"
 authors:
   - family-names: "Contreras-Torres"
     given-names: "Flavio F."
@@ -15,8 +15,7 @@ abstract: >-
   CHAMANP is a pre-stable development prototype for the systematic and
   reproducible preparation of curated molecular datasets for cheminformatics
   workflows, molecular annotation, natural products research, and downstream
-  machine learning applications. It is an independent package that may be
-  consumed by LigandHub or other downstream systems.
+  machine learning applications.
 keywords:
   - cheminformatics
   - natural products
@@ -24,4 +23,4 @@ keywords:
   - data curation
   - molecular annotation
   - RDKit
-  - LigandHub
+  - machine learning

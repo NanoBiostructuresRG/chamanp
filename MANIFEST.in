@@ -1,3 +1,0 @@
-include examples/chamanp.toml
-include INSTALL.md
-include scripts/smoke_install_wheel.ps1

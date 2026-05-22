@@ -1,23 +1,58 @@
 # CHAMANP: Curation and Hierarchical Analysis for Molecular Annotation of Natural Products
 
-[![License: LGPL v3+](https://img.shields.io/badge/License-LGPL_v3%2B-blue.svg)](LICENSE)
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-v0.20.0-blue.svg)](https://pypi.org/project/chamanp/)
+[![PyPI](https://img.shields.io/pypi/v/chamanp.svg)](https://pypi.org/project/chamanp/)
+[![Python](https://img.shields.io/pypi/pyversions/chamanp.svg)](https://pypi.org/project/chamanp/)
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-teal.svg)](https://nanobiostructuresrg.github.io/chamanp/)
 
-CHAMANP is a Python library for systematic, reproducible curation and preparation of molecular datasets of natural products.
+---
+
+## Description
+
+**CHAMANP** is a Python library for systematic, reproducible curation and preparation of molecular datasets of natural products.
 
 CHAMANP fills a gap between raw molecular databases and analysis-ready datasets for cheminformatics or machine learning pipelines. Current development uses COCONUT as the reference dataset.
 
-It helps turn raw molecular tables into curated, traceable, fingerprint-ready datasets for reproducible cheminformatics workflows.
+The name intentionally echoes "shaman": CHAMANP interprets a large molecular
+database through a collection taxonomy, helping users separate compounds that
+belong to one or several source collections.
+
+---
+
+## Purpose
+
+The primary objective of **CHAMANP** is to automate the preparation of molecular
+datasets for cheminformatics workflows and **phase 1** machine learning applications
+within the computational drug discovery pipeline.
+
+The platform enables:
+
+- Turn raw molecular tables into curated, traceable, fingerprint-ready datasets for reproducible cheminformatics workflows.
 
 CHAMANP is pre-stable and is currently being prepared for a future stable,
 publishable release. The repository workflow remains available, while the
 current public package API is being hardened before stability is declared.
+
+---
+
+## Installation
+
+```bash
+pip install chamanp
+```
+
+> RDKit is required and installed automatically (`rdkit>=2022.09`).
+
+---
 
 ## Why CHAMANP?
 
 Researchers often prepare molecular datasets with ad hoc scripts that are difficult to validate, repeat, or share. CHAMANP provides a more reproducible preparation workflow with:
 
 - Early configuration validation before chemical processing begins.
-- Collection-based filtering for natural product subsets.
+- Taxonomy-backed collection filtering for natural product subsets.
+- Exact separation of compounds that may be present in one or several source collections.
 - RDKit Morgan fingerprint generation.
 - Invalid SMILES traceability.
 - Consistent output artifacts and preparation reports.
@@ -52,6 +87,26 @@ CHAMANP does not currently provide molecular property prediction, docking,
 virtual screening, or a stable public API. A pre-stable public API is available
 through `ChamanpConfig`, `ChamanpResult`, `validate_config`, and `run`.
 
+## User Workflow Contract
+
+CHAMANP expects the user to provide a molecular table, a small amount of
+configuration, and an output location. In return, it prepares traceable files
+that can be used by downstream cheminformatics or machine learning workflows.
+
+| Stage | User provides | CHAMANP does | User receives |
+|-------|---------------|--------------|---------------|
+| Input | CSV data with `canonical_smiles`, `collections`, and selected metadata columns. | Reads the table and keeps configured properties. | A reproducible input basis for the run. |
+| Taxonomy | A collection taxonomy JSON file such as `source_data/coconut_taxonomy.json`. | Uses it as the controlled vocabulary for allowed collection names. | Confidence that requested subsets are based on known collection labels. |
+| Configuration | Paths, target collections, fingerprint settings, and output folders through `ChamanpConfig`, TOML, or the repository `config.py`. | Validates paths, collection names, file-safe tags, and Morgan fingerprint parameters before execution. | Clear configuration errors before chemical processing begins. |
+| Curation | Raw molecular rows that may contain duplicates, invalid SMILES, or multiple collection memberships. | Curates SMILES with RDKit, handles duplicates, separates molecules by exact collection labels, and tracks invalid molecules. | Curated and collection-filtered CSV artifacts. |
+| Fingerprints | Valid filtered molecules. | Generates RDKit Morgan fingerprints with the configured radius and bit length. | `X_*.npy` fingerprint matrix plus aligned valid-molecule metadata. |
+| Report | The completed run context. | Writes run metadata, counts, configuration, and artifact paths. | A preparation report and a `ChamanpResult` object. |
+
+The repository includes `examples/example_chamanp.csv` as a small COCONUT-like
+input sample. It preserves the expected column shape and demonstrates
+collection labels separated with `|`, matching the style used by COCONUT. PyPI
+users should use their own local CSV and taxonomy paths with the same structure.
+
 ## COCONUT As Reference Dataset
 
 COCONUT is the current reference dataset used during CHAMANP development. It demonstrates and validates the current engine because it provides natural product molecules, SMILES strings, and collection metadata.
@@ -59,6 +114,99 @@ COCONUT is the current reference dataset used during CHAMANP development. It dem
 CHAMANP is not intended to be COCONUT-specific. It is designed to evolve toward natural product molecular databases that can be represented as tabular files with SMILES and collection metadata.
 
 The current COCONUT taxonomy file is a project artifact for the reference workflow, not the general definition of CHAMANP. Future work should make clear which assumptions are COCONUT-specific and which are universal across supported datasets.
+
+## Collection Taxonomy
+
+COCONUT records collection membership in a `collections` field. A single
+molecule can be associated with several source collections, for example
+`ChEMBL NPs|DrugBankNP`. CHAMANP reads those labels exactly and can retain
+molecules that match one requested collection with `COLLECTION_LOGIC="OR"` or
+all requested collections with `COLLECTION_LOGIC="AND"`.
+
+The `source_data/coconut_taxonomy.json` file defines the valid collection names
+for the reference COCONUT workflow. CHAMANP checks `TARGET_COLLECTIONS` against
+that taxonomy before chemical processing starts, so misspelled or unsupported
+collection names fail early instead of producing misleading empty outputs. In
+practice, the database provides compound memberships, the taxonomy provides the
+allowed vocabulary, and CHAMANP separates the requested molecular subset in a
+reproducible way.
+
+## Run The Included Example
+
+A TOML profile is not generated from the CSV. It is a small configuration file
+that you write after inspecting your CSV and deciding what subset CHAMANP
+should prepare.
+
+At minimum, check that your CSV has `canonical_smiles`, `collections`, and the
+metadata columns you want to keep. Then set:
+
+- `database_path` to the CSV path.
+- `collection_taxonomy_path` to the JSON file with valid collection names.
+- `target_collections` to labels found in the CSV `collections` column and in the taxonomy JSON.
+- `selected_properties` to columns from the CSV that should remain in output tables.
+- `collection_tag` to a short file-safe name for output files.
+
+From a source checkout, create `example-chamanp.toml` in the repository root:
+
+```toml
+database_path = "examples/example_chamanp.csv"
+reports_path = "artifacts/reports"
+collection_taxonomy_path = "source_data/coconut_taxonomy.json"
+target_collections = ["ChEMBL NPs"]
+collection_tag = "chembl_example"
+collection_logic = "OR"
+morgan_radius = 2
+morgan_bits = 1024
+selected_properties = [
+  "identifier",
+  "canonical_smiles",
+  "name",
+  "molecular_weight",
+  "alogp",
+  "topological_polar_surface_area",
+  "np_likeness",
+  "collections",
+]
+remove_stereo_duplicates = true
+```
+
+Validate and run it:
+
+```bash
+chamanp check-config example-chamanp.toml
+chamanp run example-chamanp.toml
+```
+
+Expected CLI output:
+
+```text
+Configuration OK: example-chamanp.toml
+CHAMANP run completed.
+Status: completed
+Output directory: artifacts
+```
+
+For this example dataset, CHAMANP retains 15 compounds for `ChEMBL NPs`,
+records 0 invalid SMILES rows, and generates these essential outputs:
+
+```text
+artifacts/filtered_chembl_example.csv
+artifacts/valid_metadata_chembl_example.csv
+artifacts/X_chembl_example.npy
+artifacts/reports/report_dbprep_chembl_example.txt
+```
+
+CHAMANP also writes audit outputs for traceability:
+
+```text
+artifacts/curated_chembl_example.csv
+artifacts/invalid_smiles_chembl_example.csv
+```
+
+In this small example, some CSV files may look identical because all rows match
+`ChEMBL NPs` and all SMILES can be fingerprinted. In larger datasets, the
+curated, filtered, valid-metadata, and invalid-SMILES files usually diverge as
+deduplication, collection filtering, and fingerprint validation occur.
 
 ## Current Usable Modes
 
@@ -162,10 +310,34 @@ This creates a configuration object from a module with the expected uppercase co
 
 ### Load A TOML Configuration Profile
 
+Create a TOML profile with your own local paths:
+
+```toml
+database_path = "source_data/coconut_05-2025.csv"
+reports_path = "artifacts/reports"
+collection_taxonomy_path = "source_data/coconut_taxonomy.json"
+target_collections = ["PubChem NPs"]
+collection_tag = "pubchem"
+collection_logic = "OR"
+morgan_radius = 2
+morgan_bits = 1024
+selected_properties = [
+  "identifier",
+  "canonical_smiles",
+  "name",
+  "molecular_weight",
+  "alogp",
+  "topological_polar_surface_area",
+  "np_likeness",
+  "collections",
+]
+remove_stereo_duplicates = true
+```
+
 ```python
 from chamanp import ChamanpConfig, validate_config, run
 
-cfg = ChamanpConfig.from_toml("examples/chamanp.toml")
+cfg = ChamanpConfig.from_toml("my-chamanp-profile.toml")
 validate_config(cfg)
 result = run(cfg)
 ```
@@ -176,17 +348,15 @@ TOML loading uses lower_snake_case keys and builds a `ChamanpConfig` object. It 
 
 ```bash
 chamanp --version
-chamanp check-config examples/chamanp.toml
-chamanp run examples/chamanp.toml
+chamanp check-config my-chamanp-profile.toml
+chamanp run my-chamanp-profile.toml
 ```
 
 The CLI uses TOML profiles. `check-config` loads and validates a profile without running the pipeline. `run` loads the profile, validates it, executes CHAMANP, and prints a short summary from the returned `ChamanpResult`.
 
-The `examples/chamanp.toml` profile is provided in the repository and source
-distribution as a minimal reference profile. Wheels do not currently install
-example profiles as package resources. Users installing from a wheel or from a
-future PyPI release should create their own TOML profile or copy the reference
-profile from the source distribution or repository.
+TOML profiles are user-created runtime files. CHAMANP does not install or
+distribute a packaged example profile, which avoids implying that PyPI installs
+ship with repository-specific source data paths.
 
 CLI errors are user-facing by default:
 
@@ -220,11 +390,9 @@ CHAMANP is currently pre-stable.
 
 The package foundation exists, and the public package imports for configuration validation and execution are available. Internal implementation modules live under private package namespaces, `chamanp/_core/` and `chamanp/_utils/`. These private namespaces are not user-facing API. The repository workflow remains available while the Python API continues to mature.
 
-For more detailed installation and distribution notes, see [INSTALL.md](INSTALL.md).
-
 CHAMANP is an independent package. It is not developed specifically for LigandHub, although LigandHub-API may become an early downstream consumer through pip installation in Docker. CHAMANP should remain reusable by scientists, notebooks, pipelines, servers, and external applications.
 
-CHAMANP currently targets Python 3.11. pip/PyPI installability is a minimum requirement for broad external reuse. TestPyPI is used only for publication validation and is not the official user installation channel. Conda/mamba can be useful for local scientific environments, especially because RDKit is the most platform-sensitive dependency, but conda-forge is an additional future channel rather than a replacement for pip/PyPI readiness.
+CHAMANP currently targets Python 3.11 and 3.12. pip/PyPI installability is a minimum requirement for broad external reuse. TestPyPI is used only for publication validation and is not the official user installation channel. Conda/mamba can be useful for local scientific environments, especially because RDKit is the most platform-sensitive dependency, but conda-forge is an additional future channel rather than a replacement for pip/PyPI readiness.
 
 ### Runtime Dependencies
 
@@ -294,6 +462,11 @@ The current repository workflow expects:
 - A collection taxonomy JSON file.
 - Configuration values in `config.py`.
 
+The repository includes `examples/example_chamanp.csv` as a small COCONUT-like
+input sample for checking expected columns and collection-label formatting from
+a source checkout. It is example data, not a packaged runtime configuration
+profile.
+
 Large/raw datasets are not tracked in this repository. To run the current reference workflow, provide the COCONUT source CSV at:
 
 ```text
@@ -345,18 +518,23 @@ To ignore stereochemistry in SMILES during deduplication:
 REMOVE_STEREO_DUPLICATES = True
 ```
 
-Collection filtering uses exact collection-label matching. Multiple collection labels in the `collections` field are expected to be separated by semicolons, and surrounding whitespace around each label is stripped before matching. Matching is case-sensitive, which avoids substring false positives: for example, `PubChem NPs` does not match `NotPubChem NPs`.
+Collection filtering uses exact collection-label matching. Multiple collection labels in the `collections` field may be separated by semicolons (`;`) or pipes (`|`), and surrounding whitespace around each label is stripped before matching. Matching is case-sensitive, which avoids substring false positives: for example, `PubChem NPs` does not match `NotPubChem NPs`.
 
 ## Outputs
 
-Generated files are written under `artifacts/`, including:
+Generated files are written under `artifacts/`.
 
-- `curated_*.csv`
+Essential outputs for most users:
+
 - `filtered_*.csv`
 - `valid_metadata_*.csv`
-- `invalid_smiles_*.csv`
 - `X_*.npy`
 - `reports/report_dbprep_*.txt`
+
+Audit outputs for traceability:
+
+- `curated_*.csv`
+- `invalid_smiles_*.csv`
 - `pipeline.log`
 
 The `artifacts/` directory contains local generated outputs and logs. These
@@ -416,7 +594,6 @@ CHAMANP/
 |-- main.py                           # Repository entry point
 |-- config.py                         # Repository pipeline configuration
 |-- README.md                         # Project overview and usage guide
-|-- DESIGN.md                         # Internal strategic design reference
 |-- LICENSE                           # Project license notice
 |-- COPYING                           # GNU GPLv3 text
 |-- COPYING.LESSER                    # GNU LGPLv3 text
@@ -481,11 +658,12 @@ Key pre-stable milestones:
 - v0.16.0 focused on release governance, documentation alignment, and stable-publication readiness.
 - v0.17.0 defined the stable publication checklist and clarified pre-stable release governance.
 - v0.18.0 completed the first official PyPI publication through Trusted Publishing while preserving Alpha-stage status.
-- dev-v0.19.0 focuses on making CHAMANP’s public API understandable through truthful, English, NumPy-style docstrings while preserving the current API boundary and avoiding any unrelated infrastructure or behavior changes.
+- v0.19.0 made CHAMANP's public API understandable through truthful, English, NumPy-style docstrings while preserving the current API boundary and avoiding unrelated infrastructure or behavior changes.
+- dev-v0.20.0 focuses on CI/CD improvements, GitHub Pages documentation with MkDocs Material and mkdocstrings, and iterative aesthetics improvements for the documentation site.
 
 The current package runtime dependency policy is defined in `pyproject.toml`, with minimum dependency ranges intended for users and downstream packages.
 
-Development version metadata uses the PEP 440 `.dev0` format. During the current development cycle, version metadata uses `0.19.0.dev0`.
+Package version metadata is sourced dynamically from `chamanp/version.py` during builds. Development snapshots should continue to use the PEP 440 `.dev0` format when a cycle needs pre-release metadata.
 
 ## Future Direction
 

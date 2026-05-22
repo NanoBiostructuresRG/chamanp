@@ -187,10 +187,10 @@ class ChamanpConfig:
 
         Examples
         --------
-        Load configuration from the reference TOML profile:
+        Load configuration from a user TOML profile:
 
         >>> from chamanp import ChamanpConfig
-        >>> config = ChamanpConfig.from_toml("examples/chamanp.toml")  # doctest: +SKIP
+        >>> config = ChamanpConfig.from_toml("my-chamanp-profile.toml")  # doctest: +SKIP
         """
         config_path = Path(path)
 
