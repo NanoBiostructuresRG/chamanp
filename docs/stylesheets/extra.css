@@ -4,21 +4,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&display=swap");
 
 :root {
-  --md-primary-fg-color:        #2F6B4F;
-  --md-primary-fg-color--light: #4F8A69;
-  --md-primary-fg-color--dark:  #214B38;
+  --md-primary-fg-color:        #00897B;
+  --md-primary-fg-color--light: #26A69A;
+  --md-primary-fg-color--dark:  #00695C;
   --md-primary-bg-color:        #ffffff;
-  --md-accent-fg-color:         #C56A4A;
+  --md-accent-fg-color:         #F4511E;
   --cp-surface: #ffffff;
-  --cp-surface-soft: #F3F7F1;
-  --cp-border: #D8E4D5;
-  --cp-text-muted: #5E6E61;
-  --cp-leaf: #2F6B4F;
-  --cp-petrol: #244C5A;
-  --cp-coffee: #563928;
-  --cp-coffee-soft: #EFE5DE;
-  --cp-coral: #C56A4A;
-  --cp-shadow: 0 1rem 2.5rem rgba(36, 76, 90, 0.13);
+  --cp-surface-soft: #EEF8F6;
+  --cp-border: #CFE6E1;
+  --cp-text-muted: #506965;
+  --cp-leaf: #00897B;
+  --cp-petrol: #174F55;
+  --cp-coffee: #5B3A2A;
+  --cp-coffee-soft: #F1E7E0;
+  --cp-coral: #F4511E;
+  --cp-coral-soft: #FFF0EA;
+  --cp-callout: #F4511E;
+  --cp-callout-bg: #FFF4EF;
+  --cp-callout-border: #FDBAA4;
+  --cp-code-bg: #F6FAF9;
+  --cp-shadow: 0 1rem 2.5rem rgba(23, 79, 85, 0.13);
   --cp-header-logo-size: 1.75rem;
   --cp-header-title-offset: -0.35rem;
   --cp-hero-logo-size: clamp(4.25rem, 10.8vw, 6.9rem);
@@ -27,19 +32,24 @@
 }
 
 [data-md-color-scheme="slate"] {
-  --md-primary-fg-color:        #3F7F5F;
-  --md-primary-fg-color--light: #63A77F;
-  --md-primary-fg-color--dark:  #244B38;
-  --md-accent-fg-color:         #E08A65;
-  --cp-surface: #16211C;
-  --cp-surface-soft: #111A17;
-  --cp-border: #2D463B;
-  --cp-text-muted: #B6C6BA;
-  --cp-leaf: #63A77F;
-  --cp-petrol: #86B8C6;
-  --cp-coffee: #D5B69F;
+  --md-primary-fg-color:        #00897B;
+  --md-primary-fg-color--light: #26A69A;
+  --md-primary-fg-color--dark:  #00695C;
+  --md-accent-fg-color:         #FF7043;
+  --cp-surface: #101E1D;
+  --cp-surface-soft: #0D1716;
+  --cp-border: #294A46;
+  --cp-text-muted: #B6CAC7;
+  --cp-leaf: #26A69A;
+  --cp-petrol: #9BCDC8;
+  --cp-coffee: #D8B7A3;
   --cp-coffee-soft: #2A201B;
-  --cp-coral: #E08A65;
+  --cp-coral: #FF7043;
+  --cp-coral-soft: #2C1C17;
+  --cp-callout: #FF8A50;
+  --cp-callout-bg: #2B1D18;
+  --cp-callout-border: #8A4A34;
+  --cp-code-bg: #0B1514;
   --cp-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.28);
 }
 
@@ -120,21 +130,103 @@
 .md-typeset .md-button {
   border-radius: 0.45rem;
   font-weight: 700;
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
 }
 
 .md-typeset .md-button--primary {
-  background-color: var(--cp-leaf);
-  border-color: var(--cp-leaf);
+  background-color: var(--md-accent-fg-color);
+  border-color: var(--md-accent-fg-color);
+  box-shadow: 0 0.25rem 0.8rem color-mix(in srgb, var(--cp-coral) 20%, transparent);
   color: #ffffff;
 }
 
 .md-typeset .md-button--primary:hover {
   background-color: var(--md-primary-fg-color);
   border-color: var(--md-primary-fg-color);
+  box-shadow: 0 0.35rem 0.95rem color-mix(in srgb, var(--cp-leaf) 22%, transparent);
 }
 
 .md-typeset code {
-  border-radius: 0.25rem;
+  background-color: color-mix(in srgb, var(--cp-code-bg) 88%, var(--cp-leaf));
+  border-radius: 0.28rem;
+  color: var(--cp-petrol);
+  padding: 0.08em 0.3em;
+}
+
+.md-typeset .highlight {
+  background: transparent;
+  margin: 1rem 0 1.35rem;
+}
+
+.md-typeset .highlight pre,
+.md-typeset pre {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--cp-leaf) 8%, transparent), transparent 42%),
+    var(--cp-code-bg);
+  border: 1px solid color-mix(in srgb, var(--cp-border) 72%, var(--cp-leaf));
+  border-radius: 0.55rem;
+  box-shadow: 0 0.35rem 1rem color-mix(in srgb, var(--cp-petrol) 7%, transparent);
+  line-height: 1.58;
+  padding: 1rem 1.1rem;
+}
+
+.md-typeset .highlight code,
+.md-typeset pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.md-typeset .admonition,
+.md-typeset details {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--cp-callout) 9%, transparent), transparent 52%),
+    var(--cp-callout-bg);
+  border: 1px solid var(--cp-callout-border);
+  border-left: 0.34rem solid var(--cp-callout);
+  border-radius: 0.58rem;
+  box-shadow: 0 0.45rem 1.2rem color-mix(in srgb, var(--cp-callout) 12%, transparent);
+  color: color-mix(in srgb, var(--cp-petrol) 72%, var(--cp-coffee));
+  margin: 1.2rem 0 1.45rem;
+  overflow: hidden;
+  padding-bottom: 0.05rem;
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+  background: color-mix(in srgb, var(--cp-callout) 13%, transparent);
+  color: color-mix(in srgb, var(--cp-callout) 58%, var(--cp-petrol));
+  font-family: "Manrope", "Inter", system-ui, sans-serif;
+  font-weight: 700;
+  padding-bottom: 0.72rem;
+  padding-top: 0.72rem;
+}
+
+.md-typeset .admonition-title::before,
+.md-typeset summary::before {
+  background-color: var(--cp-callout);
+}
+
+.md-typeset .admonition.note,
+.md-typeset details.note,
+.md-typeset .admonition.tip,
+.md-typeset details.tip {
+  border-color: var(--cp-callout-border);
+  border-left-color: var(--cp-callout);
+}
+
+.md-typeset .note > .admonition-title,
+.md-typeset details.note > summary,
+.md-typeset .tip > .admonition-title,
+.md-typeset details.tip > summary {
+  background: color-mix(in srgb, var(--cp-callout) 13%, transparent);
+}
+
+.md-typeset .note > .admonition-title::before,
+.md-typeset details.note > summary::before,
+.md-typeset .tip > .admonition-title::before,
+.md-typeset details.tip > summary::before {
+  background-color: var(--cp-callout);
 }
 
 .md-typeset table:not([class]) {
@@ -196,8 +288,9 @@
 .cp-hero {
   align-items: center;
   background:
-    radial-gradient(circle at 50% 18%, color-mix(in srgb, var(--cp-coffee) 11%, transparent), transparent 22rem),
-    radial-gradient(circle at 14% 12%, color-mix(in srgb, var(--cp-leaf) 13%, transparent), transparent 18rem),
+    radial-gradient(circle at 52% 18%, color-mix(in srgb, var(--cp-coral) 10%, transparent), transparent 22rem),
+    radial-gradient(circle at 14% 12%, color-mix(in srgb, var(--cp-leaf) 14%, transparent), transparent 18rem),
+    radial-gradient(circle at 86% 78%, color-mix(in srgb, var(--cp-coffee) 7%, transparent), transparent 16rem),
     linear-gradient(135deg, var(--cp-surface-soft) 0%, var(--cp-surface) 62%);
   border: 1px solid var(--cp-border);
   border-radius: 0.72rem;
@@ -216,7 +309,7 @@
 }
 
 .cp-hero::before {
-  background: linear-gradient(180deg, var(--cp-leaf), var(--cp-coffee));
+  background: linear-gradient(180deg, var(--cp-leaf), var(--cp-coral));
   content: "";
   inset: 0 auto 0 0;
   position: absolute;
@@ -233,7 +326,7 @@
 
 .cp-eyebrow {
   align-self: flex-start;
-  color: var(--cp-coffee);
+  color: var(--cp-leaf);
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -290,9 +383,10 @@
 }
 
 .cp-actions .md-button {
-  border-color: color-mix(in srgb, var(--cp-petrol) 30%, var(--cp-border));
+  background-color: color-mix(in srgb, var(--cp-surface) 84%, transparent);
+  border-color: color-mix(in srgb, var(--cp-leaf) 34%, var(--cp-border));
   border-radius: 0.42rem;
-  color: var(--cp-petrol);
+  color: var(--cp-leaf);
   font-size: 0.66rem;
   line-height: 1.1;
   margin: 0;
@@ -302,19 +396,21 @@
 }
 
 .cp-actions .md-button:hover {
-  background-color: color-mix(in srgb, var(--cp-coffee) 8%, transparent);
-  border-color: var(--cp-coffee);
-  color: var(--cp-coffee);
+  background-color: color-mix(in srgb, var(--cp-leaf) 9%, transparent);
+  border-color: var(--cp-leaf);
+  color: var(--cp-leaf);
 }
 
 .cp-actions .md-button--primary {
-  box-shadow: 0 0.3rem 0.85rem color-mix(in srgb, var(--cp-leaf) 18%, transparent);
+  background-color: var(--cp-coral);
+  border-color: var(--cp-coral);
+  box-shadow: 0 0.3rem 0.85rem color-mix(in srgb, var(--cp-coral) 22%, transparent);
   color: #ffffff;
 }
 
 .cp-actions .md-button--primary:hover {
-  background-color: var(--cp-coffee);
-  border-color: var(--cp-coffee);
+  background-color: var(--cp-leaf);
+  border-color: var(--cp-leaf);
   color: #ffffff;
 }
 
@@ -349,7 +445,7 @@
 
 .cp-card {
   background: var(--cp-surface);
-  border: 1px solid var(--cp-border);
+  border: 1px solid color-mix(in srgb, var(--cp-border) 82%, var(--cp-leaf));
   border-radius: 0.58rem;
   box-shadow: 0 0.45rem 1.25rem color-mix(in srgb, var(--cp-petrol) 8%, transparent);
   padding: 1.15rem;
@@ -357,8 +453,8 @@
 }
 
 .cp-card:hover {
-  border-color: color-mix(in srgb, var(--cp-coffee) 40%, var(--cp-border));
-  box-shadow: 0 0.7rem 1.45rem color-mix(in srgb, var(--cp-petrol) 11%, transparent);
+  border-color: color-mix(in srgb, var(--cp-coral) 45%, var(--cp-border));
+  box-shadow: 0 0.7rem 1.45rem color-mix(in srgb, var(--cp-leaf) 12%, transparent);
   transform: translateY(-0.08rem);
 }
 
@@ -366,6 +462,11 @@
   color: var(--cp-petrol);
   font-size: 1rem;
   margin: 0.25rem 0 0.45rem;
+  transition: color 160ms ease;
+}
+
+.cp-card:hover h3 {
+  color: var(--cp-leaf);
 }
 
 .cp-card p {
@@ -375,17 +476,24 @@
 
 .cp-card__icon {
   align-items: center;
-  background: color-mix(in srgb, var(--cp-coffee) 10%, transparent);
-  border: 1px solid color-mix(in srgb, var(--cp-coffee) 30%, transparent);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--cp-leaf) 12%, transparent), color-mix(in srgb, var(--cp-coral) 14%, transparent));
+  border: 1px solid color-mix(in srgb, var(--cp-coral) 34%, var(--cp-border));
   border-radius: 999px;
-  color: var(--cp-coffee);
+  color: var(--cp-petrol);
   display: inline-flex;
   font-size: 0.72rem;
   font-weight: 800;
   height: 2rem;
   justify-content: center;
   margin-bottom: 0.25rem;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
   width: 2rem;
+}
+
+.cp-card:hover .cp-card__icon {
+  background: var(--cp-coral);
+  border-color: var(--cp-coral);
+  color: #ffffff;
 }
 
 .cp-card--compact {
