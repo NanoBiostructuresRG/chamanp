@@ -7,6 +7,7 @@ repo_name: NanoBiostructuresRG/chamanp
 
 theme:
   name: material
+  logo: assets/images/logo-cafe.svg
   palette:
     - scheme: default
       primary: custom

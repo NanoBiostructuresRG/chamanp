@@ -40,8 +40,12 @@
 }
 
 .md-header__button.md-logo img,
-.md-header__button.md-logo svg {
-  display: none;
+.md-header__button.md-logo svg,
+.md-nav__button.md-logo img,
+.md-nav__button.md-logo svg {
+  display: block;
+  height: 1.7rem;
+  width: 1.7rem;
 }
 
 .md-header__button.md-logo,
@@ -49,27 +53,6 @@
   align-items: center;
   display: inline-flex;
   justify-content: center;
-}
-
-.md-header__button.md-logo::before,
-.md-nav__button.md-logo::before {
-  --cp-header-dot: 0.26rem;
-  background: #ffffff;
-  border-radius: 999px;
-  box-shadow:
-    calc(var(--cp-header-dot) * 1.75) 0 0 #ffffff,
-    calc(var(--cp-header-dot) * 3.5) 0 0 #ffffff,
-    0 calc(var(--cp-header-dot) * 1.75) 0 #ffffff,
-    calc(var(--cp-header-dot) * 1.75) calc(var(--cp-header-dot) * 1.75) 0 calc(var(--cp-header-dot) * -0.16) #ffffff,
-    calc(var(--cp-header-dot) * 3.5) calc(var(--cp-header-dot) * 1.75) 0 #ffffff,
-    0 calc(var(--cp-header-dot) * 3.5) 0 #ffffff,
-    calc(var(--cp-header-dot) * 1.75) calc(var(--cp-header-dot) * 3.5) 0 #ffffff,
-    calc(var(--cp-header-dot) * 3.5) calc(var(--cp-header-dot) * 3.5) 0 #ffffff;
-  content: "";
-  display: block;
-  height: var(--cp-header-dot);
-  transform: translate(-0.46rem, -0.46rem);
-  width: var(--cp-header-dot);
 }
 
 .md-main__inner {
@@ -239,27 +222,11 @@
   padding-inline: 0.35rem;
 }
 
-.cp-dotmark {
-  --cp-dot-size: clamp(0.46rem, 1.3vw, 0.7rem);
-  display: grid;
-  gap: calc(var(--cp-dot-size) * 0.52);
-  grid-template-columns: repeat(3, var(--cp-dot-size));
-  grid-template-rows: repeat(3, var(--cp-dot-size));
-}
-
-.cp-dotmark span {
-  background: var(--cp-leaf);
-  border-radius: 999px;
+.cp-brand__logo {
   display: block;
-  height: var(--cp-dot-size);
-  width: var(--cp-dot-size);
-}
-
-.cp-dotmark span:nth-child(5) {
-  height: calc(var(--cp-dot-size) * 0.35);
-  justify-self: center;
-  align-self: center;
-  width: calc(var(--cp-dot-size) * 0.35);
+  height: clamp(2.6rem, 7vw, 4.4rem);
+  margin: 0;
+  width: clamp(2.6rem, 7vw, 4.4rem);
 }
 
 .cp-wordmark {

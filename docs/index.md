@@ -4,11 +4,7 @@
   <div class="cp-hero__content">
     <p class="cp-eyebrow">Natural products curation</p>
     <div class="cp-brand" aria-label="CHAMANP">
-      <span class="cp-dotmark" aria-hidden="true">
-        <span></span><span></span><span></span>
-        <span></span><span></span><span></span>
-        <span></span><span></span><span></span>
-      </span>
+      <img class="cp-brand__logo" src="assets/images/logo-cafe.svg" alt="CHAMANP logo">
       <span class="cp-wordmark">CHAMANP</span>
     </div>
     <p class="cp-subtitle">
