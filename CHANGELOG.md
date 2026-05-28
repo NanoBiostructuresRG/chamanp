@@ -10,11 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 0.20.1 - 2026-05-28
 
 ### Added
-- Added GitHub
+- Added support for running the CLI with `python -m chamanp`.
+- Added CHAMANP logo branding to the MkDocs documentation site.
 
 ### Changed
-- Added CHAMANP documentation logo branding and improved header logo contrast.
-- Added support for running the CLI with `python -m chamanp`.
+- Improved header logo contrast, documentation color identity, and visual styling.
+- Moved usage-oriented documentation out of the Home page and into a new Usage page.
 
 ### Documentation
 - Evaluated migration from MkDocs Material to Zensical and deferred it to a later development cycle because the current documentation depends on `mkdocstrings[python]` and the existing MkDocs Material build remains stable.

@@ -1,7 +1,7 @@
 # CHAMANP: Curation and Hierarchical Analysis for Molecular Annotation of Natural Products
 
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v0.20.0-blue.svg)](https://pypi.org/project/chamanp/)
+[![Version](https://img.shields.io/badge/version-v0.20.1-blue.svg)](https://pypi.org/project/chamanp/)
 [![PyPI](https://img.shields.io/pypi/v/chamanp.svg)](https://pypi.org/project/chamanp/)
 [![Python](https://img.shields.io/pypi/pyversions/chamanp.svg)](https://pypi.org/project/chamanp/)
 [![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-teal.svg)](https://nanobiostructuresrg.github.io/chamanp/)
@@ -659,7 +659,7 @@ Key pre-stable milestones:
 - v0.17.0 defined the stable publication checklist and clarified pre-stable release governance.
 - v0.18.0 completed the first official PyPI publication through Trusted Publishing while preserving Alpha-stage status.
 - v0.19.0 made CHAMANP's public API understandable through truthful, English, NumPy-style docstrings while preserving the current API boundary and avoiding unrelated infrastructure or behavior changes.
-- dev-v0.20.0 focuses on CI/CD improvements, GitHub Pages documentation with MkDocs Material and mkdocstrings, and iterative aesthetics improvements for the documentation site.
+- v0.20.1 adds package module CLI execution with `python -m chamanp`, refreshes CHAMANP documentation branding, and moves usage guidance into a dedicated MkDocs Usage page while keeping the MkDocs Material and mkdocstrings stack.
 
 The current package runtime dependency policy is defined in `pyproject.toml`, with minimum dependency ranges intended for users and downstream packages.
 
