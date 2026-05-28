@@ -1,6 +1,30 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
+import os
+import subprocess
+import sys
+from pathlib import Path
+
 from chamanp import ChamanpResult, __version__
 from chamanp import cli
+
+
+def run_module_command(module, *args, cwd):
+    repo_root = Path(__file__).resolve().parents[1]
+    env = os.environ.copy()
+    existing_pythonpath = env.get("PYTHONPATH")
+    env["PYTHONPATH"] = (
+        str(repo_root)
+        if not existing_pythonpath
+        else os.pathsep.join([str(repo_root), existing_pythonpath])
+    )
+    return subprocess.run(
+        [sys.executable, "-m", module, *args],
+        cwd=cwd,
+        env=env,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
 
 
 def write_valid_profile(tmp_path):
@@ -32,6 +56,32 @@ def test_cli_version(capsys):
 
     captured = capsys.readouterr()
     assert captured.out.strip() == __version__
+
+
+def test_package_module_version(tmp_path):
+    completed = run_module_command("chamanp", "--version", cwd=tmp_path)
+
+    assert completed.returncode == 0
+    assert completed.stdout.strip() == __version__
+    assert completed.stderr == ""
+
+
+def test_package_module_help(tmp_path):
+    completed = run_module_command("chamanp", "--help", cwd=tmp_path)
+
+    assert completed.returncode == 0
+    assert "usage: chamanp" in completed.stdout
+    assert "check-config" in completed.stdout
+    assert "run" in completed.stdout
+    assert completed.stderr == ""
+
+
+def test_cli_module_version(tmp_path):
+    completed = run_module_command("chamanp.cli", "--version", cwd=tmp_path)
+
+    assert completed.returncode == 0
+    assert completed.stdout.strip() == __version__
+    assert completed.stderr == ""
 
 
 def test_cli_check_config_success(tmp_path, capsys):
