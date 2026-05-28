@@ -117,7 +117,7 @@ has this contract:
 ## Citation
 
 ```text
-Contreras-Torres, F. F. (2026). CHAMANP: Curation and Hierarchical Analysis for Molecular Annotation of Natural Products (v0.19.0). Zenodo. https://doi.org/10.5281/zenodo.20249166
+Contreras-Torres, F. F. (2026). CHAMANP: Curation and Hierarchical Analysis for Molecular Annotation of Natural Products. Zenodo. https://doi.org/10.5281/zenodo.20337903
 ```
 
 Use `CITATION.cff` as the authoritative machine-readable citation metadata for
