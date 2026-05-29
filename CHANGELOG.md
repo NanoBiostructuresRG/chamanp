@@ -1,6 +1,26 @@
 # Changelog
 
-The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
+All notable changes to CHAMANP will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+---
+
+## 0.20.1 - 2026-05-28
+
+### Added
+- Added support for running the CLI with `python -m chamanp`.
+- Added CHAMANP logo branding to the MkDocs documentation site.
+
+### Changed
+- Improved header logo contrast, documentation color identity, and visual styling.
+- Moved usage-oriented documentation out of the Home page and into a new Usage page.
+
+### Documentation
+- Evaluated migration from MkDocs Material to Zensical and deferred it to a later development cycle because the current documentation depends on `mkdocstrings[python]` and the existing MkDocs Material build remains stable.
+
+---
 
 ## 0.20.0 - 2026-05-21
 
@@ -30,11 +50,15 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - Removed the internal `DESIGN.md` planning document from the public source tree to keep the PyPI-facing project surface focused on user documentation, API docs, tests, and release notes.
 - Removed the internal `INSTALL.md` release checklist; PyPI-facing installation guidance now lives in README and the MkDocs Home page.
 
+---
+
 ## 0.19.0 - 2026-05-16
 
 ### Docs
 - Made CHAMANP's public API understandable through truthful, English, NumPy-style docstrings while preserving the current API boundary and avoiding unrelated infrastructure or behavior changes.
 - Updated the README development-status section to reflect the completed 0.18.0 PyPI publication milestone and the current 0.19.0 public API documentation cycle.
+
+---
 
 ## 0.18.0 - 2026-05-16
 
@@ -48,6 +72,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 ### Docs
 - Documented Trusted Publishing setup, GitHub environment configuration, PyPI pending publisher required values, and the first official publication order in `INSTALL.md`.
 
+---
+
 ## 0.17.0 - 2026-05-16
 
 ### Changed
@@ -56,6 +82,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 
 ### Docs
 - Added stable publication checklist and repository workflow vs. package API boundary documentation to `INSTALL.md`.
+
+---
 
 ## 0.16.0 - 2026-05-16
 
@@ -79,6 +107,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - Removed local `core/__pycache__` and `utils/__pycache__` residue left over from the pre-migration source layout.
 - Removed stale `scipy` entries from auxiliary environment files because CHAMANP does not currently use SciPy as a runtime dependency.
 
+---
+
 ## 0.15.0 - 2026-05-15
 
 ### Changed
@@ -88,6 +118,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 ### Tests
 - Validated local builds with `twine check`, uploaded `0.15.0.dev0` to TestPyPI for publication validation (`https://test.pypi.org/project/chamanp/0.15.0.dev0/`), and confirmed external clean-environment installation with real runtime dependency resolution.
 
+---
+
 ## 0.14.0 - 2026-05-15
 
 ### Added
@@ -95,6 +127,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 
 ### Changed
 - Started pre-release installation validation work, focused on building CHAMANP distributions and smoke-testing wheel installation outside the repository checkout before v1.0.0.
+
+---
 
 ## 0.13.0 - 2026-05-15
 
@@ -106,6 +140,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - Clarified installation documentation for editable installs, local wheel/sdist installs, runtime dependency minimums, RDKit installation sensitivity, and CHAMANP's independent package direction.
 - Refreshed README development status to align with the current public API, dependency policy, and pip/PyPI readiness focus.
 
+---
+
 ## 0.12.0 - 2026-05-15
 
 ### Changed
@@ -113,6 +149,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 
 ### Docs
 - Updated documentation so CLI and TOML support are no longer described as future work.
+
+---
 
 ## 0.11.0 - 2026-05-15
 
@@ -126,6 +164,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 ### Fixed
 - CLI command failures now print clean `Error: <message>` output without Python tracebacks by default.
 
+---
+
 ## 0.10.0 - 2026-05-14
 
 ### Added
@@ -134,6 +174,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 ### Changed
 - Started TOML configuration profile development, focused on loading reproducible external configuration files through `ChamanpConfig.from_toml(path)` without changing pipeline behavior.
 - TOML loading accepts lower_snake_case keys, maps them to existing CHAMANP configuration fields, rejects unknown keys, and leaves semantic validation to `validate_config(config)`.
+
+---
 
 ## 0.9.0 - 2026-05-14
 
@@ -147,6 +189,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 
 ### Docs
 - Documented that `ChamanpResult` reports completed executions and failures remain exception-based.
+
+---
 
 ## 0.8.0 - 2026-05-14
 
@@ -163,6 +207,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 
 ### Internal
 - No chemistry, fingerprint, artifact, output, or report behavior changes were intended.
+
+---
 
 ## 0.7.0 - 2026-05-14
 
@@ -182,6 +228,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 ### Internal
 - No chemistry, output, artifact, or report behavior changes were intended in this migration.
 
+---
+
 ## 0.6.0 - 2026-05-14
 
 ### Added
@@ -193,6 +241,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 ### Docs
 - Rewrote README from an external user perspective, clarifying CHAMANP's purpose, current usable modes, COCONUT-as-reference-dataset scope, and current public API boundaries.
 
+---
+
 ## 0.5.0 - 2026-05-14
 
 ### Added
@@ -200,6 +250,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 
 ### Changed
 - Started the configuration API development cycle, focused on introducing a public runtime configuration object for CHAMANP without changing chemical processing behavior.
+
+---
 
 ## 0.4.0 - 2026-05-13
 
@@ -216,6 +268,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 
 ### Internal
 - No chemical curation, SMILES validation, collection filtering, fingerprint generation, reporting, or artifact naming changes were intended in this development pass.
+
+---
 
 ## 0.3.0 - 2026-05-13
 
@@ -235,6 +289,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 ### Internal
 - No chemical curation, SMILES validation, collection filtering, or fingerprint generation logic changes were intended in this development pass.
 
+---
+
 ## 0.2.0 - 2026-05-13
 
 ### Added
@@ -250,6 +306,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 
 ### Internal
 - No chemical curation, collection filtering, or fingerprint generation logic changes were intended in this development pass.
+
+---
 
 ## 0.1.0 - 2026-05-13
 
@@ -272,6 +330,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 ### Internal
 - `FingerprintGenerator` exposes `invalid_smiles_count` for report traceability.
 - `ReportWriter` remains backward-compatible when invalid fields are omitted.
+
+---
 
 ## 1.0.1-dev - 2026-05-12
 

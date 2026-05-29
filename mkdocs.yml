@@ -7,18 +7,19 @@ repo_name: NanoBiostructuresRG/chamanp
 
 theme:
   name: material
+  logo: assets/images/logo-blanco.svg
   palette:
     - scheme: default
-      primary: custom
-      accent: custom
+      primary: teal
+      accent: deep orange
       toggle:
-        icon: material/weather-night
+        icon: material/brightness-7
         name: Switch to dark mode
     - scheme: slate
-      primary: custom
-      accent: custom
+      primary: teal
+      accent: deep orange
       toggle:
-        icon: material/weather-sunny
+        icon: material/brightness-4
         name: Switch to light mode
   font:
     text: Inter
@@ -62,6 +63,7 @@ plugins:
 
 nav:
   - Home: index.md
+  - Usage: usage.md
   - API Reference: api.md
   - Changelog: changelog.md
 
